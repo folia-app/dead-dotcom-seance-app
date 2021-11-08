@@ -32,7 +32,8 @@ const companies = [
     table(style="height:160px")
       tr
         td(style="vertical-align:center; text-align:center")
-          h1 dead dotcom séance
+          h1
+            router-link(to="/", style="color:inherit;text-decoration:none") dead dotcom séance
   table
     tbody(style="vertical-align:top")
       tr
@@ -40,7 +41,7 @@ const companies = [
           div(v-for="co in companies")
             router-link(:to="`/` + co[0]") {{ co[0] }}#[template(v-if="co[1]") *]
         td
-          router-view
+          router-view(:key="$route.path")
         td(width="20%")
 
   footer
