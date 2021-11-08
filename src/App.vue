@@ -32,7 +32,7 @@ const companies = [
     table(style="height:160px")
       tr
         td(style="vertical-align:center; text-align:center")
-          h1 dead dotcom seance
+          h1 dead dotcom séance
   table
     tbody(style="vertical-align:top")
       tr
