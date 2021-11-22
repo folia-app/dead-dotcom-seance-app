@@ -1,0 +1,29 @@
+/* avara */
+@font-face {
+  font-family: 'avara';
+  src: url('/fonts/avara/Bold/Avara-Bold.woff2') format('woff2'),
+       url('/fonts/avara/Bold/Avara-Bold.woff') format('woff');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'avara';
+  src: url('/fonts/avara/BoldItalic/Avara-BoldItalic.woff2') format('woff2'),
+       url('/fonts/avara/BoldItalic/Avara-BoldItalic.woff') format('woff');
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'avara';
+  src: url('/fonts/avara/Black/Avara-Black.woff2') format('woff2'),
+       url('/fonts/avara/Black/Avara-Black.woff') format('woff');
+  font-weight: bold;
+}
+
+/* hyperscript */
+@font-face {
+  font-family: 'hyperscript';
+  src: url('/fonts/hyperscript/HyperScrypt-Stencil_web.woff2') format('woff2'),
+       url('/fonts/hyperscript/HyperScrypt-Stencil_web.woff') format('woff');
+  font-style: italic;
+}
