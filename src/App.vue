@@ -19,7 +19,7 @@ const companies = list
             router-link(to="/", style="color:inherit;text-decoration:none")
               svg-logo(style="height:3.9rem; margin-top:24px")
             div(style="padding-top:28px; font-size: 1.125em; opacity:0.85; padding-right:2em")
-              i Guile Twardowski #[span(style="padding:0 24px") • ]Simon Denny #[span(style="padding:0 12px") • ]Liminal Labs
+              i Guile Twardowski #[span(style="padding:0 24px") • ]Simon Denny #[span(style="padding:0 24px") • ]Liminal Labs
           div(style="position:absolute;top:0;right:0;padding:8px 6px; text-align:right")
             btn(style="padding-left:20px; padding-right:20px") Connect
             //- i
