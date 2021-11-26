@@ -22,8 +22,8 @@
 
 /* hyperscript */
 @font-face {
-  font-family: 'hyperscript';
-  src: url('/fonts/hyperscript/HyperScrypt-Stencil_web.woff2') format('woff2'),
-       url('/fonts/hyperscript/HyperScrypt-Stencil_web.woff') format('woff');
-  font-style: italic;
+  font-family: 'hyperscrypt';
+  src: url('/fonts/hyperscrypt/HyperScrypt-Stencil_web.woff2') format('woff2'),
+       url('/fonts/hyperscrypt/HyperScrypt-Stencil_web.woff') format('woff');
+  font-style: normal;
 }

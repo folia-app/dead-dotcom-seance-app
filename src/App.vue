@@ -59,7 +59,7 @@ const companies = list
   footer
     table.table-border-groove(style="height:180px")
       tr
-        td(style="vertical-align:center; text-align:center; font-family: 'hyperscript', serif; font-size: 20px; line-height:1")
+        td(style="vertical-align:center; text-align:center; font-family: 'hyperscrypt', sans-serif; font-size: 20px; line-height:1")
           | There are no bad ideas in tech, only bad timing<br>— Marc Andreesen
 
 </template>
