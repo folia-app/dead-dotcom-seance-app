@@ -3,7 +3,7 @@
 
 <style>
 body {
-  /* animation:  pulse 20s linear infinite; */
+  animation:  pulse 20s linear infinite;
 }
 @keyframes pulse {
   80% { opacity:100% }
