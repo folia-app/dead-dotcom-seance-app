@@ -71,6 +71,8 @@ const companies = list
               td
                 router-link(:to="`/` + com.name")
                   img(style="width:50%", :src="`/art/${com.name}/guile.jpg`")
+
+                p {{ com.description }}
 </template>
 
 <style>

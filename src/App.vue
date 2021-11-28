@@ -64,12 +64,13 @@ const companies = list
 
   footer
     table.table-border-groove(style="height:180px")
-      tr
-        td(style="vertical-align:center; ")
-          blockquote.font-hyper.type-blockquote
-            | There are no bad ideas in tech, only bad timing
-            br
-            cite &ndash;Marc Andreesen&ndash;
+      tfoot
+        tr
+          td(style="vertical-align:center; ")
+            blockquote.font-hyper.type-blockquote
+              | There are no bad ideas in tech, only bad timing
+              br
+              cite &ndash;Marc Andreesen&ndash;
 
 </template>
 
