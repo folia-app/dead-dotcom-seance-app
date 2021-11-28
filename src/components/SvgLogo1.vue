@@ -2,8 +2,8 @@
 </script>
 
 <style>
-body {
-  /* animation:  pulse 20s linear infinite; */
+.svg-logo-1 {
+  animation:  pulse 20s linear infinite;
 }
 @keyframes pulse {
   80% { opacity:100% }
