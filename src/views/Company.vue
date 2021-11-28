@@ -1,16 +1,18 @@
 <script setup>
-import { computed } from 'vue'
+import { ref, provide } from 'vue'
 import { useRoute } from 'vue-router'
 import list from '../../content/companies.js'
 import Btn from '@/components/Btn'
+import NftGuile from '@/components/NFTGuile'
+import MachineNfts from '@/components/MachineNFTs'
 
 const route = useRoute()
 
 const company = list.find(com => com.name === route.params.company)
 
-const artPath = computed(() => '/art/' + route.params.company)
-const guileImgURL = computed(() => artPath.value + '/guile.jpg')
-const ganImgURL = (n) => `${artPath.value}/output${n}.png`
+const guileImgURL = '/art/' + route.params.company + '/guile.jpg'
+
+provide('company', company)
 </script>
 
 <template lang="pug">
@@ -22,14 +24,8 @@ article.company
   table
     tr
       td(colspan="3")
-        div(style="margin:24px 0 24px;")
-          //- h5 Twardowski Revival
-          div
-            a(:href="guileImgURL", target="_blank")
-              img(:src="guileImgURL", style="max-width:75%")
-          div(style="margin-top:12px")
-            btn(style="padding: 10px 44px; font-size: 1.05em;")
-              | Mint
+        nft-guile(:company="company", style="margin:24px 0 24px;")
+
     tr
       td(width="33%" style="vertical-align:top;")
         h5 2001 Original
@@ -41,13 +37,21 @@ article.company
         h5 2021 Guile Twardowski
         img(style="height:200px", :src="guileImgURL")
 
-  div(style="margin-top:60px")
+  machine-nfts(style="margin-top:60px")
+  //- div(style="margin-top:60px")
     h3 Machine Expressions
-    div(v-for="n in 200", style="display:inline-block; width:33%; margin-bottom:24px; padding: 0 5px; box-sizing:border-box")
+    .grooved-cell
+      | 0.1 ETH
+
+    div(style="display:inline-block; width:33%; margin-bottom:24px; padding: 0 5px; box-sizing:border-box")
+      div
+        button
+          btn(style="padding: 8px 16px;", @click=) Mint
+    //- div(v-for="n in 200", style="display:inline-block; width:33%; margin-bottom:24px; padding: 0 5px; box-sizing:border-box")
       div(style="padding:5px")
         a(:href="ganImgURL(n)", target="_blank")
           img(:src="ganImgURL(n)", @error="e => { e.target.parentElement.parentElement.parentElement.style.display = 'none' }", style="max-width:100%")
-      div
+      //- div
         btn(style="padding: 8px 16px;") Mint
 
 </template>

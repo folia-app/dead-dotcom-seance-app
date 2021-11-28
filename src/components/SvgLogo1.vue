@@ -3,11 +3,11 @@
 
 <style>
 .svg-logo-1 {
-  animation:  pulse 20s linear infinite;
+  animation:  pulse 10s linear infinite;
 }
 @keyframes pulse {
-  80% { opacity:100% }
-  90% { opacity: 1% }
+  90% { opacity:100% }
+  95% { opacity: 1% }
   100% { opacity: 100%; }
 }
 </style>

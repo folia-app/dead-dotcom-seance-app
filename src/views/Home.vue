@@ -1,5 +1,6 @@
 <script setup>
 import list from '../../content/companies.js'
+import Btn from '@/components/Btn'
 
 const companies = list
 </script>
@@ -70,7 +71,7 @@ const companies = list
               //- td(width="50%", style="vertical-align:center") {{ com.name }}
               td
                 router-link(:to="`/` + com.name")
-                  img(style="width:50%", :src="`/art/${com.name}/guile.jpg`")
+                  img(style="max-width:100%", :src="`/art/${com.name}/guile.jpg`")
 
                 p {{ com.description }}
 </template>

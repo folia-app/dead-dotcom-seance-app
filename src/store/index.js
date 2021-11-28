@@ -34,10 +34,12 @@ const providerOptions = {
 // setup web3 modal
 const web3Modal = new Web3Modal({
   // network: 'rinkeby', // optional
-  cacheProvider: false, // optional
-  providerOptions, // required
-  theme: 'dark'
+  cacheProvider: true, // optional
+  providerOptions // required
+  // theme: 'dark'
 })
+
+let initializing = false
 
 export default createStore({
   state: {
@@ -148,33 +150,55 @@ export default createStore({
   actions: {
     /* setup web3, contracts */
     async init ({ state, commit, dispatch }) {
-      try {
-        // auto-connect?
-        if (web3Modal.cachedProvider) {
-          await dispatch('connect')
-        }
-
-        // setup web3
-        if (!web3) {
-          if (provider) {
-            web3 = new Web3(provider)
-          } else {
-            const n = process.env.NODE_ENV === 'development' ? 'rinkeby' : 'mainnet'
-            web3 = new Web3(new Web3.providers.WebsocketProvider(networks[n].infura))
-          }
-        }
-
-        // setup contracts
-        const networkId = state.networkId || await web3.eth.net.getId() || networks.mainnet.id
-        console.log('network:', networkId)
-        commit('SET_NETWORK', networkId)
-        commit('SET_CONTRACTS', { web3, networkId })
-
-        // listen to provider events
-        dispatch('listenToProvider')
-      } catch (e) {
-        console.error('@init', e)
+      // de-dupe
+      if (initializing) {
+        return initializing
       }
+
+      // handler
+      const setup = async () => {
+        try {
+          // auto-connect?
+          if (web3Modal.cachedProvider) {
+            await dispatch('connect')
+          }
+
+          // setup web3
+          if (!web3) {
+            if (provider) {
+              web3 = new Web3(provider)
+            } else {
+              const n = process.env.NODE_ENV === 'development' ? 'rinkeby' : 'mainnet'
+              web3 = new Web3(new Web3.providers.WebsocketProvider(networks[n].infura))
+            }
+          }
+
+          // setup contracts
+          const networkId = state.networkId || await web3.eth.net.getId() || networks.mainnet.id
+          console.log('network:', networkId)
+          commit('SET_NETWORK', networkId)
+          commit('SET_CONTRACTS', { web3, networkId })
+
+          // listen to provider events
+          dispatch('listenToProvider')
+
+          initializing = false
+          return true
+        } catch (e) {
+          console.error('@init', e)
+          initializing = false
+          throw e
+        }
+      }
+
+      // create a promise for the handler
+      initializing = new Promise((resolve, reject) => {
+        setup()
+          .then(resolve)
+          .catch(reject)
+      })
+
+      return initializing
     },
 
     getWeb3 () {
@@ -238,48 +262,19 @@ export default createStore({
       })
     },
 
-    /* buy artwork */
-    async buy ({ state, dispatch }, workId) {
+    async mintGuile ({ state, dispatch, rootGetters }, { companyId }) {
       try {
-        const work = await dispatch('getWork', { id: workId, flush: true })
-        // !! unavailable
-        if (!work.exists) throw new Error(`!! Work ${workId} doesn't exist`)
-        if (Number(work.printed) >= Number(work.editions)) throw new Error(`!! Work ${workId} is sold out`)
-        if (work.paused) throw new Error(`!! Work ${workId} is locked. Please wait for release or try again shortly.`)
-        // wallet connected ?
-        if (!state.address) {
-          await dispatch('connect')
-        }
-        // buy
-        await state.controllerContract.methods
-          .buy(state.address, workId)
-          .send({ from: state.address, value: work.price })
-        // refresh work data for app
-        dispatch('getWork', { id: workId, flush: true })
-      } catch (e) {
-        console.error('@buy:', e)
-        // track
-        // exception({ description: `@buy: ${e.message}`, fatal: false })
-        // TODO - more elegant UX error ?
-        if (e.message?.includes('!! ')) {
-          alert(e.message.replace('!! ', ''))
-        }
-      }
-    },
+        const workId = 0 // all guiles are first work set
+        const editionId = companyId
+        // const workId = Math.floor(tokenId / 1000000)
+        // const workSpace = workId * 1000000
+        // const editionId = tokenId - workSpace
 
-    /* buy by ID */
-    async buyByID ({ state, dispatch, rootGetters }, { tokenId }) {
-      try {
-        const workId = Math.floor(tokenId / 1000000)
-        const workSpace = workId * 1000000
-        const editionId = tokenId - workSpace
-        const bn = mixed => new web3.utils.BN(mixed)
-
-        const work = await dispatch('getWork', { id: workId, flush: true })
+        const work = await dispatch('getWork', { id: 0, flush: true })
         // !! unavailable
-        if (!work.exists) throw new Error(`!! Work ${workId} doesn't exist`)
+        if (!work.exists) throw new Error(`!! Edition ${workId} doesn't exist`)
         // !! paused
-        if (work.paused) throw new Error(`!! Work ${workId} is locked. Please wait for release or try again shortly.`)
+        if (work.paused) throw new Error(`!! Edition ${workId} is locked. Please wait for release or try again shortly.`)
 
         // wallet connected ?
         if (!state.address) {
@@ -287,16 +282,17 @@ export default createStore({
         }
 
         // !! not enough ETH
+        const bn = mixed => new web3.utils.BN(mixed)
         const balance = await rootGetters.userBalance()
         const insufficientFunds = bn(balance).lt(bn(work.price))
         if (insufficientFunds) throw new Error(`!! Insufficient funds in your wallet\n${state.address}`)
 
         // buy
-        await state.controllerContract.methods
+        return state.controllerContract.methods
           .buyByID(state.address, workId, editionId)
           .send({ from: state.address, value: work.price })
         // refresh work data for app
-        dispatch('getWork', { id: workId, flush: true })
+        // dispatch('getWork', { id: workId, flush: true })
       } catch (e) {
         console.error('@buyByID:', e)
         // track
@@ -308,26 +304,57 @@ export default createStore({
       }
     },
 
-    /* read artwork */
-    async getWork ({ state, commit }, { id, flush }) {
-      let work = state.works.find(work => work.id === id)
-      if (!flush && work) return work
+    /* buy machine artwork by companey id */
+    async mintMachine ({ state, dispatch }, workId) {
+      try {
+        const work = await dispatch('getWork', { id: workId, flush: true })
+        // !! unavailable
+        if (!work || !work.exists) throw new Error(`!! Work ${workId} doesn't exist`)
+        if (Number(work.printed) >= Number(work.editions)) throw new Error(`!! Work ${workId} is sold out`)
+        if (work.paused) throw new Error(`!! Work ${workId} is locked. Please wait for release or try again shortly.`)
+        // wallet connected ?
+        if (!state.address) await dispatch('connect')
 
-      if (!state.controllerContract) {
-        console.warn('controller not set yet')
-        return
-      }
-      // get new data
-      if (id && !isNaN(id)) {
-        try {
-          work = await state.controllerContract.methods.works(id).call()
-          work = { id, ...work } // add id
-          commit('SAVE_WORK', work)
-        } catch (e) {
-          console.error('@getWork', e)
+        // buy
+        return state.controllerContract.methods
+          .buy(state.address, workId)
+          .send({ from: state.address, value: work.price })
+        // refresh work data for app
+        // dispatch('getWork', { id: workId, flush: true })
+      } catch (e) {
+        console.error('@buy:', e)
+        // track
+        // exception({ description: `@buy: ${e.message}`, fatal: false })
+        // TODO - more elegant UX error ?
+        if (e.message?.includes('!! ')) {
+          alert(e.message.replace('!! ', ''))
         }
       }
-      return work
+    },
+
+    /* read artwork */
+    async getWork ({ state, commit, dispatch }, { id, flush }) {
+      try {
+        // saved ?
+        let work = state.works.find(work => work.id === id)
+        if (work && !flush) {
+          return work
+        }
+
+        // get new data...
+        if (!state.controllerContract) {
+          await dispatch('init')
+        }
+
+        work = await state.controllerContract.methods._works(id).call()
+        work = { id, ...work } // add id
+        commit('SAVE_WORK', work)
+
+        return work
+      } catch (e) {
+        console.error('@getWork', e)
+        return null
+      }
     },
 
     /* get metadata of work (if released) */
@@ -369,22 +396,21 @@ export default createStore({
     },
 
     /* get owner by token id */
-    async getNFTOwnerByTokenId ({ state, commit }, tokenId) {
+    async getNFTOwner ({ state, commit, dispatch }, tokenId) {
       try {
+        // saved ?
         const token = state.tokens.find(token => token[0] === tokenId) || []
         let owner = token && token[1]
         if (owner) return owner
-        // get new data
-        if (state.nftContract) {
-          owner = await state.nftContract.methods.ownerOf(tokenId).call()
-          commit('SAVE_TOKEN', [tokenId, owner])
-          return owner
-        }
-        return null
+        // get new data...
+        if (!state.nftContract) await dispatch('init')
+        owner = await state.nftContract.methods.ownerOf(tokenId).call()
+        commit('SAVE_TOKEN', [tokenId, owner])
+        return owner
       } catch (e) {
         // seems to error if token doesn't exist...
-        console.error("get owner error / token doesn't exist?", tokenId, e)
-        return 0
+        console.warn("get owner error / token doesn't exist?", tokenId, e)
+        return null
       }
     }
   }
