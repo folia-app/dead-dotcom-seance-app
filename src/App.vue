@@ -3,6 +3,7 @@ import '@/style/index.css'
 import SvgLogo from '@/components/SvgLogo1'
 import Btn from '@/components/Btn'
 import list from '../content/companies.js'
+import store from '@/store'
 
 const companies = list
 </script>
@@ -22,7 +23,13 @@ const companies = list
               div(style="padding-top:28px; font-size: 1.125em; opacity:0.85; padding-right:2em")
                 i Guile Twardowski #[span(style="padding:0 24px") • ]Simon Denny #[span(style="padding:0 24px") • ]Liminal Labs
             div(style="position:absolute;top:0;right:0;padding:8px 6px; text-align:right")
-              btn(style="padding-left:20px; padding-right:20px") Connect
+              template(v-if="store.state.address")
+                button(@click="store.dispatch('disconnect')")
+                  btn(style="padding-left:20px; padding-right:20px")
+                    | {{ store.getters.addrShort(store.state.address) }}
+              template(v-else)
+                button(@click="store.dispatch('connect')")
+                  btn(style="padding-left:20px; padding-right:20px") Connect
               //- i
                 | Guile Twardowski<br>
                 | Simon Denny<br>
@@ -104,6 +111,13 @@ cite{
   border-radius: 10px;
   padding: 6px;
 }
+
+/* web3 modal styling */
+#WEB3_CONNECT_MODAL_ID .web3modal-modal-lightbox{
+  font-family: 'avara', serif;
+  z-index: 1000;
+}
+
 </style>
 
 <style scoped>
