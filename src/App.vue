@@ -148,9 +148,10 @@ cite{
   animation:  logopulse 10s linear infinite;
 }
 @keyframes logopulse {
-  80% { opacity:100% }
-  90% { opacity: 1% }
-  100% { opacity: 100%; }
+  /* 0%{ opacity: 0; } */
+  80% { opacity:1 }
+  90% { opacity: 0 }
+  100% { opacity: 1; }
 }
 
 p + p {
