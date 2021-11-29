@@ -17,9 +17,8 @@ const getOwner = (flush) => {
 }
 
 const getWork = async (flush = false) => {
-  // TODO - breaks yarn:build site...
-  // store.dispatch('getWork', { id: props.company.id, flush })
-  //   .then(wrk => { work.value = wrk })
+  store.dispatch('getWork', { id: props.company.id, flush })
+    .then(wrk => { work.value = wrk || {} })
 }
 
 const onVisible = () => {

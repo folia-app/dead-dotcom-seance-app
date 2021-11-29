@@ -13,9 +13,12 @@ import WalletConnectProvider from '@walletconnect/web3-provider'
 // import auctions from './auctions'
 
 const networks = {
-  mainnet: { id: 1, infura: 'wss://mainnet.infura.io/ws/v3/1363143c08464562ba87cc807ac77020' },
-  rinkeby: { id: 4, infura: 'wss://rinkeby.infura.io/ws/v3/1363143c08464562ba87cc807ac77020' }
+  1: { name: 'mainnet', infura: 'wss://mainnet.infura.io/ws/v3/1363143c08464562ba87cc807ac77020' },
+  4: { name: 'rinkeby', infura: 'wss://rinkeby.infura.io/ws/v3/1363143c08464562ba87cc807ac77020' }
 }
+
+const fallbackNetworkId = process.env.VUE_APP_NETWORK_FALLBACK_ID || 1
+// TODO: better optimizaion: fallback based on contract deploy networks available?
 
 let web3
 let provider = window.ethereum || Web3.currentProvider || Web3.givenProvider
@@ -137,14 +140,6 @@ export default createStore({
         DeadDotComSeanceController.networks[networkId].address
       )
       console.log('controller addr', DeadDotComSeanceController.networks[networkId].address)
-      // auctions
-      // if (ReserveAuction.networks[networkId]) {
-      //   state.reserveAuctionContract = new web3.eth.Contract(
-      //     ReserveAuction.abi,
-      //     ReserveAuction.networks[networkId].address
-      //   )
-      //   console.log('auction addr', ReserveAuction.networks[networkId].address)
-      // }
     }
   },
   actions: {
@@ -166,15 +161,17 @@ export default createStore({
           // setup web3
           if (!web3) {
             if (provider) {
+              // wallet provider...
               web3 = new Web3(provider)
             } else {
-              const n = process.env.NODE_ENV === 'development' ? 'rinkeby' : 'mainnet'
-              web3 = new Web3(new Web3.providers.WebsocketProvider(networks[n].infura))
+              // fallback to infura
+              const network = networks[fallbackNetworkId]
+              web3 = new Web3(new Web3.providers.WebsocketProvider(network.infura))
             }
           }
 
           // setup contracts
-          const networkId = state.networkId || await web3.eth.net.getId() || networks.mainnet.id
+          const networkId = state.networkId || await web3.eth.net.getId() || fallbackNetworkId // || networks.mainnet.id
           console.log('network:', networkId)
           commit('SET_NETWORK', networkId)
           commit('SET_CONTRACTS', { web3, networkId })
