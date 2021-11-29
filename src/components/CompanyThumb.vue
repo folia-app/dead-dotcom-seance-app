@@ -74,7 +74,7 @@ const mintMachine = () => {
 
     button(:disabled="isSoldOutMachines", :class="{'opacity-30': isSoldOutMachines}", @click="mintMachine")
       btn.px-16
-        | Mint Liminal Ghost ({{ work.printed || '...' }}/{{ work.editions || '...' }})
+        | Mint Cosmic Logo ({{ work.printed || '...' }}/{{ work.editions || '...' }})
         <br>0.1 ETH
 
   .flex.mt-24.justify-center
