@@ -39,5 +39,5 @@ div
     //- template(v-else)
     button(v-if="!owner", @click="mintGuile")
       btn(style="padding: 10px 44px; font-size: 1.05em;")
-        | Mint CEO
+        | Mint Guile Logo<br>1 ETH
 </template>
