@@ -71,6 +71,7 @@ const mintMachine = () => {
     //- i.px-16 Revive:
     button(:disabled="owner", :class="{'opacity-30': owner}", @click="mintGuile")
       btn.px-16 Mint Guile Logo ({{ owner ? '1' : '0' }}/1)<br>1 ETH
+
     button(:disabled="isSoldOutMachines", :class="{'opacity-30': isSoldOutMachines}", @click="mintMachine")
       btn.px-16
         | Mint Liminal Ghost ({{ work.printed || '...' }}/{{ work.editions || '...' }})

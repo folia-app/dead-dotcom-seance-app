@@ -1,5 +1,6 @@
 <script setup>
 import '@/style/index.css'
+import { ref } from 'vue'
 import SvgLogo from '@/components/SvgLogo1'
 import SvgLogoMobile from '@/components/SvgLogo1Mobile'
 import Btn from '@/components/Btn'
@@ -7,6 +8,8 @@ import list from '../content/companies.js'
 import store from '@/store'
 
 const companies = list
+
+const mobileMenu = ref(false)
 
 store.dispatch('init')
 </script>
@@ -17,18 +20,18 @@ store.dispatch('init')
   header
     .grooved-cell.mb-3.relative.flex.flex-col-reverse
       //- presents...
-      .absolute.top-0.left-0.p-8.opacity-80.text-14
+      .absolute.top-0.left-0.p-8.opacity-80.text-12.md_text-14
         <i><a class="underline" href="https://folia.app" target="_blank">folia</a> presents</i>
 
       //- logo row
       div
         .w-full.md_w-11x12.mx-auto.px-2.mt-20.md_mt-0
-          router-link.logo-pulse.block.w-full.mx-auto(to="/")
+          router-link.logo-pulse.block.w-full.px-12.sm_mx-auto(to="/")
             svg-logo-mobile.block.sm_hidden.w-full
             svg-logo.hidden.sm_block.w-full
         //- tagline
         .text-center.py-28.text-13.md_text-16.opacity-80
-          i Guile Twardowski #[span(style="padding:0 1.5em") • ]Simon Denny #[span(style="padding:0 1.5em") • ]Cosmographia
+          i Guile Twardowski #[span.px-6.sm_px-12 • ]Simon Denny #[span.px-6.sm_px-12 • ]Cosmographia
 
       //-
       .w-full.flex.justify-end.mb-2
@@ -56,10 +59,17 @@ store.dispatch('init')
       router-link.flex-1.grooved-cell.m-3.flex.items-center.justify-center(to="/about")
         | About
 
+  //- (mobile nav)
+  nav.flex.lg_hidden.my-3.text-14
+    router-link(to="/").flex-1.grooved-cell.flex.h-64.items-center.justify-center
+      .pt-4 Home
+    button(@click="mobileMenu = !mobileMenu").flex-1.grooved-cell.flex.h-64.items-center.justify-center
+      .pt-4 {{ mobileMenu ? 'Close' : 'Menu' }}
+
   .w-full.lg_flex
-    nav.hidden.lg_block.w-1x5.grooved-cell.mr-3
+    nav.lg_block.w-full.lg_w-1x5.grooved-cell.mr-3(:class="{'hidden': !mobileMenu}")
       h4.my-16.text-18.font-avara.font-bold The Summoned
-      ul.companies-menu.text-16.text-blue
+      ul.companies-menu.text-16.text-blue.mb-20
         //- links...
         li(v-for="com in companies")
           router-link.notouch_hover_text-red(:to="`/` + com.name") {{ com.name.split(".")[0] }}.com
@@ -165,7 +175,7 @@ p + p {
   }
 
 button[disabled]{
-  @apply cursor-not-allowed;
+  @apply cursor-not-allowed opacity-40;
 }
 
 </style>
