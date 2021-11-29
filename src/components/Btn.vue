@@ -1,7 +1,10 @@
 <script setup>
+const props = defineProps({
+
+})
 </script>
 
 <template lang="pug">
-.btn(style="border-radius:10px; border:  5px #888 outset; background: #888; color: white; padding-top:10px;padding-bottom:10px;")
+.btn.text-14.font-sans.text-white.py-10.rounded-2xl.border-5.border-lightgray.bg-medgray(style="border-style: outset;")
   slot
 </template>

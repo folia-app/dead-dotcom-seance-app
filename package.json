@@ -35,7 +35,6 @@
     "eslint-plugin-vue": "^7.0.0",
     "lint-staged": "^9.5.0",
     "postcss": "^7",
-    "postcss-import": "^14.0.2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "vue-cli-plugin-pug": "~2.0.0"
   },

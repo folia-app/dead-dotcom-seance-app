@@ -2,15 +2,19 @@
 import { ref, provide } from 'vue'
 import { useRoute } from 'vue-router'
 import list from '../../content/companies.js'
+import store from '@/store'
 import Btn from '@/components/Btn'
 import NftGuile from '@/components/NFTGuile'
 import MachineNfts from '@/components/MachineNFTs'
 
 const route = useRoute()
+const guileOwner = ref()
 
 const company = list.find(com => com.name === route.params.company)
 
 const guileImgURL = '/art/' + route.params.company + '/guile.jpg'
+
+store.dispatch('getNFTOwner', company.id).then(o => { guileOwner.value = o })
 
 provide('company', company)
 </script>
@@ -18,26 +22,30 @@ provide('company', company)
 <template lang="pug">
 article.company
   h2(style="margin-top:32px; font-size: 1.75em") {{ company.name }}
-  p {{ company.years }}
-  p(style="padding:0 12px") {{ company.description }}
+  p
+    | {{ company.years }}
+    template(v-if="guileOwner")
+      | &nbsp;, 2021-
+      .mt-20
+        | CEO<br>{{ $store.getters.addrShort(guileOwner) }}
 
-  table
-    tr
-      td(colspan="3")
-        nft-guile(:company="company", style="margin:24px 0 24px;")
+  p.px-12.text-16.italic "{{ company.description }}"
 
-    tr
-      td(width="33%" style="vertical-align:top;")
-        h5 2001 Original
-        img(style="height:200px", :src="`/art/${company.name}/_original.png`")
-      td(width="33%" style="vertical-align:top")
-        h5 2021 Machine
-        img(style="height:200px", :src="`/art/${company.name}/${company.guileRefImg}`")
-      td(width="33%" style="vertical-align:top")
-        h5 2021 Guile Twardowski
-        img(style="height:200px", :src="guileImgURL")
+  nft-guile.my-40(:company="company")
 
-  machine-nfts(style="margin-top:60px")
+  .flex.w-full
+    .w-full.sm_w-1x3
+      h5.font-bold.mb-12.text-14 2001 Original
+      img.block.mx-auto(style="height:200px", :src="`/art/${company.name}/_original.png`")
+    .w-full.sm_w-1x3
+      h5.font-bold.mb-12.text-14 Machine Inspiration
+      img.block.mx-auto(style="height:200px", :src="`/art/${company.name}/${company.guileRefImg}`")
+    .w-full.sm_w-1x3
+      h5.font-bold.mb-12.text-14 Guile Twardowski
+      img.block.mx-auto(style="height:200px", :src="guileImgURL")
+
+  .my-96.italic (to do machines...)
+  //- machine-nfts(style="margin-top:60px")
   //- div(style="margin-top:60px")
     h3 Machine Expressions
     .grooved-cell

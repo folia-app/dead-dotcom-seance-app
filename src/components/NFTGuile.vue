@@ -10,7 +10,7 @@ const guileImgURL = '/art/' + props.company.name + '/guile.jpg'
 
 const mintGuile = async () => {
   try {
-    const tx = await store.dispatch('mintGuile', { companyId: props.company.id })
+    const tx = await store.dispatch('mintGuile', props.company.id)
     console.log(tx)
     getOwner()
   } catch (e) {
@@ -30,14 +30,14 @@ div
   //- h5 Twardowski Revival
   div
     a(:href="guileImgURL", target="_blank")
-      img(:src="guileImgURL", style="max-width:80%")
+      img.mx-auto.block(:src="guileImgURL", style="max-width:80%")
   div(style="margin-top:12px")
     //- (owner)
-    template(v-if="owner")
+    //- template(v-if="owner")
       | {{ $store.getters.addrShort(owner) }}
     //- (buy)
-    template(v-else)
-      button(@click="mintGuile")
-        btn(style="padding: 10px 44px; font-size: 1.05em;")
-          | Mint CEO
+    //- template(v-else)
+    button(v-if="!owner", @click="mintGuile")
+      btn(style="padding: 10px 44px; font-size: 1.05em;")
+        | Mint CEO
 </template>

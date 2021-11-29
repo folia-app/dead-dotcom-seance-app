@@ -3,7 +3,7 @@ export default [
     id: 1,
     name: 'alladvantage.com',
     years: '1999–2001',
-    description: 'Facilitated person to person cash transfers, via credit card and mail-out cheque.',
+    description: 'Facilitated person-to-person cash transfers, via credit card and mail-out cheque.',
     guileRefImg: 'output87.png'
   },
   {

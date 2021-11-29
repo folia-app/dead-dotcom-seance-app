@@ -262,7 +262,7 @@ export default createStore({
       })
     },
 
-    async mintGuile ({ state, dispatch, rootGetters }, { companyId }) {
+    async mintGuile ({ state, dispatch, rootGetters }, companyId) {
       try {
         const workId = 0 // all guiles are first work set
         const editionId = companyId
@@ -305,19 +305,19 @@ export default createStore({
     },
 
     /* buy machine artwork by companey id */
-    async mintMachine ({ state, dispatch }, workId) {
+    async mintMachine ({ state, dispatch }, companyId) {
       try {
-        const work = await dispatch('getWork', { id: workId, flush: true })
+        const work = await dispatch('getWork', { id: companyId, flush: true })
         // !! unavailable
-        if (!work || !work.exists) throw new Error(`!! Work ${workId} doesn't exist`)
-        if (Number(work.printed) >= Number(work.editions)) throw new Error(`!! Work ${workId} is sold out`)
-        if (work.paused) throw new Error(`!! Work ${workId} is locked. Please wait for release or try again shortly.`)
+        if (!work || !work.exists) throw new Error(`!! Company ${companyId} doesn't exist`)
+        if (Number(work.printed) >= Number(work.editions)) throw new Error(`!! Work ${companyId} is sold out`)
+        if (work.paused) throw new Error(`!! Work ${companyId} is locked. Please wait for release or try again shortly.`)
         // wallet connected ?
         if (!state.address) await dispatch('connect')
 
         // buy
         return state.controllerContract.methods
-          .buy(state.address, workId)
+          .buy(state.address, companyId)
           .send({ from: state.address, value: work.price })
         // refresh work data for app
         // dispatch('getWork', { id: workId, flush: true })
@@ -404,6 +404,7 @@ export default createStore({
         if (owner) return owner
         // get new data...
         if (!state.nftContract) await dispatch('init')
+        console.log('go')
         owner = await state.nftContract.methods.ownerOf(tokenId).call()
         commit('SAVE_TOKEN', [tokenId, owner])
         return owner
