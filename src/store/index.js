@@ -404,13 +404,12 @@ export default createStore({
         if (owner) return owner
         // get new data...
         if (!state.nftContract) await dispatch('init')
-        console.log('go')
         owner = await state.nftContract.methods.ownerOf(tokenId).call()
         commit('SAVE_TOKEN', [tokenId, owner])
         return owner
       } catch (e) {
         // seems to error if token doesn't exist...
-        console.warn("get owner error / token doesn't exist?", tokenId, e)
+        // console.warn("get owner error / token doesn't exist?", tokenId, e)
         return null
       }
     }

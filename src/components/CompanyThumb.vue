@@ -11,13 +11,15 @@ const isSoldOutMachines = computed(() => work.value.printed ? Number(work.value.
 
 const getOwner = (flush) => {
   if (owner.value === undefined || flush) {
-    store.dispatch('getNFTOwner', props.company.id).then(addr => { owner.value = addr })
+    store.dispatch('getNFTOwner', props.company.id)
+      .then(addr => { owner.value = addr })
   }
 }
 
-const getWork = async (flush) => {
-  store.dispatch('getWork', { id: props.company.id, flush })
-    .then(wrk => { work.value = wrk })
+const getWork = async (flush = false) => {
+  // TODO - breaks yarn:build site...
+  // store.dispatch('getWork', { id: props.company.id, flush })
+  //   .then(wrk => { work.value = wrk })
 }
 
 const onVisible = () => {
