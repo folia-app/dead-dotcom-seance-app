@@ -54,8 +54,11 @@ const mintMachine = () => {
   h3.sr-only.mt-24.font-bold.text-24 {{ company.name }}
 
   div.mt-24.mb-20.text-16
-    | <i>"{{ company.description }}"</i>
+    //- description
+    | {{ company.description }}
+    //- years
     .mt-20 {{ company.years }}
+    //- ceo
     .mt-20
       span CEO<br>
       template(v-if="owner")
@@ -75,7 +78,7 @@ const mintMachine = () => {
 
   .flex.mt-24.justify-center
     router-link(:to="`/` + company.name")
-      btn.px-16.bg-darkgray.border-medgray View&nbsp;Company
+      btn.px-16.bg-darkgray.border-medgray View&nbsp;Company »
   //- .mt-24
     .inline-block.py-10.text-14.underline View Company &rarr;
 </template>

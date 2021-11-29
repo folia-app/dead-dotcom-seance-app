@@ -7,15 +7,15 @@ const companies = list
 
 <template lang="pug">
 .home(style="text-align:center;")
-  section.px-12.text-16
-    div(style="margin:32px auto; width:75px; height:75px; border:1px solid #888; color: #333;font-size:12px") gif
+  section.px-12.text-16.pt-32
+    //- div(style="margin:32px auto; width:75px; height:75px; border:1px solid #888; color: #333;font-size:12px") gif
 
     p.text-20
-      i Join<br><br> Simon Denny<br>Guile Twardowski<br> Liminal Labs<br><br>for an on-chain spiritism session<br>to revive ghosts burst in<br>the dot-com bubble
+      i Join<br><br>Simon Denny<br>Guile Twardowski<br>Cosmographia<br><br>for an on-chain spiritism session<br>to revive ghosts burst in<br>the dot-com bubble
 
     div.my-16 • • •
 
-    p Twenty dotcom era companies have been summoned for revival.<br>Each company includes an <b>ENS domain</b>, <b>a new logo-NFT</b> designed by artist <b>Guile Twardowski</b> of Cryptokitties fame, and a suite of hidden text-to-image logo-NFTs by <b>Liminal Labs</b> that Guile drew inspiration from.
+    p Twenty dotcom era companies have been summoned for revival.<br>Each company includes an <b>ENS domain</b>, <b>a new logo-NFT</b> designed by artist <b>Guile Twardowski</b> of Cryptokitties fame, and a suite of hidden text-to-image logo-NFTs by <b>Cosmographia</b> that Guile drew inspiration from.
 
     p Minting <i>any</i> NFT allows you to <b>register a subdomain</b> on the company's new ENS domain. Owner of Guile's logo-NFT earns the title of CEO on each company's profile&nbsp;page.
 
@@ -23,7 +23,7 @@ const companies = list
 
     p No candles are needed for this web3 séance of web1 spirits!<br><br>...here, we run on gas.
 
-    div(style="margin:32px auto 40px; width:75px; height:75px; border:1px solid #888; color: #333;font-size:12px") gif
+    //- div(style="margin:32px auto 40px; width:75px; height:75px; border:1px solid #888; color: #333;font-size:12px") gif
 
     //- blockquote.type-blockquote.font-hyper
       | Almost every dot-com idea from 1999 that failed will succeed

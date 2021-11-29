@@ -12,7 +12,7 @@ store.dispatch('init')
 </script>
 
 <template lang="pug">
-.text-15.font-avara.w-full.max-w-breakpoint-xl.mx-auto.p-8.text-center
+.text-15.font-avara.w-full.max-w-breakpoint-xl.mx-auto.p-8.text-center.leading-normal
 
   header
     .grooved-cell.mb-3.relative.flex.flex-col-reverse
@@ -28,7 +28,7 @@ store.dispatch('init')
             svg-logo.hidden.sm_block.w-full
         //- tagline
         .text-center.py-28.text-13.md_text-16.opacity-80
-          i Guile Twardowski #[span(style="padding:0 1.5em") • ]Simon Denny #[span(style="padding:0 1.5em") • ]Liminal Labs
+          i Guile Twardowski #[span(style="padding:0 1.5em") • ]Simon Denny #[span(style="padding:0 1.5em") • ]Cosmographia
 
       //-
       .w-full.flex.justify-end.mb-2
@@ -77,16 +77,16 @@ store.dispatch('init')
       //- p Mint Guile’s logos or blind-mint one of the machine-produced logos of the Dotcom undead.
       //- p Each NFT purchase comes with an ENS subdomain of it’s undead company which the buyer chooses.
 
-      hr.my-12
+      //- hr.my-12
 
-      p <b>Guile Twardowski</b> is a NFT pioneer, the artist behind the beloved <a href="https://www.cryptokitties.co/" target="_blank" rel="noopener noreferrer">CryptoKitties</a> project. His projects have been exhibited and discussed in galleries and institutions like the ZKM (Karlsruhe) and Schinkel Pavillon (Berlin) as well as being presented in France, Brazil, USA and Russia.
-
-      hr.my-12
-
-      p <a href="http://simondenny.net/" target="_blank" rel="noopener noreferrer"><b>Simon Denny</b></a> has had exhibitions at Moma PS1 (NY), the Serpentine (London), the Hammer Museum (LA),  the Venice Biennale and has co-curated art and crypto exhibitions Proof of Work (2018) at Schinkel Pavillon and Proof of Stake (2021) at Kunstverein Hamburg.
+      p <a class="underline" href="http://www.guile.work" target="_blank" rel="noopener noreferrer"><b>Guile Twardowski</b></a> is a NFT pioneer, the artist behind the beloved <a class="underline" href="https://www.cryptokitties.co/" target="_blank" rel="noopener noreferrer">CryptoKitties</a>. His work has been exhibited and discussed in galleries and institutions like the ZKM (Karlsruhe) and Schinkel Pavillon (Berlin) as well as being presented in France, Brazil, USA and Russia.
 
       hr.my-12
-      p <b>Liminal Labs</b> is a text-to-image AI company founded in 2021 by David Holz
+
+      p <a class="underline" href="http://simondenny.net/" target="_blank" rel="noopener noreferrer"><b>Simon Denny</b></a> has had exhibitions at Moma PS1 (NY), the Serpentine (London), the Hammer Museum (LA),  the Venice Biennale and has co-curated art and crypto exhibitions Proof of Work (2018) at Schinkel Pavillon and Proof of Stake (2021) at Kunstverein Hamburg.
+
+      hr.my-12
+      p <b>Cosmographia</b> is a text-to-image AI company founded in 2021.
 
   footer.grooved-cell.h-200.flex.items-center.justify-center
     blockquote.font-hyper.type-blockquote
@@ -97,11 +97,17 @@ store.dispatch('init')
 </template>
 
 <style>
+.font-avara{
+  @apply tracking-wider;
+}
+.font-avara.italic, .font-avara i{
+  @apply tracking-wider;
+}
 html{
-  font-size:  10px; /* rem */
+  font-size:  10.5px; /* rem */
   -webkit-font-smoothing: none;
   background: #010101;
-  color: white;
+  color: rgb(250,250,250);
 }
 #app{
   width: 100%;
