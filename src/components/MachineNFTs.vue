@@ -53,8 +53,9 @@ section#machines.machine-nfts.grooved-cell.lg_mx-28(v-intersect, @intersect="!wo
         img.max-w-full.opacity-25.cursor-pointer(src="/inspos.gif", alt="NFT preview", @click="mintMachine", style="width:256px")
         .mt-12 ???
       //- printed...
-      li.w-1x2.sm_w-1x3.p-12.my-12(v-for="n in Number(work.printed)")
-        nft-machine(:no="n")
-          a(:href="ganImgURL(n)", target="_blank")
-            img.max-w-full(:src="ganImgURL(n)")
+      template(v-if="work.printed")
+        li.w-1x2.sm_w-1x3.p-12.my-12(v-for="n in Number(work.printed)")
+          nft-machine(:no="n")
+            a(:href="ganImgURL(n)", target="_blank")
+              img.max-w-full(:src="ganImgURL(n)")
 </template>
