@@ -115,16 +115,22 @@ store.dispatch('init')
 }
 html{
   font-size:  10.5px; /* rem */
+
   -webkit-font-smoothing: none;
   background: #010101;
   color: rgb(250,250,250);
 }
+@media (min-width:  1280px) {
+  html {
+    font-size:  calc(18px / 1280 * 100vh);
+  }
+}
 #app{
-  width: 100%;
+  /* width: 100%; */
   /* max-width: 1280px; */
-  margin:  0 auto;
-  font-family: 'avara', serif;
-  font-size: 14px;
+  /* margin:  0 auto; */
+  /* font-family: 'avara', serif; */
+  /* font-size: 14px; */
   /* max-width: 1024px; */
   /* margin: 0 auto; */
 }
