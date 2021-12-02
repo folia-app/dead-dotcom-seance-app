@@ -32,7 +32,8 @@ article.company
     .mt-24
       | CEO<br>{{ $store.getters.addrShort(guileOwner) }}
 
-  .my-48.flex.flex-wrap.w-full
+  //- logo progression
+  .my-56.flex.flex-wrap.w-full
     .w-full.sm_w-1x3.mb-20
       h5.font-bold.mb-12.text-14 {{ company.years.split('–')[0] }} Logo
       a(:href="`/art/${company.name}/_original.png`", target="_blank")
@@ -46,7 +47,7 @@ article.company
       a(:href="guileImgURL", target="_blank")
         img.block.mx-auto(style="height:200px", :src="guileImgURL")
 
-  nft-guile.mt-96(:company="company")
+  nft-guile.mt-64(:company="company")
 
   machine-nfts.my-36
 
