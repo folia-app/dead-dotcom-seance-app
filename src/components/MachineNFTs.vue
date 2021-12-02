@@ -40,7 +40,7 @@ section#machines.machine-nfts.grooved-cell.lg_mx-28(v-intersect, @intersect="!wo
           | based on {{ company.name }}'s description:<br>
           .my-12
             i {{ company.description }}
-          | Minted {{ work.printed || '...' }}/{{ work.editions || '...' }}
+          | Minted 0/26
           | <br>0.1 ETH
         template(v-else) ...
 
