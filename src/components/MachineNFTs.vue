@@ -25,6 +25,7 @@ const mintMachine = async () => {
     console.error(e)
   }
 }
+
 </script>
 
 <template lang="pug">
@@ -48,14 +49,21 @@ section#machines.machine-nfts.grooved-cell.lg_mx-28(v-intersect, @intersect="!wo
         btn.px-24 Mint
 
     ul.mt-24.flex.flex-wrap.items-start.justify-center
-      //- (preview gif)
-      li.w-1x2.sm_w-1x3.p-12.my-12(v-if="work.printed && Number(work.printed) < Number(work.editions)")
-        img.max-w-full.opacity-25.cursor-pointer(src="/inspos.gif", alt="NFT preview", @click="mintMachine", style="width:256px")
-        .mt-12 ???
-      //- printed...
-      template(v-if="work.printed")
-        li.w-1x2.sm_w-1x3.p-12.my-12(v-for="n in Number(work.printed)")
-          nft-machine(:no="n")
-            a(:href="ganImgURL(n)", target="_blank")
-              img.max-w-full(:src="ganImgURL(n)")
+      //-
+        //- (preview gif)
+        li.w-1x2.sm_w-1x3.p-12.my-12(v-if="work.printed && Number(work.printed) < Number(work.editions)")
+          img.max-w-full.opacity-25.cursor-pointer(src="/inspos.gif", alt="NFT preview", @click="mintMachine", style="width:256px")
+          .mt-12 ???
+        //- printed...
+        template(v-if="work.printed")
+          li.w-1x2.sm_w-1x3.p-12.my-12(v-for="n in Number(work.printed)")
+            nft-machine(:no="n")
+              a(:href="ganImgURL(n)", target="_blank")
+                img.max-w-full(:src="ganImgURL(n)")
+
+      //- temp preview all gans for ABC
+      template(v-if="company.name === 'cashwars.com'")
+        li.w-1x2.sm_w-1x3.p-12.my-12(v-for="n in 26")
+          img.max-w-full.mx-auto.block(:src="`/art/${company.name}/output${n}.png`", @error="e.target.parentElement.parentElement.removeChild(e.target.parentElement)")
+          //- div {{ n }}
 </template>
