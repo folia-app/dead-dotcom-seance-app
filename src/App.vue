@@ -15,7 +15,7 @@ store.dispatch('init')
 </script>
 
 <template lang="pug">
-.text-15.font-avara.w-full.max-w-breakpoint-xl.mx-auto.p-8.text-center.leading-normal
+.text-15.font-avara.w-full.max-w-breakpoint-xlff.mx-auto.p-8.text-center.leading-normal
 
   header
     .grooved-cell.mb-3.relative.flex.flex-col-reverse
@@ -121,7 +121,7 @@ html{
 }
 #app{
   width: 100%;
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin:  0 auto;
   font-family: 'avara', serif;
   font-size: 14px;
