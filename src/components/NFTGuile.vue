@@ -33,7 +33,7 @@ section#guile.grooved-cell.lg_mx-28
     //- h5 Twardowski Revival
     div.w-full.sm_w-2x3.lg_w-11x12.mx-auto
       a(:href="guileImgURL", target="_blank")
-        img.w-full.block(:src="guileImgURL", )
+        img.max-w-full.block.mx-auto(:src="guileImgURL", )
       //- .mt-4.opacity-30.text-10.text-right Logo-NFT by Guile Twardowski
 
     .grooved-cellff.mt-16.mx-24

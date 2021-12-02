@@ -15,7 +15,7 @@ store.dispatch('init')
 </script>
 
 <template lang="pug">
-.text-15.font-avara.w-full.max-w-breakpoint-xl.mx-auto.p-8.text-center.leading-normal
+.text-15.font-avara.w-full.max-w-breakpoint-xlff.mx-auto.p-8.text-center.leading-normal
 
   header
     .grooved-cell.mb-3.relative.flex.flex-col-reverse
@@ -106,7 +106,7 @@ store.dispatch('init')
 
 </template>
 
-<style>
+<style lang="postcss">
 .font-avara{
   @apply tracking-wider;
 }
@@ -119,34 +119,14 @@ html{
   background: #010101;
   color: rgb(250,250,250);
 }
-#app{
-  width: 100%;
-  max-width: 1280px;
-  margin:  0 auto;
-  font-family: 'avara', serif;
-  font-size: 14px;
-  /* max-width: 1024px; */
-  /* margin: 0 auto; */
+/* scale font up */
+@media (min-width: 1280px) {
+  html {
+    /* not sure why 18 and not 10.5... */
+    font-size: calc(18/1280 * 100vh);
+  }
 }
-/* .font-hyper{
-  font-family: 'hyperscrypt', sans-serif;
-} */
-.type-blockquote{
-  font-size: 21px;
-  line-height: 1;
-  text-align: center;
-  margin: 2em auto;
-  width: 85%;
-}
-cite{
-  font-size: 0.55em;
-  font-style: normal;
-  display: inline-block;
-  margin-top: 1em;
-  background: white;
-  color: black;
-  line-height: 0.85;
-}
+
 .table-border-groove > * > tr > *,
 .grooved-cell{
   border:  5px #888 groove;
