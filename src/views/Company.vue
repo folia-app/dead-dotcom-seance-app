@@ -6,6 +6,7 @@ import store from '@/store'
 import Btn from '@/components/Btn'
 import NftGuile from '@/components/NFTGuile'
 import MachineNfts from '@/components/MachineNFTs'
+import ArtistBios from '@/components/ArtistBios'
 
 const route = useRoute()
 const guileOwner = ref()
@@ -30,47 +31,53 @@ provide('company', company)
 <template lang="pug">
 article.company.flex.flex-wrap
   //- center column
-  section.flex-1.grooved-cell.mb-3.lg_mb-0.relative
-    .pb-32
-      //- (mobile jump to ENS)
-      router-link.lg_hidden.absolute.top-0.right-0.text-12.text-yellow.p-3.pb-6.text-13.font-sans.opacity-75.notouch_hover_opacity-100(to="#ens-registration") ENS Registration...
+  .flex-1
+    section.grooved-cell.mb-3.lg_mb-0.relative
+      .pb-32
+        //- (mobile jump to ENS)
+        router-link.lg_hidden.absolute.top-0.right-0.text-12.text-yellow.p-3.pb-6.text-13.font-sans.opacity-75.notouch_hover_opacity-100(to="#ens-registration") ENS Registration...
 
-      header.text-16.mt-40.lg_mt-32
-        h2.font-bold.text-28 {{ company.name }}
-        p
-          | {{ company.years }}
-          template(v-if="guileOwner") , 2021-
+        header.text-16.mt-40.lg_mt-32
+          h2.font-bold.text-28 {{ company.name }}
+          p
+            | {{ company.years }}
+            template(v-if="guileOwner") , 2021-
 
-        p.px-12.mt-24 {{ company.description }}
+          p.px-12.mt-24 {{ company.description }}
 
-        .mt-24
-          | CEO<br>
-          | {{ guileOwner ? $store.getters.addrShort(guileOwner) : '???' }}
+          .mt-24
+            | CEO<br>
+            | {{ guileOwner ? $store.getters.addrShort(guileOwner) : '???' }}
 
-      //- logo progression
-      .my-56.sm_flex.justify-center.w-full.text-15
-        //- original
-        .w-full.sm_w-1x3.mb-20
-          h5.font-bold.mb-12 {{ company.years.split('–')[0] }} Logo
-          .px-6
-            a(:href="`/art/${company.name}/_original.png`", target="_blank")
-              img.block.mx-auto(style="height:200px", :src="`/art/${company.name}/_original.png`")
-        //- (cosmic inspo)
-        .w-full.sm_w-1x3.mb-20(v-if="!isPetsDotCom")
-          h5.font-bold.mb-12 Cosmic Inspiration
-          .px-6
-            a(:href="`/art/${company.name}/inspo.png`", target="_blank")
-              img.block.mx-auto(style="height:200px", :src="`/art/${company.name}/inspo.png`")
-        //- guile
-        .w-full.sm_w-1x3.mb-20
-          h5.font-bold.mb-12 Twardowski Revival
-          .px-6
-            a(:href="guileImgURL", target="_blank")
-              img.block.mx-auto(style="height:200px", :src="guileImgURL")
+        //- logo progression
+        .my-56.sm_flex.justify-center.w-full.text-15
+          //- original
+          .w-full.sm_w-1x3.mb-20
+            h5.font-bold.mb-12 {{ company.years.split('–')[0] }} Logo
+            .px-6
+              a(:href="`/art/${company.name}/_original.png`", target="_blank")
+                img.block.mx-auto(style="height:200px", :src="`/art/${company.name}/_original.png`")
+          //- (cosmic inspo)
+          .w-full.sm_w-1x3.mb-20(v-if="!isPetsDotCom")
+            h5.font-bold.mb-12 Cosmic Inspiration
+            .px-6
+              a(:href="`/art/${company.name}/inspo.png`", target="_blank")
+                img.block.mx-auto(style="height:200px", :src="`/art/${company.name}/inspo.png`")
+          //- guile
+          .w-full.sm_w-1x3.mb-20
+            h5.font-bold.mb-12 Twardowski Revival
+            .px-6
+              a(:href="guileImgURL", target="_blank")
+                img.block.mx-auto(style="height:200px", :src="guileImgURL")
 
-      nft-guile.mt-64(:company="company", :owner="guileOwner", @mint="getOwner")
+        nft-guile.mt-64(:company="company", :owner="guileOwner", @mint="getOwner")
 
-      machine-nfts.mt-36(v-if='!isPetsDotCom')
+        machine-nfts.mt-36(v-if='!isPetsDotCom')
+
+    //- (artist bios laptop)
+    .grooved-cell.mt-3.w-full.hidden.lg_block
+      .pb-6
+        artist-bios
 
   //- right column
   aside#ens-registration.grooved-cell.w-full.lg_w-1x4.lg_ml-3
@@ -87,6 +94,10 @@ article.company.flex.flex-wrap
       .mt-16.text-center
         button
           btn.px-24 Register
+
+  //- (artist bios mobile)
+  .grooved-cell.w-full.mt-3.lg_hidden
+    artist-bios
 
 </template>
 
