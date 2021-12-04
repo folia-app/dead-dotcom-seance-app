@@ -37,13 +37,15 @@ store.dispatch('init')
       .w-full.flex.justify-end.mb-2
         //- (disconnect btn)
         template(v-if="store.state.address")
-          button(@click="store.dispatch('disconnect')", title="Disconnect")
-            btn(style="padding-left:20px; padding-right:20px")
-              | {{ store.getters.addrShort(store.state.address) }}
+          button.group.relative(@click="store.dispatch('disconnect')", title="Disconnect")
+            btn
+              .flex.items-center.pl-20.pr-14
+                | {{ store.getters.addrShort(store.state.address) }}
+                .ml-12(style="font-size:1.5em;line-height:.8; transform: translateY(-0.1em)") ×
         //- (connect btn)
         template(v-else)
           button(@click="store.dispatch('connect')")
-            btn(style="padding-left:20px; padding-right:20px") Connect
+            btn.px-20 Connect
 
   //- (mobile nav row)
   nav.flex.lg_hidden.my-3.text-14

@@ -37,7 +37,10 @@ section#guile.grooved-cell.lg_mx-28
         h6.text-17.font-bold.mt-8 {{ props.company.name }}
         .mb-16 2021
         //- description
-        | Logo redesigned by <b>Guile Twardowski</b>
+        | Logo redesigned by <b>Guile Twardowski</b>.
+        br
+        | <i>~ Without any cosmic inspiration ~</i>
+        br
         br
         //-
         template(v-if="isPetsDotCom")

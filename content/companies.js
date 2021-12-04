@@ -3,7 +3,7 @@ export default [
     id: 0,
     name: 'pets.com',
     years: '????-????',
-    description: 'description...',
+    description: '< description... >',
     auctionLink: 'https://opensea.io'
   },
   {
