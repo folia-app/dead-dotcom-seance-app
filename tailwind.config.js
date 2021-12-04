@@ -51,6 +51,28 @@ module.exports = {
       180: '18rem',
       200: '20rem'
     },
+    fontSize: {
+      10: ['1.0rem'],
+      11: ['1.1rem'],
+      12: ['1.2rem'],
+      13: ['1.3rem'],
+      14: ['1.4rem'],
+      15: ['1.5rem'],
+      16: ['1.6rem'],
+      17: ['1.7rem'],
+      18: ['1.8rem'],
+      20: ['2.0rem'],
+      21: ['2.1rem'],
+      24: ['2.4rem'],
+      28: ['2.8rem'],
+      32: ['3.2rem'],
+      36: ['3.6rem', { lineHeight: 1 }],
+      40: ['4.0rem', { lineHeight: 1 }],
+      48: ['4.8rem', { lineHeight: 1 }],
+      56: ['5.6rem', { lineHeight: 1 }],
+      64: ['6.4rem', { lineHeight: 1 }],
+      72: ['7.2rem', { lineHeight: 1 }]
+    },
     colors: () => ({
       inherit: colors.inherit,
       current: colors.current,
@@ -62,7 +84,8 @@ module.exports = {
       green: 'green',
       lightgray: '#999',
       medgray: '#888',
-      darkgray: '#555'
+      darkgray: '#555',
+      yellow: 'yellow'
       // slate: colors.slate,
       // gray: colors.gray,
       // zinc: colors.zinc,
@@ -385,27 +408,6 @@ module.exports = {
         '"Courier New"',
         'monospace'
       ]
-    },
-    fontSize: {
-      10: ['1.0rem'],
-      11: ['1.1rem'],
-      12: ['1.2rem'],
-      13: ['1.3rem'],
-      14: ['1.4rem'],
-      15: ['1.5rem'],
-      16: ['1.6rem'],
-      17: ['1.7rem'],
-      18: ['1.8rem'],
-      20: ['2.0rem'],
-      24: ['2.4rem'],
-      28: ['2.8rem'],
-      32: ['3.2rem'],
-      36: ['3.6rem', { lineHeight: 1 }],
-      40: ['4.0rem', { lineHeight: 1 }],
-      48: ['4.8rem', { lineHeight: 1 }],
-      56: ['5.6rem', { lineHeight: 1 }],
-      64: ['6.4rem', { lineHeight: 1 }],
-      72: ['7.2rem', { lineHeight: 1 }]
     },
     fontWeight: {
       thin: '100',

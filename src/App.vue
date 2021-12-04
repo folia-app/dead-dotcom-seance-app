@@ -37,68 +37,41 @@ store.dispatch('init')
       .w-full.flex.justify-end.mb-2
         //- (disconnect btn)
         template(v-if="store.state.address")
-          button(@click="store.dispatch('disconnect')")
+          button(@click="store.dispatch('disconnect')", title="Disconnect")
             btn(style="padding-left:20px; padding-right:20px")
               | {{ store.getters.addrShort(store.state.address) }}
         //- (connect btn)
         template(v-else)
           button(@click="store.dispatch('connect')")
             btn(style="padding-left:20px; padding-right:20px") Connect
-        //- i
-          | Guile Twardowski<br>
-          | Simon Denny<br>
-          | Liminal Labs
 
-    //- nav.flex.h-80
-      router-link.flex-1.grooved-cell.m-3.flex.items-center.justify-center(to="/")
-        | Home
-
-      router-link.flex-1.grooved-cell.m-3.flex.items-center.justify-center(to="/companies")
-        | Dotcoms
-
-      router-link.flex-1.grooved-cell.m-3.flex.items-center.justify-center(to="/about")
-        | About
-
-  //- (mobile nav)
+  //- (mobile nav row)
   nav.flex.lg_hidden.my-3.text-14
     router-link(to="/").flex-1.grooved-cell.flex.h-64.items-center.justify-center
       .pt-4 Home
     button(@click="mobileMenu = !mobileMenu").flex-1.grooved-cell.flex.h-64.items-center.justify-center
       .pt-4 {{ mobileMenu ? 'Close' : 'Menu' }}
 
+  //- body
   .w-full.lg_flex
-    nav.lg_block.w-full.lg_w-1x5.grooved-cell.mr-3(:class="{'hidden': !mobileMenu}")
-      h4.my-16.text-18.font-avara.font-bold The Summoned
-      ul.companies-menu.text-16.text-blue.mb-20
-        //- links...
-        li(v-for="com in companies")
-          router-link.notouch_hover_text-red(:to="`/` + com.name") {{ com.name.split(".")[0] }}.com
+    //- companies menu
+    nav.lg_flex.w-full.lg_w-1x5.pr-3(:class="{'hidden': !mobileMenu}")
+      .grooved-cell.w-full
+        h4.my-16.text-18.font-avara.font-bold The Summoned
+        ul.companies-menu.text-16.text-blue.mb-20
+          //- links...
+          li(v-for="com in companies")
+            router-link.notouch_hover_text-red(:to="`/` + com.name") {{ com.name.split(".")[0] }}.com
 
-    main#main.flex-1.grooved-cell
+      //- h4.mt-28.text-18.font-avara.font-bold Pet Cemetery
+        ul.companies-menu.text-16.text-blue.mb-20
+          li
+            router-link.notouch_hover_text-red(to="/pets.com") pets.com
+
+    main#main.flex-1
       router-view(:key="$route.path")
 
-    aside.w-full.lg_w-1x5.lg_ml-3.grooved-cell
-      h4.my-16.text-18.font-avara.font-bold The Mediums
-      //- p
-        i Awake the undead businesses of the dot com era with the artist behind Cryptokitties
-      //- p Web3’s first iconic NFT artist reimagines the 2021 machine learning dreams of the 2001 dot com undead:
-      //- p A generative text-to-image algorithm from Liminal Labs produces possible logos of twenty dot-com-crash-era companies from short descriptions.
-      //- p <b>Guile Twardowski</b> – the artist who illustrated the cats for early NFT project Cryptokitties – chooses a favourite machine-produced logo for each company and draws a version in response.
-      //- p Mint Guile’s logos or blind-mint one of the machine-produced logos of the Dotcom undead.
-      //- p Each NFT purchase comes with an ENS subdomain of it’s undead company which the buyer chooses.
-
-      //- hr.my-12
-
-      p <a class="underline" href="http://www.guile.work" target="_blank" rel="noopener noreferrer"><b>Guile Twardowski</b></a> is a NFT pioneer, the artist behind the beloved <a class="underline" href="https://www.cryptokitties.co/" target="_blank" rel="noopener noreferrer">CryptoKitties</a>. His work has been exhibited and discussed in galleries and institutions like the ZKM (Karlsruhe) and Schinkel Pavillon (Berlin) as well as being presented in France, Brazil, USA and Russia.
-
-      hr.my-12
-
-      p <a class="underline" href="http://simondenny.net/" target="_blank" rel="noopener noreferrer"><b>Simon Denny</b></a> has had exhibitions at Moma PS1 (NY), the Serpentine (London), the Hammer Museum (LA),  the Venice Biennale and has co-curated art and crypto exhibitions Proof of Work (2018) at Schinkel Pavillon and Proof of Stake (2021) at Kunstverein Hamburg.
-
-      hr.my-12
-      p <b>Cosmographia</b> is a text-to-image AI company founded in 2021.
-
-  footer.grooved-cell.h-200.flex.items-center.justify-center
+  footer.mt-3.grooved-cell.h-200.flex.items-center.justify-center
     blockquote.font-hyper.type-blockquote
       | There are no bad ideas in tech, only bad timing
       br
@@ -123,8 +96,22 @@ html{
 @media (min-width: 1280px) {
   html {
     /* not sure why 18 and not 10.5... */
-    font-size: calc(18/1280 * 100vh);
+    font-size: calc(20/1280 * 100vh);
   }
+}
+
+.type-blockquote{
+  @apply text-21 text-center my-20 mx-auto leading-none;
+  width: 85%;
+}
+cite{
+  font-size: 0.55em;
+  font-style: normal;
+  display: inline-block;
+  margin-top: 1em;
+  background: white;
+  color: black;
+  line-height: 0.85;
 }
 
 .table-border-groove > * > tr > *,

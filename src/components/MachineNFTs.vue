@@ -47,15 +47,20 @@ section#machines.machine-nfts.grooved-cell.lg_mx-28(v-intersect, @intersect="!wo
       button(@click="mintMachine", :disabled="isSoldOut")
         btn.px-24 Mint
 
-    ul.mt-24.flex.flex-wrap.items-start.justify-center
-      //- (preview gif)
-      li.w-1x2.sm_w-1x3.p-12.my-12(v-if="work.printed && Number(work.printed) < Number(work.editions)")
-        img.max-w-full.opacity-25.cursor-pointer(src="/inspos.gif", alt="NFT preview", @click="mintMachine", style="width:256px")
-        .mt-12 ???
-      //- printed...
-      template(v-if="work.printed")
-        li.w-1x2.sm_w-1x3.p-12.my-12(v-for="n in Number(work.printed)")
-          nft-machine(:no="n")
-            a(:href="ganImgURL(n)", target="_blank")
-              img.max-w-full(:src="ganImgURL(n)")
+    .mt-24
+      template(v-if="work.printed === undefined")
+        | Loading minted...
+
+      template(v-else)
+        ul.flex.flex-wrap.items-start.justify-center
+          //- (preview gif)
+          li.w-1x2.sm_w-1x3.p-12.my-12(v-if="work.printed && Number(work.printed) < Number(work.editions)")
+            img.max-w-full.opacity-25.cursor-pointer(src="/inspos.gif", alt="NFT preview", @click="mintMachine", style="width:256px")
+            .mt-12 ???
+          //- printed...
+          template(v-if="work.printed")
+            li.w-1x2.sm_w-1x3.p-12.my-12(v-for="n in Number(work.printed)")
+              nft-machine(:no="n")
+                a(:href="ganImgURL(n)", target="_blank")
+                  img.max-w-full(:src="ganImgURL(n)")
 </template>
