@@ -93,7 +93,8 @@ article.company.flex.flex-wrap
       label.w-full.text-14.font-sans(for="ens-subdomain-input") ENS Subdomain
       input.w-full.text-center.font-sans.border.border-medgray.bg-black.text-white.h-32(v-model="subdomain", id="ens-subdomain-input", name="ENS subdomain", placeholder="intern")
 
-      .mt-4.font-sans.text-12.text-medgray(v-if="subdomain.length") {{subdomain}}.{{ensDomain}}
+      .mt-4.font-sans.text-12.text-medgray
+        | {{subdomain.length ? subdomain : 'intern' }}.{{ensDomain}}
 
       .mt-16.text-center
         button
