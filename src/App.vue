@@ -103,7 +103,7 @@ html{
 }
 
 .type-blockquote{
-  @apply text-21 text-center my-20 mx-auto leading-none;
+  @apply text-24 text-center mx-auto leading-none;
   width: 85%;
 }
 cite{
