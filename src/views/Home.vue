@@ -43,6 +43,7 @@ article.home.flex.flex-wrap
     p <a class="underline" href="http://simondenny.net/" target="_blank" rel="noopener noreferrer"><b>Simon Denny</b></a> has had exhibitions at Moma PS1 (NY), the Serpentine (London), the Hammer Museum (LA),  the Venice Biennale and has co-curated art and crypto exhibitions Proof of Work (2018) at Schinkel Pavillon and Proof of Stake (2021) at Kunstverein Hamburg.
 
     hr.my-12
+    //- TODO link cosmo...?
     p <b>Cosmographia</b> is a text-to-image AI company founded in 2021.
 </template>
 
