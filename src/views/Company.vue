@@ -17,6 +17,7 @@ const ensDomain = isPetsDotCom ? 'petsdotcom.eth' : company.name.split('.')[0] +
 const subdomain = ref('')
 
 const guileImgURL = '/art/' + route.params.company + '/guile.jpg'
+const originalLogoNotFound = ref(false)
 
 const getOwner = () => {
   store.dispatch('getNFTOwner', company.id)
@@ -55,8 +56,11 @@ article.company.flex.flex-wrap
           .w-full.sm_w-1x3.mb-20
             h5.font-bold.mb-12 {{ company.years.split('–')[0] }} Logo
             .px-6
-              a(:href="`/art/${company.name}/_original.png`", target="_blank")
-                img.block.mx-auto(style="height:200px", :src="`/art/${company.name}/_original.png`")
+              template(v-if="!originalLogoNotFound")
+                a(:href="`/art/${company.name}/_original.png`", target="_blank")
+                  img.block.mx-auto(style="height:200px", :src="`/art/${company.name}/_original.png`", @error="originalLogoNotFound = true")
+              template(v-else)
+                span.text-darkgray.text-14 Unknown
           //- (cosmic inspo)
           .w-full.sm_w-1x3.mb-20(v-if="!isPetsDotCom")
             h5.font-bold.mb-12 Cosmic Inspiration
