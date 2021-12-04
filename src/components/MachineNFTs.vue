@@ -45,7 +45,7 @@ section#machines.machine-nfts.grooved-cell.lg_mx-28(v-intersect, @intersect="!wo
 
     .mt-12
       button(@click="mintMachine", :disabled="isSoldOut")
-        btn.px-24 Mint
+        btn.px-24 Mint Cosmic Logo
 
     .mt-24
       template(v-if="work.printed === undefined")
