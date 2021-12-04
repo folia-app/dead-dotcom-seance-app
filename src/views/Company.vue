@@ -76,7 +76,7 @@ article.company.flex.flex-wrap
   aside#ens-registration.grooved-cell.w-full.lg_w-1x4.lg_ml-3
     h4.my-16.text-18.font-avara.font-bold.text-yellow ENS Registration
 
-    p Any <b>{{ company.name }}</b> logo owner can register a subdomain on the company's <a class="font-bold text-yellow underline" :href="`https://app.ens.domains/name/${ensDomain}`" target="_blank" rel="noopener noreferrer">{{ ensDomain }}</a> ENS&nbsp;domain.
+    p Any logo owner can register a subdomain on the company's <a class="font-bold text-yellow underline" :href="`https://app.ens.domains/name/${ensDomain}`" target="_blank" rel="noopener noreferrer">{{ ensDomain }}</a> ENS&nbsp;domain.
 
     form.mt-24(@submit.prevent, validate)
       label.w-full.text-14.font-sans(for="ens-subdomain-input") ENS Subdomain
