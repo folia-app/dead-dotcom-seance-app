@@ -21,7 +21,7 @@ store.dispatch('init')
     .grooved-cell.mb-3.relative.flex.flex-col-reverse
       //- presents...
       .absolute.top-0.left-0.p-8.opacity-80.text-12.md_text-14
-        <i><a class="underline" href="https://folia.app" target="_blank">folia</a> presents</i>
+        <a class="italic" href="https://folia.app" target="_blank"><span class="underline">folia</span> presents</a>
 
       //- logo row
       div
