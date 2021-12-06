@@ -30,8 +30,12 @@ store.dispatch('init')
             svg-logo-mobile.block.sm_hidden.w-full
             svg-logo.hidden.sm_block.w-full
         //- tagline
-        .text-center.py-28.text-13.md_text-16.opacity-80
-          i Guile Twardowski #[span.px-6.sm_px-12 • ]Simon Denny #[span.px-6.sm_px-12 • ]Cosmographia
+        .italic.flex.w-full.justify-evenly.flex-wrap.sm_justify-center.py-28.text-13.md_text-16.opacity-80
+          .px-6 Guile Twardowski
+          span.px-6.hidden.sm_inline-block •
+          .px-6 Simon Denny
+          span.px-6.hidden.sm_inline-block •
+          .px-6 Cosmographia
 
       //-
       .w-full.flex.justify-end.mb-2

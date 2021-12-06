@@ -52,12 +52,12 @@ const mintMachine = () => {
 <template lang="pug">
 .grooved-cell.mb-3(v-intersect="0.01", @intersect="onVisible")
   .flex.justify-center
-    .relative.text-medgray.text-11
+    .relative.text-medgray.text-10.sm_text-11
       //- guile
       figure
         router-link(:to="`/` + company.name")
           img.block.mx-auto(style="max-width:100%", :src="`/art/${company.name}/guile.jpg`", :alt="`${company.name} logo`")
-        figcaption.mt-4.text-right Guile Twardowski Logo
+        figcaption.mt-4.text-right <b>Guile Twardowski</b> Logo
 
       //- (pulsing gan overlay)
       template(v-if="!isPetsDotCom")
@@ -96,7 +96,7 @@ const mintMachine = () => {
           <br>0.1 ETH
       //- mint buile btn
       button(:disabled="ceo", :class="{'opacity-30': ceo}", @click="mintGuile")
-        btn.px-16 Mint the Guile Logo ({{ ceo ? '1' : '0' }}/1)<br>1 ETH
+        btn.px-16 Mint the Twardowski Logo ({{ ceo ? '1' : '0' }}/1)<br>1 ETH
 
   .flex.mt-24.justify-center
     router-link(:to="`/` + company.name")
