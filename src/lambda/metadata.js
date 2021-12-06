@@ -36,13 +36,13 @@ exports.handler = async function (event, context) {
 
     // find company
     const companyId = isMachineSet ? editionId : printId
-    const company = companies.find(co => co.id.toString() === companyId)
+    const company = companies.find(co => co.id.toString() === companyId.toString())
 
     // !! company doesn't exist
     if (!company) {
       return {
         statusCode: 404,
-        body: JSON.stringify({ message: 'Not found.' })
+        body: JSON.stringify({ message: 'Company not found.', companyId, networkId })
       }
     }
 
