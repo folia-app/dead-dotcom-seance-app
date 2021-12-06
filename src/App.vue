@@ -32,9 +32,9 @@ store.dispatch('init')
         //- tagline
         .italic.flex.w-full.justify-evenly.flex-wrap.sm_justify-center.py-28.text-13.md_text-16.opacity-80
           .px-6 Guile Twardowski
-          span.px-6.hidden.sm_inline-block •
+          span.px-10.hidden.sm_inline-block •
           .px-6 Simon Denny
-          span.px-6.hidden.sm_inline-block •
+          span.px-10.hidden.sm_inline-block •
           .px-6 Cosmographia
 
       //-

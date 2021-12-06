@@ -41,11 +41,11 @@ onMounted(async () => {
 section#ens-registration
   h4.my-16.text-18.font-avara.font-bold.text-yellow ENS Registration
 
-  p A subdomain on the company's <a class="font-bold text-yellow underline" :href="`https://app.ens.domains/name/${ensDomain}`" target="_blank" rel="noopener noreferrer">{{ ensDomain }}</a> ENS&nbsp;domain can be claimed by each logo owner.
+  p Each logo owner can claim a subdomain on the company's <a class="font-bold text-yellow underline" :href="`https://app.ens.domains/name/${ensDomain}`" target="_blank" rel="noopener noreferrer">{{ ensDomain }}</a> ENS&nbsp;domain.
 
   form.mt-24(@submit.prevent="submit", validate)
     //- name input
-    label.w-full.text-14.font-sans(for="ens-subdomain-input") ENS Subdomain
+    label.w-full.text-14.font-sans(for="ens-subdomain-input") Subdomain
     input.w-full.text-center.font-sans.border.border-medgray.bg-black.text-white.h-32(v-model="subdomain", id="ens-subdomain-input", name="ENS subdomain", placeholder="intern", required)
 
     .mt-4.font-sans.text-12.text-medgray
