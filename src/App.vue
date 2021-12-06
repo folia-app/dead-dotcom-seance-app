@@ -60,10 +60,14 @@ store.dispatch('init')
     nav.lg_flex.w-full.lg_w-1x5.pr-3(:class="{'hidden': !mobileMenu}")
       .grooved-cell.w-full
         h4.my-16.text-18.font-avara.font-bold The Summoned
-        ul.companies-menu.text-16.text-blue.mb-20
+        ul.companies-menu.text-16.mb-20
           //- links...
           li(v-for="com in companies")
-            router-link.notouch_hover_text-red(:to="`/` + com.name") {{ com.name.split(".")[0] }}.com
+            router-link.notouch_hover_text-red.text-blue(:to="`/` + com.name")
+              | {{ com.name }}
+            template(v-if="com.name === 'pets.com'")
+              br
+              | ~
 
       //- h4.mt-28.text-18.font-avara.font-bold Pet Cemetery
         ul.companies-menu.text-16.text-blue.mb-20

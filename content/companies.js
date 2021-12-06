@@ -2,8 +2,8 @@ export default [
   {
     id: 0,
     name: 'pets.com',
-    years: '????-????',
-    description: '< description... >',
+    years: '1998–2000',
+    description: 'A website that sold pet-related supplies to retail customers.<br><br>Twardowski summoned the pet purgatory to bring their most loved mascot back to life. Unlike the other invocations, <b>pets.com</b> is a single spirit, destined to live forever alone. As such, this resurrected entity will be auctioned on <b>OpenSea</b>.',
     auctionLink: 'https://opensea.io'
   },
   {

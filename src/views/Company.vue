@@ -44,7 +44,7 @@ article.company.flex.flex-wrap
             | {{ company.years }}
             template(v-if="guileOwner") , 2021-
 
-          p.px-12.mt-24 {{ company.description }}
+          p.px-12.mt-24(v-html="company.description")
 
           .mt-24
             | CEO<br>
