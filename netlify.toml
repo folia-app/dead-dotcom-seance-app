@@ -1,3 +1,10 @@
+[build]
+  functions = "functions"
+
+[[redirects]]
+  from = "/v1/metadata/*"
+  to = "/.netlify/functions/metadata/:splat"
+  
 [[redirects]]
   from = "/*"
   to = "/index.html"

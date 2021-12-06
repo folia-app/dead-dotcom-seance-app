@@ -5,7 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "postbuild": "yarn lambda:build",
+    "lint": "vue-cli-service lint",
+    "lambda": "netlify-lambda serve src/lambda",
+    "lambda:build": "netlify-lambda build src/lambda"
   },
   "dependencies": {
     "@walletconnect/web3-provider": "^1.6.6",
@@ -34,6 +37,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^7.0.0",
     "lint-staged": "^9.5.0",
+    "netlify-lambda": "^2.0.15",
     "postcss": "^7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "vue-cli-plugin-pug": "~2.0.0"
