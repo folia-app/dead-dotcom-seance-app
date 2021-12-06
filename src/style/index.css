@@ -31,3 +31,7 @@
        url('/fonts/hyperscrypt/HyperScrypt-Stencil_web.woff') format('woff');
   font-style: normal;
 }
+
+.overlay{
+  @apply h-full w-full top-0 left-0;
+}

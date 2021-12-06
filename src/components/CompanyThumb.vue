@@ -54,12 +54,20 @@ const mintMachine = () => {
   .flex.justify-center
     div
       router-link(:to="`/` + company.name")
-        img.block.mx-auto(style="max-width:100%", :src="`/art/${company.name}/guile.jpg`", :alt="`${company.name} logo`")
-      .mt-4.opacity-30.text-10.text-right Logo-NFT by Guile Twardowski
+        .relative.text-medgray.text-11
+          //- guile
+          figure
+            img.block.mx-auto(style="max-width:100%", :src="`/art/${company.name}/guile.jpg`", :alt="`${company.name} logo`")
+            figcaption.mt-4.text-right Guile Twardowski Logo
+
+          //- pulsing gan overlay
+          figure.absolute.overlay.animate-pulse0
+            img.w-full(:src="`/art/${company.name}/inspo.png`")
+            figcaption.mt-4.text-left.bg-black Inspired <b>Cosmic Logo</b> by Cosmographia
 
   h3.sr-only.mt-24.font-bold.text-24 {{ company.name }}
 
-  div.mt-24.mb-20.text-16
+  div.mt-32.mb-20.text-16
     //- description
     div(v-html="company.description")
     //- years
@@ -81,14 +89,14 @@ const mintMachine = () => {
 
     //- default com
     template(v-else)
-      //- mint buile btn
-      button(:disabled="ceo", :class="{'opacity-30': ceo}", @click="mintGuile")
-        btn.px-16 Mint Guile Logo ({{ ceo ? '1' : '0' }}/1)<br>1 ETH
       //- mint machine btn
       button(:disabled="isSoldOutMachines", :class="{'opacity-30': isSoldOutMachines}", @click="mintMachine")
         btn.px-16
-          | Mint Cosmic Logo ({{ work.printed || '...' }}/{{ work.editions || '...' }})
+          | Mint Random Cosmic Logo ({{ work.printed || '...' }}/{{ work.editions || '...' }})
           <br>0.1 ETH
+      //- mint buile btn
+      button(:disabled="ceo", :class="{'opacity-30': ceo}", @click="mintGuile")
+        btn.px-16 Mint the Guile Logo ({{ ceo ? '1' : '0' }}/1)<br>1 ETH
 
   .flex.mt-24.justify-center
     router-link(:to="`/` + company.name")
