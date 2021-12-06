@@ -7,14 +7,13 @@ import Btn from '@/components/Btn'
 import NftGuile from '@/components/NFTGuile'
 import MachineNfts from '@/components/MachineNFTs'
 import ArtistBios from '@/components/ArtistBios'
+import EnsRegistration from '@/components/EnsRegistration'
 
 const route = useRoute()
 const guileOwner = ref()
 
 const company = list.find(com => com.name === route.params.company)
 const isPetsDotCom = company.name === 'pets.com'
-const ensDomain = isPetsDotCom ? 'petsdotcom.eth' : company.name.split('.')[0] + '.eth'
-const subdomain = ref('')
 
 const guileImgURL = '/art/' + route.params.company + '/guile.jpg'
 const originalLogoNotFound = ref(false)
@@ -84,21 +83,8 @@ article.company.flex.flex-wrap
         artist-bios
 
   //- right column
-  aside#ens-registration.grooved-cell.w-full.lg_w-1x4.lg_ml-3
-    h4.my-16.text-18.font-avara.font-bold.text-yellow ENS Registration
-
-    p Any logo owner can register a subdomain on the company's <a class="font-bold text-yellow underline" :href="`https://app.ens.domains/name/${ensDomain}`" target="_blank" rel="noopener noreferrer">{{ ensDomain }}</a> ENS&nbsp;domain.
-
-    form.mt-24(@submit.prevent, validate)
-      label.w-full.text-14.font-sans(for="ens-subdomain-input") ENS Subdomain
-      input.w-full.text-center.font-sans.border.border-medgray.bg-black.text-white.h-32(v-model="subdomain", id="ens-subdomain-input", name="ENS subdomain", placeholder="intern")
-
-      .mt-4.font-sans.text-12.text-medgray
-        | {{subdomain.length ? subdomain : 'intern' }}.{{ensDomain}}
-
-      .mt-16.text-center
-        button
-          btn.px-24 Register
+  aside.grooved-cell.w-full.lg_w-1x4.lg_ml-3
+    ens-registration
 
   //- (artist bios mobile)
   .grooved-cell.w-full.mt-3.lg_hidden

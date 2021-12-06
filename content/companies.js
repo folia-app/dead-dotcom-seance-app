@@ -1,127 +1,127 @@
 export default [
   {
-    id: 0,
+    id: 1,
     name: 'pets.com',
     years: '1998–2000',
     description: 'A website that sold pet-related supplies to retail customers.<br><br>Twardowski summoned the pet purgatory to bring their most loved mascot back to life. Unlike the other invocations, <b>pets.com</b> is a single spirit, destined to live forever alone. As such, this resurrected entity will be auctioned on <b>OpenSea</b>.',
     auctionLink: 'https://opensea.io'
   },
   {
-    id: 1,
+    id: 2,
     name: 'alladvantage.com',
     years: '1999–2001',
     description: 'Facilitated person-to-person cash transfers, via credit card and mail-out cheque.'
   },
   {
-    id: 2,
+    id: 3,
     name: 'bidland.com',
     years: '1999–2001',
     description: 'A service provider enabling websites to run auctions.'
   },
   {
-    id: 3,
+    id: 4,
     name: 'bizbuyer.com',
     years: '1998–2001',
     description: 'A website which listed contract jobs for businesses to bid on.'
   },
   {
-    id: 4,
+    id: 5,
     name: 'capacityweb.com',
     years: '2000–2001',
     description: 'A platform that facilitated the leasing of manufacturing companies’ production downtime.'
   },
   {
-    id: 5,
+    id: 6,
     name: 'cashwars.com',
     years: '1999–2001',
     description: 'A free online role playing game which awarded winners money.'
   },
   {
-    id: 6,
+    id: 7,
     name: 'ecircles.com',
     years: '1998–2001',
     description: 'An image sharing social network allowing users to share photos to friends in closed groups.'
   },
   {
-    id: 7,
+    id: 8,
     name: 'efanshop.com',
     years: '1999–2001',
     description: 'A company that managed logistics and technology for sports web shops.'
   },
   {
-    id: 8,
+    id: 9,
     name: 'ehobbies.com',
     years: '1999–2001',
     description: 'A website selling hobbyist products and equipment.'
   },
   {
-    id: 9,
+    id: 10,
     name: 'elaw.com',
     years: '2000–2001',
     description: 'A searchable database of downloadable legal documents for lawyers.'
   },
   {
-    id: 10,
+    id: 11,
     name: 'exchangepath.com',
     years: '1997–2001',
     description: 'A website facilitating person-to-person money transfers via credit card and mail-out cheque.'
   },
   {
-    id: 11,
+    id: 12,
     name: 'financialprinter.com',
     years: '1999–2001',
     description: 'A website that produced and distributed financial and legal documents for companies'
   },
   {
-    id: 12,
+    id: 13,
     name: 'funbug.com',
     years: '1999–2001',
     description: 'A game platform that allowed users to earn and spend a proprietary private currency that could be converted to fiat.'
   },
   {
-    id: 13,
+    id: 14,
     name: 'heavenlydoor.com',
     years: '2000–2001',
     description: 'A directory website for burial-related businesses.'
   },
   {
-    id: 14,
+    id: 15,
     name: 'iharvest.com',
     years: '1997–2001',
     description: 'A personal internet archive service that enabled users to save and store static copies of webpages.'
   },
   {
-    id: 15,
+    id: 16,
     name: 'misterswap.com',
     years: '2000–2001',
     description: 'A platform where users could arrange mail swaps and bartering of CDs and DVDs of music, video games and videos.'
   },
   {
-    id: 16,
+    id: 17,
     name: 'netmorf.com',
     years: '1998–2001',
     description: 'A software platform that pushed desktop web content to contemporary mobile devices.'
   },
   {
-    id: 17,
+    id: 18,
     name: 'popularpower.com',
     years: '2000–2001',
     description: 'An online marketplace that enabled users to pool the processing power of their computers to form a distributed computing network.'
   },
   {
-    id: 18,
+    id: 19,
     name: 'stickynetworks.com',
     years: '1999–2000',
     description: 'A platform that allowed users to paste pop-up messages on any website.'
   },
   {
-    id: 19,
+    id: 20,
     name: 'thirdvoice.com',
     years: '1999–2001',
-    description: 'A 2001 company that lets you put virtual sticky notes on websites and read other users\' notes all over the web.'
+    description: 'A platform that allowed users to leave virtual sticky notes on any website.'
   },
   {
-    id: 20,
+    id: 21,
     name: 'wingspanbank.com',
     years: '1999–2001',
     description: 'An early internet-only bank which charged no fees to users.'

@@ -14,6 +14,9 @@ provide('tokenId', tokenId)
 <template lang="pug">
 nft.machine-nft(@owner="o => { owner = o }")
   slot
-  .mt-12.text-12.lg_text-14 {{ $store.getters.addrShort(owner) }}
+  .mt-12.text-12.lg_text-14
+    | {{ '#' + tokenId }}
+    br
+    | {{ $store.getters.addrShort(owner) }}
 
 </template>

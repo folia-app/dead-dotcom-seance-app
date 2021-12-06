@@ -1185,7 +1185,14 @@
   resolved "https://registry.yarnpkg.com/@ethersproject/logger/-/logger-5.5.0.tgz#0c2caebeff98e10aefa5aef27d7441c7fd18cf5d"
   integrity sha512-rIY/6WPm7T8n3qS2vuHTUBPdXHl+rGxWxW5okDfo9J4Z0+gRRZT0msvUdIJkE4/HS29GUMziwGaaKO2bWONBrg==
 
-"@ethersproject/networks@5.5.0", "@ethersproject/networks@^5.5.0":
+"@ethersproject/networks@5.5.1":
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/@ethersproject/networks/-/networks-5.5.1.tgz#b7f7b9fb88dec1ea48f739b7fb9621311aa8ce6c"
+  integrity sha512-tYRDM4zZtSUcKnD4UMuAlj7SeXH/k5WC4SP2u1Pn57++JdXHkRu2zwNkgNogZoxHzhm9Q6qqurDBVptHOsW49Q==
+  dependencies:
+    "@ethersproject/logger" "^5.5.0"
+
+"@ethersproject/networks@^5.5.0":
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/@ethersproject/networks/-/networks-5.5.0.tgz#babec47cab892c51f8dd652ce7f2e3e14283981a"
   integrity sha512-KWfP3xOnJeF89Uf/FCJdV1a2aDJe5XTN2N52p4fcQ34QhDqQFkgQKZ39VGtiqUgHcLI8DfT0l9azC3KFTunqtA==
@@ -1207,10 +1214,10 @@
   dependencies:
     "@ethersproject/logger" "^5.5.0"
 
-"@ethersproject/providers@5.5.0":
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/@ethersproject/providers/-/providers-5.5.0.tgz#bc2876a8fe5e0053ed9828b1f3767ae46e43758b"
-  integrity sha512-xqMbDnS/FPy+J/9mBLKddzyLLAQFjrVff5g00efqxPzcAwXiR+SiCGVy6eJ5iAIirBOATjx7QLhDNPGV+AEQsw==
+"@ethersproject/providers@5.5.1":
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/@ethersproject/providers/-/providers-5.5.1.tgz#ba87e3c93219bbd2e2edf8b369873aee774abf04"
+  integrity sha512-2zdD5sltACDWhjUE12Kucg2PcgM6V2q9JMyVvObtVGnzJu+QSmibbP+BHQyLWZUBfLApx2942+7DC5D+n4wBQQ==
   dependencies:
     "@ethersproject/abstract-provider" "^5.5.0"
     "@ethersproject/abstract-signer" "^5.5.0"
@@ -1335,7 +1342,18 @@
     "@ethersproject/transactions" "^5.5.0"
     "@ethersproject/wordlists" "^5.5.0"
 
-"@ethersproject/web@5.5.0", "@ethersproject/web@^5.5.0":
+"@ethersproject/web@5.5.1":
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/@ethersproject/web/-/web-5.5.1.tgz#cfcc4a074a6936c657878ac58917a61341681316"
+  integrity sha512-olvLvc1CB12sREc1ROPSHTdFCdvMh0J5GSJYiQg2D0hdD4QmJDy8QYDb1CvoqD/bF1c++aeKv2sR5uduuG9dQg==
+  dependencies:
+    "@ethersproject/base64" "^5.5.0"
+    "@ethersproject/bytes" "^5.5.0"
+    "@ethersproject/logger" "^5.5.0"
+    "@ethersproject/properties" "^5.5.0"
+    "@ethersproject/strings" "^5.5.0"
+
+"@ethersproject/web@^5.5.0":
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/@ethersproject/web/-/web-5.5.0.tgz#0e5bb21a2b58fb4960a705bfc6522a6acf461e28"
   integrity sha512-BEgY0eL5oH4mAo37TNYVrFeHsIXLRxggCRG/ksRIxI2X5uj5IsjGmcNiRN/VirQOlBxcUhCgHhaDLG4m6XAVoA==
@@ -5344,9 +5362,9 @@ ethereumjs-vm@^2.3.4:
     safe-buffer "^5.1.1"
 
 ethers@^5.0.19:
-  version "5.5.1"
-  resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.5.1.tgz#d3259a95a42557844aa543906c537106c0406fbf"
-  integrity sha512-RodEvUFZI+EmFcE6bwkuJqpCYHazdzeR1nMzg+YWQSmQEsNtfl1KHGfp/FWZYl48bI/g7cgBeP2IlPthjiVngw==
+  version "5.5.2"
+  resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.5.2.tgz#cd2e508c7342c44fa70392f722e8de8f2416489f"
+  integrity sha512-EF5W+6Wwcu6BqVwpgmyR5U2+L4c1FQzlM/02dkZOugN3KF0cG9bzHZP+TDJglmPm2/IzCEJDT7KBxzayk7SAHw==
   dependencies:
     "@ethersproject/abi" "5.5.0"
     "@ethersproject/abstract-provider" "5.5.1"
@@ -5363,10 +5381,10 @@ ethers@^5.0.19:
     "@ethersproject/json-wallets" "5.5.0"
     "@ethersproject/keccak256" "5.5.0"
     "@ethersproject/logger" "5.5.0"
-    "@ethersproject/networks" "5.5.0"
+    "@ethersproject/networks" "5.5.1"
     "@ethersproject/pbkdf2" "5.5.0"
     "@ethersproject/properties" "5.5.0"
-    "@ethersproject/providers" "5.5.0"
+    "@ethersproject/providers" "5.5.1"
     "@ethersproject/random" "5.5.0"
     "@ethersproject/rlp" "5.5.0"
     "@ethersproject/sha2" "5.5.0"
@@ -5376,7 +5394,7 @@ ethers@^5.0.19:
     "@ethersproject/transactions" "5.5.0"
     "@ethersproject/units" "5.5.0"
     "@ethersproject/wallet" "5.5.0"
-    "@ethersproject/web" "5.5.0"
+    "@ethersproject/web" "5.5.1"
     "@ethersproject/wordlists" "5.5.0"
 
 ethjs-unit@0.1.6:
@@ -5831,9 +5849,9 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
-"folia-contracts@github:folia-app/folia-contracts#d39d6604eb4f08394759551e8402c2b4895cce74":
+"folia-contracts@github:folia-app/folia-contracts#7f604339687a4d697a798a38a90c634ff8f0fe65":
   version "1.0.0"
-  resolved "https://codeload.github.com/folia-app/folia-contracts/tar.gz/d39d6604eb4f08394759551e8402c2b4895cce74"
+  resolved "https://codeload.github.com/folia-app/folia-contracts/tar.gz/7f604339687a4d697a798a38a90c634ff8f0fe65"
   dependencies:
     ethers "^5.0.19"
     openzeppelin-solidity "2.1.3"
@@ -8927,7 +8945,7 @@ picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.3:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.0.tgz#f1f061de8f6a4bf022892e2d128234fb98302972"
   integrity sha512-lY1Q/PiJGC2zOv/z391WOTD+Z02bCgsFfvxoXXf6h7kv9o+WmsmzYqrAwY63sNgOxE4xEdq0WyUnXfKeBrSvYw==
 
-pify@^2.0.0, pify@^2.3.0:
+pify@^2.0.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
   integrity sha1-7RQaasBDqEnqWISY59yosVMw6Qw=
@@ -9085,15 +9103,6 @@ postcss-functions@^3:
     object-assign "^4.1.1"
     postcss "^6.0.9"
     postcss-value-parser "^3.3.0"
-
-postcss-import@^14.0.2:
-  version "14.0.2"
-  resolved "https://registry.yarnpkg.com/postcss-import/-/postcss-import-14.0.2.tgz#60eff77e6be92e7b67fe469ec797d9424cae1aa1"
-  integrity sha512-BJ2pVK4KhUyMcqjuKs9RijV5tatNzNa73e/32aBVE/ejYPe37iH+6vAu9WvqUkB5OAYgLHzbSvzHnorybJCm9g==
-  dependencies:
-    postcss-value-parser "^4.0.0"
-    read-cache "^1.0.0"
-    resolve "^1.1.7"
 
 postcss-js@^2:
   version "2.0.3"
@@ -9383,7 +9392,7 @@ postcss-value-parser@^3.0.0, postcss-value-parser@^3.3.0:
   resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-3.3.1.tgz#9ff822547e2893213cf1c30efa51ac5fd1ba8281"
   integrity sha512-pISE66AbVkp4fDQ7VHBwRNXzAAKJjw4Vw7nWI/+Q3vuly7SNfgYXvm6i5IgFylHGK5sP/xHAbB7N49OS4gWNyQ==
 
-postcss-value-parser@^4.0.0, postcss-value-parser@^4.0.2, postcss-value-parser@^4.1.0:
+postcss-value-parser@^4.0.2, postcss-value-parser@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-4.1.0.tgz#443f6a20ced6481a2bda4fa8532a6e55d789a2cb"
   integrity sha512-97DXOFbQJhk71ne5/Mt6cOu6yxsSfM0QGQyl0L25Gca4yGWEGJaig7l7gbCX623VqTBNGLRLaVUCnNkcedlRSQ==
@@ -9847,13 +9856,6 @@ react@^16.8.6:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
 
-read-cache@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/read-cache/-/read-cache-1.0.0.tgz#e664ef31161166c9751cdbe8dbcf86b5fb58f774"
-  integrity sha1-5mTvMRYRZsl1HNvo28+GtftY93Q=
-  dependencies:
-    pify "^2.3.0"
-
 read-pkg@^5.1.1:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/read-pkg/-/read-pkg-5.2.0.tgz#7bf295438ca5a33e56cd30e053b34ee7250c93cc"
@@ -10103,7 +10105,7 @@ resolve-url@^0.2.1:
   resolved "https://registry.yarnpkg.com/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
   integrity sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
 
-resolve@^1.1.7, resolve@^1.10.0, resolve@^1.10.1, resolve@^1.12.0, resolve@^1.13.1, resolve@^1.14.2, resolve@^1.15.1, resolve@^1.20.0:
+resolve@^1.10.0, resolve@^1.10.1, resolve@^1.12.0, resolve@^1.13.1, resolve@^1.14.2, resolve@^1.15.1, resolve@^1.20.0:
   version "1.20.0"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.20.0.tgz#629a013fb3f70755d6f0b7935cc1c2c5378b1975"
   integrity sha512-wENBPt4ySzg4ybFQW2TT1zMQucPK95HSh/nq2CFTZVOGut2+pQvSsgtda4d26YrYcr067wjbmzOG8byDPBX63A==

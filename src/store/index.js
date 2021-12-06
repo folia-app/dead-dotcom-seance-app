@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 // contracts
 import DeadDotComSeance from 'folia-contracts/build/contracts/DeadDotComSeance.json'
 import DeadDotComSeanceController from 'folia-contracts/build/contracts/DeadDotComSeanceController.json'
+import { SubdomainRegistrar } from '../../contracts'
 // import ReserveAuction from 'folia-contracts/build/contracts/ReserveAuction.json'
 // web3
 import Web3 from 'web3'
@@ -51,6 +52,7 @@ export default createStore({
 
     nftContract: null,
     controllerContract: null,
+    registrarContract: null,
     // reserveAuctionContract: null,
 
     works: [],
@@ -105,7 +107,7 @@ export default createStore({
   },
   mutations: {
     SIGN_IN (state, address) {
-      state.address = address
+      state.address = address.toLowerCase()
     },
     SIGN_OUT (state) {
       state.address = null
@@ -140,6 +142,12 @@ export default createStore({
         DeadDotComSeanceController.networks[networkId].address
       )
       console.log('controller addr', DeadDotComSeanceController.networks[networkId].address)
+      // registrar
+      state.registrarContract = new web3.eth.Contract(
+        SubdomainRegistrar.abi,
+        SubdomainRegistrar.networks[networkId].address
+      )
+      console.log('registrar addr', SubdomainRegistrar.networks[networkId].address)
     }
   },
   actions: {
@@ -402,13 +410,28 @@ export default createStore({
         // get new data...
         if (!state.nftContract) await dispatch('init')
         owner = await state.nftContract.methods.ownerOf(tokenId).call()
-        commit('SAVE_TOKEN', [tokenId, owner])
+        if (owner) {
+          owner = owner.toLowerCase()
+          commit('SAVE_TOKEN', [tokenId, owner])
+        }
         return owner
       } catch (e) {
         // seems to error if token doesn't exist...
-        // console.warn("get owner error / token doesn't exist?", tokenId, e)
+        console.warn("get owner error / token doesn't exist?", tokenId, e)
         return null
       }
+    },
+
+    // ENS registration
+    async registerENSSubdomain ({ state, dispatch }, { name, tokenId }) {
+      return state.registrarContract.methods
+        .registerSubdomain(name, tokenId)
+        .send({ from: state.address })
+    },
+
+    async getSubdomainEvents ({ state, dispatch }) {
+      if (!state.registrarContract) await dispatch('init')
+      return state.registrarContract.getPastEvents('allEvents', { fromBlock: 0 }) //, { fromBlock: 0 })
     }
   }
 })

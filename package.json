@@ -10,7 +10,7 @@
   "dependencies": {
     "@walletconnect/web3-provider": "^1.6.6",
     "core-js": "^3.6.5",
-    "folia-contracts": "github:folia-app/folia-contracts#d39d6604eb4f08394759551e8402c2b4895cce74",
+    "folia-contracts": "github:folia-app/folia-contracts#7f604339687a4d697a798a38a90c634ff8f0fe65",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0",
