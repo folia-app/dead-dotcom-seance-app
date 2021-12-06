@@ -52,18 +52,18 @@ const mintMachine = () => {
 <template lang="pug">
 .grooved-cell.mb-3(v-intersect="0.01", @intersect="onVisible")
   .flex.justify-center
-    div
-      router-link(:to="`/` + company.name")
-        .relative.text-medgray.text-11
-          //- guile
-          figure
-            img.block.mx-auto(style="max-width:100%", :src="`/art/${company.name}/guile.jpg`", :alt="`${company.name} logo`")
-            figcaption.mt-4.text-right Guile Twardowski Logo
+    .relative.text-medgray.text-11
+      //- guile
+      figure
+        router-link(:to="`/` + company.name")
+          img.block.mx-auto(style="max-width:100%", :src="`/art/${company.name}/guile.jpg`", :alt="`${company.name} logo`")
+        figcaption.mt-4.text-right Guile Twardowski Logo
 
-          //- pulsing gan overlay
-          figure.absolute.overlay.animate-pulse0
-            img.w-full(:src="`/art/${company.name}/inspo.png`")
-            figcaption.mt-4.text-left.bg-black Inspired <b>Cosmic Logo</b> by Cosmographia
+      //- (pulsing gan overlay)
+      template(v-if="!isPetsDotCom")
+        figure.absolute.overlay.animate-pulse0.pointer-events-none
+          img.w-full(:src="`/art/${company.name}/inspo.png`")
+          figcaption.mt-4.text-left.bg-black Inspired <b>Cosmic Logo</b> by Cosmographia
 
   h3.sr-only.mt-24.font-bold.text-24 {{ company.name }}
 
