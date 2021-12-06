@@ -12,5 +12,5 @@ p <a class="underline" href="http://simondenny.net/" target="_blank" rel="noopen
 
 hr.my-12
 //- TODO link cosmo...?
-p <b>Cosmographia</b> is a text-to-image AI company founded in 2021.
+p <a class="font-bold underline" href="https://twitter.com/thecosmographia" target="_blank" rel="noopener noreferrer">Cosmographia</a> is a new experimental AI image group founded in 2021.
 </template>
