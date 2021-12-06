@@ -31,7 +31,7 @@ const onVisible = () => {
 }
 
 const mintGuile = () => {
-  store.dispatch('mintGuile', { companyId: props.company.id })
+  store.dispatch('mintGuile', props.company.id)
     .then(receipt => {
       console.log('tx', receipt)
       getWork(true)

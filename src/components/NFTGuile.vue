@@ -64,5 +64,5 @@ section#guile.grooved-cell.lg_mx-28
       template(v-else)
         button(@click="mintGuile", :disabled="props.owner")
           btn.px-24
-            | Mint Guile Logo
+            | Mint Twardowski Logo
 </template>

@@ -269,13 +269,11 @@ export default createStore({
 
     async mintGuile ({ state, dispatch, rootGetters }, companyId) {
       try {
-        const workId = 0 // all guiles are first work set
-        const editionId = companyId
-        // const workId = Math.floor(tokenId / 1000000)
-        // const workSpace = workId * 1000000
-        // const editionId = tokenId - workSpace
+        const workId = 0 // all guiles are first work set (ID: 0)
+        const printId = companyId
 
         const work = await dispatch('getWork', { id: 0, flush: true })
+
         // !! unavailable
         if (!work.exists) throw new Error(`!! Edition ${workId} doesn't exist`)
         // !! paused
@@ -294,7 +292,7 @@ export default createStore({
 
         // buy
         return state.controllerContract.methods
-          .buyByID(state.address, workId, editionId)
+          .buyByID(state.address, workId, printId)
           .send({ from: state.address, value: work.price })
         // refresh work data for app
         // dispatch('getWork', { id: workId, flush: true })

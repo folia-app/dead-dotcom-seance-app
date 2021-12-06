@@ -15,7 +15,9 @@ provide('tokenId', tokenId)
 nft.machine-nft(@owner="o => { owner = o }")
   slot
   .mt-12.text-12.lg_text-14
-    .text-lightgray.font-sans.mb-2 {{ '#' + tokenId }}
+    //- open sea link / ID
+    div
+      a.text-lightgray.font-sans.mb-2(:href="$store.getters.openSeaLink({ token: tokenId })", target="_blank", rel="noopener noreferrer") {{ '#' + tokenId }}
     | {{ $store.getters.addrShort(owner) }}
 
 </template>
