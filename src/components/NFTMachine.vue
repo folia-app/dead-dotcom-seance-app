@@ -15,8 +15,7 @@ provide('tokenId', tokenId)
 nft.machine-nft(@owner="o => { owner = o }")
   slot
   .mt-12.text-12.lg_text-14
-    | {{ '#' + tokenId }}
-    br
+    .text-lightgray.font-sans.mb-2 {{ '#' + tokenId }}
     | {{ $store.getters.addrShort(owner) }}
 
 </template>

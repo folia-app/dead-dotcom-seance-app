@@ -34,7 +34,8 @@ section#guile.grooved-cell.lg_mx-28
 
     .grooved-cellff.mt-16.mx-24
       .p-12
-        h6.text-17.font-bold.mt-8 {{ props.company.name }}
+        .mt-8.text-lightgray.font-sans.mb-2 {{ '#' + company.id }}
+        h6.text-17.font-bold {{ props.company.name }}
         .mb-16 2021
         //- description
         | Logo redesigned by <b>Guile Twardowski</b>
