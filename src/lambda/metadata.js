@@ -27,6 +27,9 @@ exports.handler = async function (event, context) {
     const tokenId = event.path.substr(event.path.lastIndexOf('/') + 1) // 1,2... 201,202,...
     const isMachineSet = tokenId >= 100
 
+    const isViewer = event.queryStringParameters.viewer === '1'
+    const ignoreIsOwned = isViewer
+
     // _work ID in contract
     const editionId = isMachineSet ? Math.floor(tokenId / 100) // machines (1, 2...)
       : 0 // guiles (0)
@@ -53,17 +56,6 @@ exports.handler = async function (event, context) {
 
     // machine?
     if (isMachineSet) {
-      // check if machine minted...
-      const owner = await getNFTOwnerByTokenId(tokenId)
-
-      // !! not yet minted (stay hidden)
-      if (!owner) {
-        return {
-          statusCode: 200,
-          body: JSON.stringify({ message: 'Hidden until minted.', networkId })
-        }
-      }
-
       // get image
       const printId = tokenId - (editionId * 100) // 201 -> 1
       let image = machines[company.name][printId - 1]
@@ -74,6 +66,17 @@ exports.handler = async function (event, context) {
         }
       }
       image = `https://ipfs.io/ipfs/${image[1]}`
+
+      // check if machine minted...
+      const owner = await getNFTOwnerByTokenId(tokenId)
+
+      // !! not yet minted (stay hidden)
+      if (!owner) {
+        return {
+          statusCode: 200,
+          body: JSON.stringify({ message: 'Hidden until minted.', networkId })
+        }
+      }
 
       // Machine meta...
       meta = {

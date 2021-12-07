@@ -65,13 +65,14 @@ const mintMachine = () => {
           img.w-full(:src="`/art/${company.name}/inspo.png`")
           figcaption.mt-4.text-left.bg-black Inspired <b>Cosmic Logo</b> by Cosmographia
 
-  h3.sr-only.mt-24.font-bold.text-24 {{ company.name }}
+  h3.mt-28.font-bold.text-20 {{ company.name }}
+  //- years
+  .mt-4 {{ company.years }}
 
-  div.mt-32.mb-20.text-16
+  div.mt-16.mb-20.text-16
     //- description
-    div(v-html="company.description")
-    //- years
-    .mt-20 {{ company.years }}
+    div.sm_px-12(v-html="company.description")
+
     //- ceo
     .mt-20
       span CEO<br>
