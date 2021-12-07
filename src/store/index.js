@@ -1,9 +1,8 @@
 import { createStore } from 'vuex'
 // contracts
-import DeadDotComSeance from 'folia-contracts/build/contracts/DeadDotComSeance.json'
-import DeadDotComSeanceController from 'folia-contracts/build/contracts/DeadDotComSeanceController.json'
-import { SubdomainRegistrar } from '../../contracts'
-// import ReserveAuction from 'folia-contracts/build/contracts/ReserveAuction.json'
+import DeadDotComSeance from '../../contracts/DeadDotComSeance.js'
+import DeadDotComSeanceController from '../../contracts/DeadDotComSeanceController.js'
+import SubdomainRegistrar from '../../contracts/SubdomainRegistrar.js'
 // web3
 import Web3 from 'web3'
 import Web3Modal from 'web3modal'

@@ -27,14 +27,12 @@ exports.handler = async function (event, context) {
     const tokenId = event.path.substr(event.path.lastIndexOf('/') + 1) // 1,2... 201,202,...
     const isMachineSet = tokenId >= 100
 
+    // _work ID in contract
     const editionId = isMachineSet ? Math.floor(tokenId / 100) // machines (1, 2...)
       : 0 // guiles (0)
 
-    // const isViewer = event.queryStringParameters.viewer === '1'
-    // const ignoreIsOwned = isViewer
-
     // find company
-    const companyId = isMachineSet ? editionId : printId
+    const companyId = isMachineSet ? editionId : tokenId
     const company = companies.find(co => co.id.toString() === companyId.toString())
 
     // !! company doesn't exist

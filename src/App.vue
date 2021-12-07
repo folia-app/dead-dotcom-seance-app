@@ -1,8 +1,6 @@
 <script setup>
 import '@/style/index.css'
 import { ref } from 'vue'
-import SvgLogo from '@/components/SvgLogo1'
-import SvgLogoMobile from '@/components/SvgLogo1Mobile'
 import Btn from '@/components/Btn'
 import list from '../content/companies.js'
 import store from '@/store'
@@ -10,6 +8,12 @@ import store from '@/store'
 const companies = list
 
 const mobileMenu = ref(false)
+const winW = ref(window.innerWidth)
+window.addEventListener('resize', () => {
+  if (window.innerWidth !== winW.value) {
+    winW.value = window.innerWidth
+  }
+})
 
 store.dispatch('init')
 </script>
@@ -27,8 +31,10 @@ store.dispatch('init')
       div
         .w-full.md_w-11x12.mx-auto.px-2.mt-20.md_mt-0
           router-link.logo-pulse.block.w-full.px-12.sm_mx-auto(to="/")
-            svg-logo-mobile.block.sm_hidden.w-full
-            svg-logo.hidden.sm_block.w-full
+            //- (mobile logo)
+            img.block.sm_hidden.w-full(v-if="winW < 640", src="~@/assets/dotcom-seance-logo-1-mobile.svg", alt="Dotcom Séance")
+            //- (logo)
+            img.hidden.sm_block.w-full(v-else, src="~@/assets/dotcom-seance-logo-1.svg", alt="Dotcom Séance")
         //- tagline
         .italic.flex.w-full.justify-evenly.flex-wrap.sm_justify-center.py-28.text-13.md_text-16.opacity-80
           .px-6 Guile Twardowski
