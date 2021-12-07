@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 // contracts
-import DeadDotComSeance from 'folia-contracts/build/contracts/DeadDotComSeance.json'
+import DeadDotComSeance from '../../contracts/DeadDotComSeance.js'
 import DeadDotComSeanceController from 'folia-contracts/build/contracts/DeadDotComSeanceController.json'
 import { SubdomainRegistrar } from '../../contracts'
 // import ReserveAuction from 'folia-contracts/build/contracts/ReserveAuction.json'
