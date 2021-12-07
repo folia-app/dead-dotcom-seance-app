@@ -88,7 +88,7 @@ exports.handler = async function (event, context) {
 
         properties: {
           dotcom: company.name,
-          medium: 'Guile Twardowski'
+          medium: 'Cosmographia'
         },
 
         ...meta
