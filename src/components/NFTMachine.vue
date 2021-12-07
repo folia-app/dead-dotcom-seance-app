@@ -13,7 +13,10 @@ provide('tokenId', tokenId)
 
 <template lang="pug">
 nft.machine-nft(@owner="o => { owner = o }")
-  slot
+  a.text-lightgray.font-sans.mb-2(:href="$store.getters.openSeaLink({ token: tokenId })", target="_blank", rel="noopener noreferrer")
+    //- image
+    slot
+  //- caption
   .mt-12.text-12.lg_text-14
     //- open sea link / ID
     div
