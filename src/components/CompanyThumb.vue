@@ -76,10 +76,13 @@ const mintMachine = () => {
     //- description
     div.sm_px-12(v-html="company.description")
 
+    //- (auction info)
+    div.mt-14.px-6(v-if="company.auctionInfo", v-html="company.auctionInfo")
+
     //- ceo
     .mt-20
       span CEO<br>
-      template(v-if="ceo")
+      template(v-if="ceo && ceo !== '0xaf2ce0962d1a4b1aab10f7faa62bbbca40a8ea53'")
         a.underline(:href="$store.getters.openSeaLink({ account: ceo })", target="_blank", rel="noopener noreferrer")
           | {{ $store.getters.addrShort(ceo) }}
       template(v-else-if="ceo !== undefined") ???

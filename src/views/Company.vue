@@ -14,7 +14,7 @@ const guileOwner = ref()
 
 const company = list.find(com => com.name === route.params.company)
 const isPetsDotCom = company.name === 'pets.com'
-const staff = ref([])
+const registrations = ref([])
 
 const guileImgURL = '/art/' + route.params.company + '/guile.jpg'
 const originalLogoNotFound = ref(false)
@@ -44,7 +44,7 @@ article.company.flex.flex-wrap
           h2.font-bold.text-28 {{ company.name }}
           p
             | {{ company.years }}
-            template(v-if="guileOwner") , 2021-
+            //- template(v-if="guileOwner") , 2021-
 
           p.px-12.mt-24(v-html="company.description")
 
@@ -76,9 +76,9 @@ article.company.flex.flex-wrap
               a(:href="guileImgURL", target="_blank")
                 img.block.mx-auto(style="height:200px", :src="guileImgURL")
 
-        nft-guile.mt-64(:company="company", :owner="guileOwner", @mint="getOwner")
+        nft-guile.mt-64(:company="company", :owner="guileOwner", @mint="getOwner", :regis="registrations.find(regis => regis.tokenId === company.id.toString())")
 
-        machine-nfts.mt-36(v-if='!isPetsDotCom')
+        machine-nfts.mt-36(v-if='!isPetsDotCom', :registrations="registrations")
 
     //- (artist bios laptop)
     .grooved-cell.mt-3.w-full.hidden.lg_block
@@ -87,7 +87,7 @@ article.company.flex.flex-wrap
 
   //- right column
   aside.grooved-cell.w-full.lg_w-1x4.lg_ml-3
-    ens-registration
+    ens-registration(@current="curr => { registrations = curr }")
 
   //- (artist bios mobile)
   .grooved-cell.w-full.mt-3.lg_hidden

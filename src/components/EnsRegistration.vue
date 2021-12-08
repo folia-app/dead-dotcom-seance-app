@@ -1,7 +1,9 @@
 <script setup>
-import { ref, inject, onMounted } from 'vue'
+import { ref, inject, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import Btn from '@/components/Btn'
 import store from '@/store'
+const route = useRoute()
 const emit = defineEmits(['registrations'])
 
 const company = inject('company')
@@ -11,6 +13,13 @@ const ensDomain = isPetsDotCom ? 'petsdotcom.eth' : company.name.split('.')[0] +
 // inputs
 const subdomain = ref('')
 const tokenId = ref(isPetsDotCom ? 1 : '')
+
+// update input on route ?prefill
+watch(route, (to) => {
+  if (to.query.prefill) {
+    tokenId.value = to.query.prefill
+  }
+})
 
 const currentRegis = ref([])
 const formerRegis = ref([])
@@ -34,7 +43,7 @@ const getRegistrations = async () => {
     })
     currentRegis.value = current
     formerRegis.value = former
-    emit('registrations', { current, former })
+    emit('current', current)
   } catch (e) {
     console.error(e)
   }
@@ -88,8 +97,8 @@ section#ens-registration
         btn.px-24 Register
 
   //- list registrations
-  template(v-for="list in [['Current', currentRegis], ['Former', formerRegis]]")
-    section(v-if="list[1].length", :class="{'opacity-50': list[0] === 'Former'}")
+  template(v-for="list in [['Active', currentRegis], ['Retired', formerRegis]]")
+    section(v-if="list[1].length", :class="{'opacity-50': list[0] === 'Retired'}")
       //- hr.mt-40
       h4.mt-48.mb-12.text-17.font-avara.font-bold {{ list[0] }}
       ul
@@ -97,7 +106,7 @@ section#ens-registration
           li.flex.justify-between.lg_flex-wrap.mb-4
             //- name
             .w-1x3.lg_w-auto.font-sans.text-darkgray.mr-12.text-left
-              | {{ '#' + regis.tokenId }}
+              | {{ '#' + regis.tokenId }} #[span.text-10(v-if="regis.tokenId === company.id.toString()") CEO]
             //- tokenID
             .w-1x3.lg_w-full.lg_order-first
               a.text-yellow.font-bold.notouch_hover_underline(:href="`https://app.ens.domains/name/${regis.subdomain}.${regis.domain}.eth`", target="_blank", rel="noopener noreferrer")

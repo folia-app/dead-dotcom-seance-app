@@ -4,6 +4,9 @@ import store from '@/store'
 import Btn from '@/components/Btn'
 import NftMachine from '@/components/NFTMachine'
 
+const props = defineProps({
+  registrations: { type: Array, default: () => ([]) }
+})
 const company = inject('company')
 
 const minted = ref()
@@ -68,6 +71,6 @@ section#machines.machine-nfts.grooved-cell.lg_mx-28(v-intersect, @intersect="onV
           //- printed...
           template(v-if="minted")
             li.w-1x2.sm_w-1x3.p-12.my-12(v-for="(hash, i) in minted")
-              nft-machine(:no="i + 1")
+              nft-machine(:no="i + 1", :registration="props.registrations.find(regis => regis.tokenId === (company.id * 100 + i + 1).toString())")
                 img.max-w-full(:src="ganImgURL(hash)")
 </template>

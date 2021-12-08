@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import Btn from '@/components/Btn'
 import store from '@/store'
 
-const props = defineProps(['company', 'owner'])
+const props = defineProps(['company', 'owner', 'regis'])
 const emit = defineEmits(['mint'])
 
 const guileImgURL = '/art/' + props.company.name + '/guile.jpg'
@@ -44,7 +44,7 @@ section#guile.grooved-cell.lg_mx-28
           | <i>~ Without any cosmic inspiration ~</i>
           br
           br
-          | For auction on...
+          div(v-html="company.auctionInfo")
 
         template(v-else)
           | inspired by a logo summoned by
@@ -52,14 +52,34 @@ section#guile.grooved-cell.lg_mx-28
           | Cosmographia's text-to-image AI<br>
           br
           | Minted {{ props.owner ? '1' : '0' }}/1
-          br
-          | 1 ETH
+
+          template(v-if="!props.owner")
+            br
+            | 1 ETH
+
+        //- owner? (not folia deployer)
+        template(v-if="props.owner && props.owner !== '0xaf2ce0962d1a4b1aab10f7faa62bbbca40a8ea53'")
+          .font-sans.text-darkgray.text-13.mt-14 Owner/CEO
+          a.font-bold.text-16.mt-2.underline(:href="$store.getters.openSeaLink({ account: props.owner })", target="_blank", rel="noopener noreferrer")
+            | {{ props.owner === store.state.address ? 'You' : $store.getters.addrShort(props.owner) }}
+
+          //- regis?
+          template(v-if="regis")
+            .font-sans.text-darkgray.text-13.mt-14 ENS
+            a.font-bold.text-16.mt-2.text-yellow.underline(:href="`https://app.ens.domains/name/${regis.subdomain}.${regis.domain}.eth`", target="_blank", rel="noopener noreferrer")
+              | {{ regis.subdomain }}
 
     .mt-12.flex.justify-center.w-full
+      //- (register)
+      template(v-if="props.owner === store.state.address")
+        router-link(:to="{hash: '#ens-registration', query: { prefill: props.company.id }}")
+          btn.px-24 {{ regis ? 'Change' : 'Register' }} ENS
+
       //- (auction link)
-      template(v-if="isPetsDotCom")
+      template(v-else-if="isPetsDotCom")
         a(:href="props.company.auctionLink", target="_blank", rel="noopener noreferrer")
           btn.px-24 Bid on OpenSea »
+
       //- (mint btn)
       template(v-else)
         button(@click="mintGuile", :disabled="props.owner")
