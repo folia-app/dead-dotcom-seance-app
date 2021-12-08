@@ -2,6 +2,7 @@
 import { ref, inject, onMounted } from 'vue'
 import Btn from '@/components/Btn'
 import store from '@/store'
+const emit = defineEmits(['registrations'])
 
 const company = inject('company')
 const isPetsDotCom = company.name === 'pets.com'
@@ -10,6 +11,34 @@ const ensDomain = isPetsDotCom ? 'petsdotcom.eth' : company.name.split('.')[0] +
 // inputs
 const subdomain = ref('')
 const tokenId = ref(isPetsDotCom ? 1 : '')
+
+const currentRegis = ref([])
+const formerRegis = ref([])
+
+const getRegistrations = async () => {
+  try {
+    let events = (await store.dispatch('getSubdomainEvents')).reverse()
+    // filter by company...
+    events = events.filter(({ returnValues }) => {
+      return returnValues.domain === company?.name.split('.')[0] || (isPetsDotCom && returnValues.domain === 'petsdotcom')
+    })
+
+    const current = []
+    const former = []
+    events.forEach(({ returnValues }) => {
+      if (!current.find(event => event.tokenId === returnValues.tokenId)) {
+        current.push(returnValues)
+      } else {
+        former.push(returnValues)
+      }
+    })
+    currentRegis.value = current
+    formerRegis.value = former
+    emit('registrations', { current, former })
+  } catch (e) {
+    console.error(e)
+  }
+}
 
 const submit = async () => {
   try {
@@ -26,15 +55,14 @@ const submit = async () => {
     const tx = await store.dispatch('registerENSSubdomain', { name: subdomain.value, tokenId: tokenId.value })
 
     console.log(tx)
+    getRegistrations()
   } catch (e) {
     console.error(e)
     alert(e.message)
   }
 }
 
-onMounted(async () => {
-  console.log('eventss', await store.dispatch('getSubdomainEvents'))
-})
+onMounted(() => getRegistrations())
 </script>
 
 <template lang="pug">
@@ -58,4 +86,25 @@ section#ens-registration
     .mt-16.text-center
       button
         btn.px-24 Register
+
+  //- list registrations
+  template(v-for="list in [['Current', currentRegis], ['Former', formerRegis]]")
+    section(v-if="list[1].length", :class="{'opacity-50': list[0] === 'Former'}")
+      //- hr.mt-40
+      h4.mt-48.mb-12.text-17.font-avara.font-bold {{ list[0] }}
+      ul
+        template(v-for="regis in list[1]")
+          li.flex.justify-between.lg_flex-wrap.mb-4
+            //- name
+            .w-1x3.lg_w-auto.font-sans.text-darkgray.mr-12.text-left
+              | {{ '#' + regis.tokenId }}
+            //- tokenID
+            .w-1x3.lg_w-full.lg_order-first
+              a.text-yellow.font-bold.notouch_hover_underline(:href="`https://app.ens.domains/name/${regis.subdomain}.${regis.domain}.eth`", target="_blank", rel="noopener noreferrer")
+                | {{ regis.subdomain }}
+            //- owner
+            .w-1x3.lg_w-auto.font-sans.text-darkgray.ml-12.text-right
+              a.notouch_hover_underline(:href="$store.getters.openSeaLink({ account: regis.tokenOwner })", target="_blank", rel="noopener noreferrer")
+                | {{ $store.getters.addrShort(regis.tokenOwner) }}
+
 </template>

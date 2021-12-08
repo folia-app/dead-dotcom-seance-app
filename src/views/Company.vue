@@ -14,6 +14,7 @@ const guileOwner = ref()
 
 const company = list.find(com => com.name === route.params.company)
 const isPetsDotCom = company.name === 'pets.com'
+const staff = ref([])
 
 const guileImgURL = '/art/' + route.params.company + '/guile.jpg'
 const originalLogoNotFound = ref(false)
@@ -23,6 +24,8 @@ const getOwner = () => {
     .then(o => { guileOwner.value = o })
     .catch(console.error)
 }
+
+// const onENSList = ({ current }) => { staff.value = current }
 
 onBeforeMount(() => getOwner())
 provide('company', company)
