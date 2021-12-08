@@ -1,19 +1,25 @@
 <script setup>
 import '@/style/index.css'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import Btn from '@/components/Btn'
 import list from '../content/companies.js'
 import store from '@/store'
+const route = useRoute()
 
 const companies = list
 
 const mobileMenu = ref(false)
+
+// logo toggle om mobile
 const winW = ref(window.innerWidth)
 window.addEventListener('resize', () => {
   if (window.innerWidth !== winW.value) {
     winW.value = window.innerWidth
   }
 })
+
+watch(route, () => { mobileMenu.value = false })
 
 store.dispatch('init')
 </script>

@@ -47,7 +47,7 @@ section#machines.machine-nfts.grooved-cell.lg_mx-28(v-intersect, @intersect="onV
 
     .mt-24.mx-24
       .p-12
-        | Logos summoned by <b>Cosmographia's</b> text-to-image AI<br>
+        | Logos summoned by <b>Cosmographia's</b> text-to-image AI<br class="hidden sm_inline">
         | based on {{ company.name }}'s description:<br>
         .my-12
           i {{ company.description }}
@@ -73,4 +73,5 @@ section#machines.machine-nfts.grooved-cell.lg_mx-28(v-intersect, @intersect="onV
             li.w-1x2.sm_w-1x3.p-12.my-12(v-for="(hash, i) in minted")
               nft-machine(:no="i + 1", :registration="props.registrations.find(regis => regis.tokenId === (company.id * 100 + i + 1).toString())")
                 img.max-w-full(:src="ganImgURL(hash)")
+
 </template>

@@ -86,7 +86,7 @@ article.company.flex.flex-wrap
         artist-bios
 
   //- right column
-  aside.grooved-cell.w-full.lg_w-1x4.lg_ml-3
+  aside#ens-registration.grooved-cell.w-full.lg_w-1x4.lg_ml-3
     ens-registration(@current="curr => { registrations = curr }")
 
   //- (artist bios mobile)

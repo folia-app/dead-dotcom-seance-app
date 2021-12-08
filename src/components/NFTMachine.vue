@@ -24,7 +24,7 @@ nft.machine-nft(@owner="o => { owner = o }")
       a.text-lightgray.font-sans.mb-2(:href="$store.getters.openSeaLink({ token: tokenId })", target="_blank", rel="noopener noreferrer") {{ '#' + tokenId }}
 
     //- owner
-    a.block.mt-2(:href="$store.getters.openSeaLink({ account: owner })", target="_blank", rel="noopener noreferrer")
+    a.block.mt-1(:href="$store.getters.openSeaLink({ account: owner })", target="_blank", rel="noopener noreferrer")
       span.font-sans.text-darkgray.mr-10.inline-block.lg_block.lg_mb-4 Owner
       span.font-bold
         template(v-if="owner === $store.state.address") You
