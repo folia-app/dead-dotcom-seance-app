@@ -1,17 +1,15 @@
 import companies from '../../content/companies' // works.FLA1000000, ...
 import machines from '../../content/companies-machines'
-import Contract from 'folia-contracts/build/contracts/DeadDotComSeance.json'
+// import Contract from 'folia-contracts/build/contracts/DeadDotComSeance.json'
+import Contract from '../../contracts/DeadDotComSeance.js'
+import SubdomainRegistrar from '../../contracts/SubdomainRegistrar.js'
 // import Web3 from 'web3'
 import Eth from 'web3-eth'
 require('dotenv').config()
 // require('encoding') // netlify build error / missing package??
-// const ignoreRelease = process.env.VUE_APP_DEV_IGNORE_RELEASES === 'true'
-// const ignoreIsOwned = process.env.VUE_APP_DEV_IGNORE_IS_OWNED === 'true'
-
-let foliaContract
 
 // TODO change to MAINNET @ launch
-const networkId = process.env.VUE_APP_NETWORK_FALLBACK_ID
+const fallbackNetworkId = process.env.VUE_APP_NETWORK_FALLBACK_ID
 
 // infura endpoints
 const infura = {
@@ -22,7 +20,8 @@ const infura = {
 // handler
 exports.handler = async function (event, context) {
   try {
-    // const networkId = event.queryStringParameters.network ?? '1' // ?network=4
+    // ?network=4
+    const networkId = event.queryStringParameters.network || fallbackNetworkId
 
     const tokenId = event.path.substr(event.path.lastIndexOf('/') + 1) // 1,2... 201,202,...
     const isMachineSet = tokenId >= 100
@@ -54,8 +53,10 @@ exports.handler = async function (event, context) {
       home_url: appUrl // rarebits
     }
 
-    // machine?
+    // build meta...
     if (isMachineSet) {
+      // machine meta..
+
       // get image
       const printId = tokenId - (editionId * 100) // 201 -> 1
       let image = machines[company.name][printId - 1]
@@ -68,7 +69,7 @@ exports.handler = async function (event, context) {
       image = `https://ipfs.io/ipfs/${image[1]}`
 
       // check if machine minted...
-      const owner = await getNFTOwnerByTokenId(tokenId)
+      const owner = await getNFTOwnerByTokenId(tokenId, networkId)
 
       // !! not yet minted (stay hidden)
       if (!owner) {
@@ -82,7 +83,7 @@ exports.handler = async function (event, context) {
       meta = {
         name: `${company.name} (${company.years}) reimagined by Cosmographia, with Simon Denny and Guile Twardowski`,
 
-        description: `Logo reimagined by Cosmographia's text-to-image machine learning (Diffusion Model) software for **${company.name}** (${company.years}) from the description "${company.description}".\n\n[**Dotcom Seance**](https://dotcomseance.com) is a collection by Simon Denny, Guile Twardowski, and Cosmographia. \n\nPresented by [Folia](https://folia.app).`,
+        description: `Logo reimagined by Cosmographia's text-to-image machine learning (Diffusion Model) software for **${company.name}** (${company.years}) from the description "A logo for a 2001 company named '${company.name}' ${company.description}".\n\n[**Dotcom Seance**](https://dotcomseance.com) is a collection by Simon Denny, Guile Twardowski, and Cosmographia. \n\nPresented by [Folia](https://folia.app).`,
 
         image: image,
         image_url: image,
@@ -118,6 +119,11 @@ exports.handler = async function (event, context) {
         ...meta
       }
     }
+
+    // add ENS subdomain property...
+    const subdomain = await getENSSubdomain(tokenId, networkId)
+    console.log('sub', subdomain)
+    meta.properties.ENS = subdomain
 
     return {
       statusCode: 200,
@@ -170,21 +176,41 @@ exports.handler = async function (event, context) {
 // }
 
 // get token owner (check if token minted...)
-async function getNFTOwnerByTokenId (tokenId) {
+async function getNFTOwnerByTokenId (tokenId, networkId) {
   let owner
   try {
-    // setup contract
-    // const web3 = new Web3(new Web3.providers.HttpProvider(infura[networkId]))
     const eth = new Eth(infura[networkId])
-    foliaContract = new eth.Contract(
+    // setup contract
+    const contract = new eth.Contract(
       Contract.abi,
       Contract.networks[networkId].address
     )
-    owner = await foliaContract.methods.ownerOf(tokenId).call()
+    owner = await contract.methods.ownerOf(tokenId).call()
     return owner
   } catch (e) {
     // will throw error if no owner...
     // console.error(e)
     return null
+  }
+}
+
+async function getENSSubdomain (tokenId, networkId) {
+  try {
+    const eth = new Eth(infura[networkId])
+    const contract = new eth.Contract(
+      SubdomainRegistrar.abi,
+      SubdomainRegistrar.networks[networkId].address
+    )
+    // get all regis events...
+    const events = await contract.getPastEvents('NewSubdomain', { fromBlock: 0 })
+    // find last regis values
+    events.reverse()
+    let lastRegis = events.find(e => e.returnValues.tokenId === tokenId) || {}
+    lastRegis = lastRegis.returnValues || {}
+
+    return lastRegis.subdomain ? `${lastRegis.subdomain}.${lastRegis.domain}.eth` : '-'
+  } catch (e) {
+    console.error('@getENSSubdomain', e)
+    return '-'
   }
 }

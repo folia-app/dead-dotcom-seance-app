@@ -458,7 +458,7 @@ export default createStore({
 
     async getSubdomainEvents ({ state, dispatch }) {
       if (!state.registrarContract) await dispatch('init')
-      return state.registrarContract.getPastEvents('allEvents', { fromBlock: 0 }) //, { fromBlock: 0 })
+      return state.registrarContract.getPastEvents('NewSubdomain', { fromBlock: 0 }) //, { fromBlock: 0 })
     },
 
     getAddressName ({ state, commit, dispatch }, address) {
