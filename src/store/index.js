@@ -232,8 +232,8 @@ export default createStore({
         commit('SET_NETWORK', networkId)
       } catch (e) {
         console.error('@connect', e)
-        // clear in case
-        web3Modal.clearCachedProvider()
+        dispatch('disconnect')
+        throw e
       }
     },
 
@@ -241,6 +241,8 @@ export default createStore({
     disconnect ({ commit }) {
       // clear so they can re-select from scratch
       web3Modal.clearCachedProvider()
+      // manually remove WC so can choose new account
+      localStorage.removeItem('walletconnect')
       // provider.off('accountsChanged')
       // provider.off('disconnect')
       commit('SIGN_OUT')
@@ -439,6 +441,7 @@ export default createStore({
     },
 
     getAddressName ({ state, commit, dispatch }, address) {
+      if (!address) return console.warn('address missing')
       address = address.toLowerCase()
       const reqId = `getName=${address}`
 

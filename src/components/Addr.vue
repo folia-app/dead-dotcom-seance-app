@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import store from '@/store'
 const props = defineProps(['address', 'youOn'])
 const name = ref()
-const isYou = computed(() => props.address.toLowerCase() === store.state.address.toLowerCase())
+const isYou = computed(() => props.address.toLowerCase() === store.state.address?.toLowerCase())
 const onVisible = async () => {
   if (props.youOn && isYou.value) return
   if (!name.value) {
