@@ -50,7 +50,8 @@ module.exports = {
       112: '11.2rem',
       120: '12rem',
       180: '18rem',
-      200: '20rem'
+      200: '20rem',
+      240: '24rem'
     },
     fontSize: {
       10: ['1.0rem'],
@@ -638,8 +639,9 @@ module.exports = {
       disc: 'disc',
       decimal: 'decimal'
     },
-    margin: (theme) => ({
+    margin: (theme, { negative }) => ({
       auto: 'auto',
+      ...negative(theme('spacing')),
       ...theme('spacing')
     }),
     maxHeight: (theme) => ({

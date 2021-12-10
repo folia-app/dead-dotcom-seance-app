@@ -9,8 +9,10 @@ const companies = list
 <template lang="pug">
 article.home.flex.flex-wrap
   section.grooved-cell.flex-1
-    section.px-12.text-16.pt-32
+    section.px-12.text-16.pt-16
       //- div(style="margin:32px auto; width:75px; height:75px; border:1px solid #888; color: #333;font-size:12px") gif
+      .flex.justify-center.mb-12
+        img.block.w-80.transform.translate-x-6(src="~@/assets/gifs/candle1.gif")
 
       p.text-20
         i Join<br><br>Simon Denny<br>Guile Twardowski<br>Cosmographia<br><br>for an on-chain spiritism session<br>to revive ghosts burst in<br>the dot-com bubble.
@@ -21,9 +23,12 @@ article.home.flex.flex-wrap
 
       p Minting <i>any</i> NFT allows you to <b>claim a subdomain</b> on the company's new ENS domain. Owner of the Twardowski logo-NFTs earns the title of CEO on each company's profile&nbsp;page.
 
-      p No candles are needed for this web3 séance of web1 spirits!<br><br>...here, we run on gas.
+      p.relative.z-10 No candles are needed for this web3 séance of web1 spirits!<br><br>...here, we run on gas.
 
-      blockquote.mt-60.type-blockquote.font-hyper
+      .flex.justify-center.-mt-20
+        img.block.w-240.transform.translate-x-6(src="~@/assets/gifs/explosion.webp")
+
+      blockquote.mt-20.type-blockquote.font-hyper
         | Almost every dot-com idea from 1999 that failed will succeed
         br
         cite &ndash;Marc Andreessen&ndash;
