@@ -43,6 +43,7 @@ const web3Modal = new Web3Modal({
 })
 
 let initializing = false
+const requests = {}
 
 export default createStore({
   state: {
@@ -56,7 +57,8 @@ export default createStore({
 
     works: [],
     tokens: [],
-    metadatas: []
+    metadatas: [],
+    names: {}
   },
   getters: {
     weiToETH: () => (wei) => web3?.utils.fromWei(wei) ?? '-',
@@ -147,6 +149,11 @@ export default createStore({
         SubdomainRegistrar.networks[networkId].address
       )
       console.log('registrar addr', SubdomainRegistrar.networks[networkId].address)
+    },
+    SAVE_NAME (state, { address, name }) {
+      const names = { ...state.names }
+      names[address] = name
+      state.names = names
     }
   },
   actions: {
@@ -429,6 +436,60 @@ export default createStore({
     async getSubdomainEvents ({ state, dispatch }) {
       if (!state.registrarContract) await dispatch('init')
       return state.registrarContract.getPastEvents('allEvents', { fromBlock: 0 }) //, { fromBlock: 0 })
+    },
+
+    getAddressName ({ state, commit, dispatch }, address) {
+      address = address.toLowerCase()
+      const reqId = `getName=${address}`
+
+      // saved?
+      if (state.names[address] !== undefined) return state.names[address]
+
+      // request exists?
+      let request = requests[reqId]
+      if (request) {
+        // console.log('waiting on request already sent for ', address)
+        return request
+      }
+
+      // handler
+      const fetchNameFromOpenSea = async (address) => {
+        try {
+          // get!
+          const prefix = state.networkId === 4 ? 'testnets-' : ''
+          let resp = await fetch(`https://${prefix}api.opensea.io/api/v1/account/${address}`)
+
+          // throttled ?
+          if (resp.status === 429) {
+            // wait and try again >:)
+            return new Promise((resolve, reject) => setTimeout(() => {
+              resolve(dispatch('getAddressName', address))
+            }, 1001))
+          }
+
+          resp = await resp.json()
+          const name = resp.data?.user?.username || null
+
+          commit('SAVE_NAME', { address, name })
+          delete requests[reqId]
+
+          return name
+        } catch (e) {
+          console.error('@getAddressOpenSeaName', e)
+          delete requests[reqId]
+          throw e
+        }
+      }
+
+      // setup request
+      request = new Promise((resolve, reject) => {
+        fetchNameFromOpenSea(address).then(resolve).catch(reject)
+      })
+
+      // save request for de-deduping
+      requests[reqId] = request
+
+      return request
     }
   }
 })

@@ -3,6 +3,7 @@ import { ref, inject, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import Btn from '@/components/Btn'
 import store from '@/store'
+import Addr from '@/components/Addr'
 const route = useRoute()
 const emit = defineEmits(['registrations'])
 
@@ -113,7 +114,8 @@ section
                 | {{ regis.subdomain }}
             //- owner
             .w-1x3.lg_w-auto.font-sans.text-darkgray.ml-12.text-right
-              a.notouch_hover_underline(:href="$store.getters.openSeaLink({ account: regis.tokenOwner })", target="_blank", rel="noopener noreferrer")
+              addr.notouch_hover_underline(:address="regis.tokenOwner", :youOn="true")
+              //- a.notouch_hover_underline(:href="$store.getters.openSeaLink({ account: regis.tokenOwner })", target="_blank", rel="noopener noreferrer")
                 | {{ $store.getters.addrShort(regis.tokenOwner) }}
 
 </template>

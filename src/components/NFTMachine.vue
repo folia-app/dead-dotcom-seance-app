@@ -2,18 +2,21 @@
 import { ref, provide, inject } from 'vue'
 import Nft from '@/components/NFT'
 import Btn from '@/components/Btn'
+import Addr from '@/components/Addr'
 
 const props = defineProps(['no', 'registration'])
 const company = inject('company')
 
 const tokenId = company.id.toString() + ('0' + props.no).slice(-2)
-const owner = ref('...')
+const owner = ref()
+
+const onOwnerFound = o => { owner.value = o }
 
 provide('tokenId', tokenId)
 </script>
 
 <template lang="pug">
-nft.machine-nft(@owner="o => { owner = o }")
+nft.machine-nft(@owner="onOwnerFound")
   a.text-lightgray.font-sans.mb-2(:href="$store.getters.openSeaLink({ token: tokenId })", target="_blank", rel="noopener noreferrer")
     //- image
     slot
@@ -26,7 +29,10 @@ nft.machine-nft(@owner="o => { owner = o }")
     //- owner
     a.block.mt-1(:href="$store.getters.openSeaLink({ account: owner })", target="_blank", rel="noopener noreferrer")
       span.font-sans.text-darkgray.mr-10.inline-block.lg_block.lg_mb-4 Owner
-      span.font-bold
+      //-
+      addr.font-bold(v-if="owner", :address="owner", :youOn="true")
+      span.font-bold(v-else) ...
+      //- span.font-bold
         template(v-if="owner === $store.state.address") You
         template(v-else) {{ $store.getters.addrShort(owner) }}
 

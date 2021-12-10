@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import Btn from '@/components/Btn'
+import Addr from '@/components/Addr'
 import store from '@/store'
 
 const props = defineProps(['company'])
@@ -82,8 +83,9 @@ const mintMachine = () => {
     //- ceo
     .mt-20
       span CEO<br>
-      template(v-if="ceo && ceo !== '0xaf2ce0962d1a4b1aab10f7faa62bbbca40a8ea53'")
-        a.underline(:href="$store.getters.openSeaLink({ account: ceo })", target="_blank", rel="noopener noreferrer")
+      template(v-if="ceo && (!isPetsDotCom || ceo !== '0xaf2ce0962d1a4b1aab10f7faa62bbbca40a8ea53')")
+        addr.underline(:address="ceo", :youOn="true")
+        //- a.underline(:href="$store.getters.openSeaLink({ account: ceo })", target="_blank", rel="noopener noreferrer")
           | {{ $store.getters.addrShort(ceo) }}
       template(v-else-if="ceo !== undefined") ???
       template(v-else) &nbsp;

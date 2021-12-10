@@ -8,6 +8,7 @@ import NftGuile from '@/components/NFTGuile'
 import MachineNfts from '@/components/MachineNFTs'
 import ArtistBios from '@/components/ArtistBios'
 import EnsRegistration from '@/components/EnsRegistration'
+import Addr from '@/components/Addr'
 
 const route = useRoute()
 const guileOwner = ref()
@@ -22,7 +23,7 @@ const originalLogoNotFound = ref(false)
 const getOwner = () => {
   store.dispatch('getNFTOwner', company.id)
     .then(o => { guileOwner.value = o })
-    .catch(console.error)
+    // .catch(console.error)
 }
 
 // const onENSList = ({ current }) => { staff.value = current }
@@ -50,7 +51,8 @@ article.company.flex.flex-wrap
 
           .mt-24
             | CEO<br>
-            | {{ guileOwner ? $store.getters.addrShort(guileOwner) : '???' }}
+            addr.underline(v-if="guileOwner", :address="guileOwner", youOn="1")
+            template(v-else) ???
 
         //- logo progression
         .my-56.sm_flex.justify-center.w-full.text-15
@@ -87,7 +89,7 @@ article.company.flex.flex-wrap
 
   //- right column
   aside#ens-registration.grooved-cell.w-full.lg_w-1x4.lg_ml-3
-    ens-registration(@current="curr => { registrations = curr }")
+    ens-registration(@registrations="r => { registrations = r }")
 
   //- (artist bios mobile)
   .grooved-cell.w-full.mt-3.lg_hidden

@@ -20,6 +20,8 @@ app.directive('intersect', {
         // vanilla DOM element
         vnode.el.dispatchEvent(new CustomEvent(eventName)) // , {detail: eventDetail}));
       }
+      // unobserve!
+      // el.observer.unobserve(el)
     }
     // observe!
     el.observer = new IntersectionObserver(onIntersection, { threshold })
