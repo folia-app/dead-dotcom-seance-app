@@ -9,9 +9,9 @@ const companies = list
 <template lang="pug">
 article.home.flex.flex-wrap
   section.grooved-cell.flex-1
-    section.px-12.text-16.pt-16
+    section.px-12.text-16.pt-24
       //- div(style="margin:32px auto; width:75px; height:75px; border:1px solid #888; color: #333;font-size:12px") gif
-      .flex.justify-center.mb-12
+      .flex.justify-center.mb-24
         img.block.w-80.transform.translate-x-6(src="~@/assets/gifs/candle1.gif")
 
       p.text-20
