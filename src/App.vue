@@ -10,6 +10,8 @@ const route = useRoute()
 const companies = list
 
 const mobileMenu = ref(false)
+const fallbackNetwork = process.env.VUE_APP_NETWORK_FALLBACK_ID
+const networkBannerEnabled = !fallbackNetwork || fallbackNetwork === '1'
 
 // logo toggle om mobile
 const winW = ref(window.innerWidth)
@@ -28,6 +30,10 @@ store.dispatch('init')
 .text-15.font-avara.w-full.max-w-breakpoint-xlff.mx-auto.p-8.text-center.leading-normal
 
   header
+    //- network banner
+    .grooved-cell.mb-3.flex.items-center.h-80.justify-center.text-14.text-black.bg-yellow(v-if="networkBannerEnabled && store.state.networkId !== 1")
+      .pt-6.font-bold Switch to Mainnet!
+
     .grooved-cell.mb-3.relative.flex.flex-col-reverse
       //- presents...
       .absolute.top-0.left-0.p-8.opacity-80.text-12.md_text-14
