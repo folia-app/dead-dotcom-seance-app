@@ -9,7 +9,7 @@ require('dotenv').config()
 // require('encoding') // netlify build error / missing package??
 
 // TODO change to MAINNET @ launch
-const fallbackNetworkId = process.env.VUE_APP_NETWORK_FALLBACK_ID
+const fallbackNetworkId = process.env.VUE_APP_NETWORK_FALLBACK_ID || 1
 
 // infura endpoints
 const infura = {
