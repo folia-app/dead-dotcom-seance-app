@@ -85,12 +85,12 @@ export default createStore({
       const meta = []
       // defaults
       // TODO meta
-      const siteTitle = 'DEAD DOTCOM SÉANCE'
+      const siteTitle = '~ DOTCOM SÉANCE ~'
       const siteDescrip = ''
-      const siteImg = 'https://www.folia.app/folia-logo-twitter-black.png'
+      const siteImg = process.env.VUE_APP_CANONICAL_DOMAIN + '/dotcom-seance-logo.jpg'
       // custom
       title = title ? `${title}` : siteTitle
-      descrip = descrip || siteDescrip
+      descrip = descrip || 'Join Guile Twardowksi, Simon Denny, and Cosmographi for an on-chain spiritism session to revive ghosts burst in the dot-com bubble ~ presented by folia.app'
       img = img || siteImg
       // add
       meta.push({ property: 'og:title', content: title })
@@ -103,7 +103,7 @@ export default createStore({
       meta.push({ name: 'twitter:card', content: 'summary_large_image' })
       meta.push({ name: 'twitter:domain', content: 'folia.app' })
       // meta.push({ property: 'og:url', content: ##ADDCANNONICAL## })
-      return meta
+      return { title, descrip, img, meta }
     }
   },
   mutations: {
@@ -514,6 +514,11 @@ export default createStore({
       requests[reqId] = request
 
       return request
+    },
+
+    updateOpenSeaToken ({ state, getters }, tokenId) {
+      const prefix = state.networkId === 4 ? 'testnets-' : ''
+      return fetch(`https://${prefix}api.opensea.io/api/v1/asset/${getters.contractAddr}/${tokenId}/?force_update=true`)
     }
   }
 })

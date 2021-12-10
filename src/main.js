@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import store from './store'
 import router from './router'
+import { createMetaManager } from 'vue-meta'
 
 const app = createApp(App)
 
@@ -32,4 +33,8 @@ app.directive('intersect', {
   // }
 })
 
-app.use(router).use(store).mount('#app')
+app
+  .use(router)
+  .use(store)
+  .use(createMetaManager())
+  .mount('#app')

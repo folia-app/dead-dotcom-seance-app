@@ -62,10 +62,14 @@ const submit = async () => {
       throw new Error(`Logo #${tokenId.value} is not in your wallet: ${store.state.address}`)
     }
 
+    // submit tx...
     const tx = await store.dispatch('registerENSSubdomain', { name: subdomain.value, tokenId: tokenId.value })
 
+    // after tx
     console.log(tx)
     getRegistrations()
+    // refresh opensea metadata
+    store.dispatch('updateOpenSeaToken', tokenId.value)
   } catch (e) {
     console.error(e)
     alert(e.message)
