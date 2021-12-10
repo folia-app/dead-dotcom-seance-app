@@ -5,7 +5,7 @@ import Btn from '@/components/Btn'
 import store from '@/store'
 import Addr from '@/components/Addr'
 const route = useRoute()
-const emit = defineEmits(['registrations'])
+const emit = defineEmits(['current'])
 
 const company = inject('company')
 const isPetsDotCom = company.name === 'pets.com'

@@ -275,15 +275,31 @@ export default createStore({
       })
     },
 
+    async getContractPaused ({ state, commit, dispatch }) {
+      try {
+        if (!state.controllerContract) await dispatch('init')
+        return state.controllerContract.methods.paused().call()
+      } catch (e) {
+        console.error('getContractPaused', e)
+      }
+    },
+
     async mintGuile ({ state, dispatch, rootGetters }, companyId) {
       try {
         const workId = 0 // all guiles are first work set (ID: 0)
         const printId = companyId
 
+        // check if contract is paused
+        const contractPaused = await dispatch('getContractPaused')
+        if (contractPaused) {
+          throw new Error('!! All minting is paused. Please wait for release.')
+        }
+
+        // get work, then validate
         const work = await dispatch('getWork', { id: 0, flush: true })
 
         // !! unavailable
-        if (!work.exists) throw new Error(`!! Edition ${workId} doesn't exist`)
+        if (!work || !work.exists) throw new Error(`!! Edition ${workId} doesn't exist`)
         // !! paused
         if (work.paused) throw new Error(`!! Edition ${workId} is locked. Please wait for release or try again shortly.`)
 
@@ -318,6 +334,11 @@ export default createStore({
     /* buy machine artwork by companey id */
     async mintMachine ({ state, dispatch }, companyId) {
       try {
+        const contractPaused = await dispatch('getContractPaused')
+        if (contractPaused) {
+          throw new Error('!! All minting is paused. Please wait for unlock or try again shortly.')
+        }
+
         const work = await dispatch('getWork', { id: companyId, flush: true })
         // !! unavailable
         if (!work || !work.exists) throw new Error(`!! Company ${companyId} doesn't exist`)

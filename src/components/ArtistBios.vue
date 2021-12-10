@@ -8,7 +8,7 @@ p <a class="underline" href="http://www.guile.work" target="_blank" rel="noopene
 
 hr.my-12
 
-p <a class="underline" href="http://simondenny.net/" target="_blank" rel="noopener noreferrer"><b>Simon Denny</b></a> has had exhibitions at Moma PS1 (NY), the Serpentine (London), the Hammer Museum (LA),  the Venice Biennale and has co-curated art and crypto exhibitions Proof of Work (2018) at Schinkel Pavillon and Proof of Stake (2021) at Kunstverein Hamburg.
+p <a class="underline" href="http://simondenny.net/" target="_blank" rel="noopener noreferrer"><b>Simon Denny</b></a> has had exhibitions at MoMA PS1 (NY), the Serpentine (London), the Hammer Museum (LA),  the Venice Biennale and has co-curated art and crypto exhibitions <i>Proof of Work</i> (2018) at Schinkel Pavillon and <i>Proof of Stake</i> (2021) at Kunstverein Hamburg.
 
 hr.my-12
 //- TODO link cosmo...?

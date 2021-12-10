@@ -59,7 +59,7 @@ section#machines.machine-nfts.grooved-cell.lg_mx-28(v-intersect, @intersect="onV
         btn.px-24 Mint Cosmic Logo
 
     .mt-24
-      template(v-if="minted === undefined")
+      div.animate-pulse(v-if="minted === undefined")
         | Loading minted...
 
       template(v-else)

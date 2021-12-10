@@ -44,7 +44,7 @@ article.company.flex.flex-wrap
         header.text-16.mt-40.lg_mt-32
           h2.font-bold.text-28 {{ company.name }}
           p
-            | {{ company.years }}
+            | {{ company.years.replace('-', '–') }}
             //- template(v-if="guileOwner") , 2021-
 
           p.px-12.mt-24(v-html="company.description")
@@ -89,7 +89,7 @@ article.company.flex.flex-wrap
 
   //- right column
   aside#ens-registration.grooved-cell.w-full.lg_w-1x4.lg_ml-3
-    ens-registration(@registrations="r => { registrations = r }")
+    ens-registration(@current="r => { registrations = r }")
 
   //- (artist bios mobile)
   .grooved-cell.w-full.mt-3.lg_hidden

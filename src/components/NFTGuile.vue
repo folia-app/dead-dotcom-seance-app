@@ -35,7 +35,9 @@ section#guile.grooved-cell.lg_mx-28
 
     .grooved-cellff.mt-16.mx-24
       .p-12
+        //- id
         .mt-8.text-lightgray.font-sans.mb-2 {{ '#' + company.id }}
+        //- name
         h6.text-17.font-bold {{ props.company.name }}
         .mb-16 2021
         //- description
@@ -59,21 +61,21 @@ section#guile.grooved-cell.lg_mx-28
             | 1 ETH
 
         //- owner? (not folia deployer)
-        template(v-if="props.owner && props.owner !== '0xaf2ce0962d1a4b1aab10f7faa62bbbca40a8ea53'")
+        template(v-if="props.owner && (!isPetsDotCom || props.owner !== '0xaf2ce0962d1a4b1aab10f7faa62bbbca40a8ea53')")
           .font-sans.text-darkgray.text-13.mt-14 Owner/CEO
-          addr(:address="props.owner", :youOn="true")
-          //- a.font-bold.text-16.mt-2.underline(:href="$store.getters.openSeaLink({ account: props.owner })", target="_blank", rel="noopener noreferrer")
+          addr.underline.font-bold(:address="props.owner", :youOn="true")
+          //- a.font-bold.mt-2.underline(:href="$store.getters.openSeaLink({ account: props.owner })", target="_blank", rel="noopener noreferrer")
             | {{ props.owner === store.state.address ? 'You' : $store.getters.addrShort(props.owner) }}
 
           //- regis?
           template(v-if="regis")
             .font-sans.text-darkgray.text-13.mt-14 ENS
-            a.font-bold.text-16.mt-2.text-yellow.underline(:href="`https://app.ens.domains/name/${regis.subdomain}.${regis.domain}.eth`", target="_blank", rel="noopener noreferrer")
+            a.font-bold.mt-2.text-yellow.underline(:href="`https://app.ens.domains/name/${regis.subdomain}.${regis.domain}.eth`", target="_blank", rel="noopener noreferrer")
               | {{ regis.subdomain }}
 
     .mt-12.flex.justify-center.w-full
       //- (register)
-      template(v-if="props.owner === store.state.address")
+      template(v-if="props.owner && props.owner === store.state.address")
         router-link(:to="{hash: '#ens-registration', query: { prefill: props.company.id }}")
           btn.px-24 {{ regis ? 'Change' : 'Register' }} ENS
 
