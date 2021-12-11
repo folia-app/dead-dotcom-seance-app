@@ -27,10 +27,6 @@ store.dispatch('init')
 </script>
 
 <template lang="pug">
-metainfo
-  template(v-slot:title="{ content }")
-    | {{ content ? `${content} | ~ FDotcom Séance ~` : `~ FDotcom Séance ~` }}
-
 .text-15.font-avara.w-full.max-w-breakpoint-xlff.mx-auto.p-8.text-center.leading-normal
 
   header
