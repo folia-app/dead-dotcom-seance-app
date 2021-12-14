@@ -98,7 +98,7 @@ exports.handler = async function (event, context) {
     } else {
       // Guile NFT...
 
-      const hash = 'QmPRJdTe5M1xdGmXcfi2t47wqNdkEjsQnCUYyiYHqhRpxs'
+      const hash = 'QmPKNVntZAwX1QUED7ArTvKDeRrJgREaj82GSAuhshG8LB'
       const image = `https://ipfs.io/ipfs/${hash}/${company.name}/guile.jpg`
       const inspoUrl = `https://ipfs.io/ipfs/${hash}/${company.name}/inspo.png`
 
