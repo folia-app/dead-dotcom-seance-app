@@ -1,6 +1,6 @@
 import companies from '../../content/companies' // works.FLA1000000, ...
 import machines from '../../content/companies-machines'
-import Controller from 'folia-contracts/build/contracts/DeadDotComSeanceController.json'
+import Controller from 'folia-contracts/build/contracts/DotComSeanceController.json'
 // import Web3 from 'web3'
 import Eth from 'web3-eth'
 require('dotenv').config()
@@ -10,7 +10,7 @@ require('encoding') // netlify build error / missing package??
 let ControllerContract
 
 // TODO change to mainnet
-const networkId = process.env.VUE_APP_NETWORK_FALLBACK_ID
+const fallbackNetworkId = process.env.VUE_APP_NETWORK_FALLBACK_ID || 1
 
 // infura endpoints
 const infura = {
@@ -22,6 +22,7 @@ const infura = {
 exports.handler = async function (event, context) {
   try {
     // const networkId = event.queryStringParameters.network ?? '1' // ?network=4
+    const networkId = event.queryStringParameters.network || fallbackNetworkId
     const companyId = event.path.substr(event.path.lastIndexOf('/') + 1) // .../work/1 => 1
 
     const company = companies.find(co => co.id.toString() === companyId.toString()) || {}
@@ -35,14 +36,14 @@ exports.handler = async function (event, context) {
     }
 
     // get work and figure out how many
-    const work = await getWorkFromContract(companyId)
+    const work = await getWorkFromContract(companyId, networkId)
 
     // slice to what's been minted, map to just ipfshash
     const minted = images.slice(0, work.printed).map(row => row[1])
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ editionSize: work.editions, minted })
+      body: JSON.stringify({ editionSize: work.editions, minted, networkId })
     }
 
   // errors...
@@ -57,7 +58,7 @@ exports.handler = async function (event, context) {
 
 // HELPERS
 
-async function getWorkFromContract (workId) {
+async function getWorkFromContract (workId, networkId) {
   let work
   try {
     const eth = new Eth(infura[networkId])

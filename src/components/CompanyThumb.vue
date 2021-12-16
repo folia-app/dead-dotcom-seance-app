@@ -93,7 +93,7 @@ const mintMachine = () => {
   .mt-28.flex.flex-wrap.lg_flex-nowrap.w-full.justify-center.items-center
     //- pets.com
     template(v-if="isPetsDotCom")
-      a(:href="props.company.auctionLink", target="_blank", rel="noopener noreferrer")
+      a(:href="$store.getters.openSeaLink({ token: 1 })", target="_blank", rel="noopener noreferrer")
         btn.px-24 Bid on OpenSea »
 
     //- default com

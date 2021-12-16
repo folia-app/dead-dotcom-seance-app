@@ -13,7 +13,8 @@
   "dependencies": {
     "@walletconnect/web3-provider": "^1.6.6",
     "core-js": "^3.6.5",
-    "folia-contracts": "github:folia-app/folia-contracts#7f604339687a4d697a798a38a90c634ff8f0fe65",
+    "folia-contracts": "github:folia-app/folia-contracts#6ccf9d768f2f04ccdda6cb32afd8ab8563d9e6fa",
+    "subdomain-registrar": "github:folia-app/subdomain-registrar#30e4494e2ed351188d7a14a2c4ee7be0cf50e04f",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0",

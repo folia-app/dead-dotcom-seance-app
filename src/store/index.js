@@ -1,8 +1,8 @@
 import { createStore } from 'vuex'
 // contracts
-import DeadDotComSeance from '../../contracts/DeadDotComSeance.js'
-import DeadDotComSeanceController from '../../contracts/DeadDotComSeanceController.js'
-import SubdomainRegistrar from '../../contracts/SubdomainRegistrar.js'
+import DotComSeance from 'folia-contracts/build/contracts/DotComSeance.json'
+import DotComSeanceController from 'folia-contracts/build/contracts/DotComSeanceController.json'
+import SubdomainRegistrar from 'subdomain-registrar/build/contracts/SubdomainRegistrar.json'
 // web3
 import Web3 from 'web3'
 import Web3Modal from 'web3modal'
@@ -133,16 +133,16 @@ export default createStore({
       // if (!web3) return new Error('web3 not defined')
       // nft
       state.nftContract = new web3.eth.Contract(
-        DeadDotComSeance.abi,
-        DeadDotComSeance.networks[networkId].address
+        DotComSeance.abi,
+        DotComSeance.networks[networkId].address
       )
-      console.log('nft addr', DeadDotComSeance.networks[networkId].address)
+      console.log('nft addr', DotComSeance.networks[networkId].address)
       // controller
       state.controllerContract = new web3.eth.Contract(
-        DeadDotComSeanceController.abi,
-        DeadDotComSeanceController.networks[networkId].address
+        DotComSeanceController.abi,
+        DotComSeanceController.networks[networkId].address
       )
-      console.log('controller addr', DeadDotComSeanceController.networks[networkId].address)
+      console.log('controller addr', DotComSeanceController.networks[networkId].address)
       // registrar
       state.registrarContract = new web3.eth.Contract(
         SubdomainRegistrar.abi,

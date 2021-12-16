@@ -18,6 +18,7 @@ const getMinted = async () => {
   try {
     let resp = await fetch(`/.netlify/functions/machines/${company.id}`)
     resp = await resp.json()
+    console.log(resp)
     minted.value = resp.minted
     editionSize.value = Number(resp.editionSize)
   } catch (e) {
@@ -51,7 +52,7 @@ section#machines.machine-nfts.grooved-cell.lg_mx-28(v-intersect, @intersect="onV
         | based on {{ company.name }}'s description:<br>
         .my-12
           i {{ company.description }}
-        | Minted {{ (minted && minted.length) || '...' }}/{{ editionSize || '...' }}
+        | Minted {{ minted ? minted.length : '...' }}/{{ editionSize || '...' }}
         | <br>0.1 ETH
 
     .mt-12

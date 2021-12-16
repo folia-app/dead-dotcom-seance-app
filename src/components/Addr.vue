@@ -13,7 +13,7 @@ const onVisible = async () => {
 </script>
 
 <template lang="pug">
-a.addr(v-intersect, @intersect="onVisible", :href="$store.getters.addrShort(props.address)", target="_blank", rel="noopener noreferrer")
+a.addr(v-intersect, @intersect="onVisible", :href="$store.getters.openSeaLink({ account: props.address })", target="_blank", rel="noopener noreferrer")
   template(v-if="isYou && props.youOn") You
   template(v-else) {{ name || $store.getters.addrShort(props.address) }}
 </template>
