@@ -86,7 +86,7 @@ section#guile.grooved-cell.lg_mx-28
 
       //- (auction link)
       template(v-else-if="isPetsDotCom")
-        a(:href="props.company.auctionLink", target="_blank", rel="noopener noreferrer")
+        a(:href="$store.getters.openSeaLink({ token: 1 })", target="_blank", rel="noopener noreferrer")
           btn.px-24 Bid on OpenSea »
 
       //- (mint btn)
