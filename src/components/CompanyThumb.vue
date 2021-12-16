@@ -31,20 +31,37 @@ const onVisible = () => {
   getWork()
 }
 
+const guileStatus = ref()
 const mintGuile = () => {
+  guileStatus.value = 'Minting...'
   store.dispatch('mintGuile', props.company.id)
     .then(receipt => {
       console.log('tx', receipt)
+      guileStatus.value = 'Success!'
+      setTimeout(() => { guileStatus.value = null }, 3000)
+      getWork(true)
+      getCEO(true)
+    })
+    .catch(() => {
+      guileStatus.value = null
       getWork(true)
       getCEO(true)
     })
 }
 
+const machineStatus = ref()
 const mintMachine = () => {
+  machineStatus.value = 'Minting...'
   store.dispatch('mintMachine', props.company.id)
     .then(receipt => {
       console.log('tx', receipt)
+      machineStatus.value = 'Success!'
+      setTimeout(() => { machineStatus.value = null }, 3000)
       getWork(true)
+    })
+    .catch(() => {
+      getWork(true)
+      machineStatus.value = null
     })
 }
 
@@ -101,11 +118,16 @@ const mintMachine = () => {
       //- mint machine btn
       button(:disabled="isSoldOutMachines", :class="{'opacity-30': isSoldOutMachines}", @click="mintMachine")
         btn.px-16
-          | Mint Random Cosmic Logo ({{ work.printed || '...' }}/{{ work.editions || '...' }})
-          <br>0.1 ETH
+          template(v-if="machineStatus") {{ machineStatus }}
+          template(v-else)
+            | Mint Random Cosmic Logo ({{ work.printed || '...' }}/{{ work.editions || '...' }})
+            <br>0.1 ETH
       //- mint buile btn
       button(:disabled="ceo", :class="{'opacity-30': ceo}", @click="mintGuile")
-        btn.px-16 Mint the Twardowski Logo ({{ ceo ? '1' : '0' }}/1)<br>1 ETH
+        btn.px-16
+          template(v-if="guileStatus") {{ guileStatus }}
+          template(v-else)
+            | Mint the Twardowski Logo ({{ ceo ? '1' : '0' }}/1)<br>1 ETH
 
   .flex.mt-24.justify-center
     router-link(:to="`/` + company.name")

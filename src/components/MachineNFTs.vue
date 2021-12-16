@@ -27,13 +27,20 @@ const getMinted = async () => {
   }
 }
 
+const status = ref()
+const tx = ref()
 const mintMachine = async () => {
   try {
-    const tx = await store.dispatch('mintMachine', company.id)
-    console.log('tx', tx)
+    status.value = 'Minting...'
+    tx.value = await store.dispatch('mintMachine', company.id)
+    console.log('tx', tx.value)
     getMinted()
+    status.value = 'Success!'
+    setTimeout(() => { status.value = null }, 2000)
   } catch (e) {
     console.error(e)
+    getMinted()
+    status.value = null
   }
 }
 
@@ -57,7 +64,9 @@ section#machines.machine-nfts.grooved-cell.lg_mx-28(v-intersect, @intersect="onV
 
     .mt-12
       button(@click="mintMachine", :disabled="isSoldOut")
-        btn.px-24 Mint Cosmic Logo
+        btn.px-24
+          template(v-if="status") {{ status }}
+          template(v-else) Mint Cosmic Logo
 
     .mt-24
       div.animate-pulse(v-if="minted === undefined")

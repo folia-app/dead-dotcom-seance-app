@@ -36,7 +36,7 @@ const providerOptions = {
 
 // setup web3 modal
 const web3Modal = new Web3Modal({
-  // network: 'rinkeby', // optional
+  // network: fallbackNetworkId === '4' ? 'rinkeby' : null, // optional
   cacheProvider: true, // optional
   providerOptions // required
   // theme: 'dark'
@@ -328,6 +328,7 @@ export default createStore({
         if (e.message?.includes('!! ')) {
           alert(e.message.replace('!! ', ''))
         }
+        throw e
       }
     },
 
@@ -361,6 +362,7 @@ export default createStore({
         if (e.message?.includes('!! ')) {
           alert(e.message.replace('!! ', ''))
         }
+        throw e
       }
     },
 

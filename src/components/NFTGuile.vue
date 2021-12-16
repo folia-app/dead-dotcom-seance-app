@@ -11,13 +11,18 @@ const guileImgURL = '/art/' + props.company.name + '/guile.jpg'
 
 const isPetsDotCom = props.company.name === 'pets.com'
 
+const status = ref()
 const mintGuile = async () => {
   try {
+    status.value = 'Minting...'
     const tx = await store.dispatch('mintGuile', props.company.id)
     console.log(tx)
+    status.value = 'Success!'
+    setTimeout(() => { status.value = null }, 3000)
     emit('mint')
   } catch (e) {
     console.error(e)
+    status.value = null
   }
 }
 </script>
@@ -88,5 +93,6 @@ section#guile.grooved-cell.lg_mx-28
       template(v-else)
         button(@click="mintGuile", :disabled="props.owner")
           btn.px-24
-            | Mint Twardowski Logo
+            template(v-if="status") {{ status }}
+            template(v-else) Mint Twardowski Logo
 </template>
