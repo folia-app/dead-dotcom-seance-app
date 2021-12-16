@@ -36,7 +36,7 @@ const providerOptions = {
 
 // setup web3 modal
 const web3Modal = new Web3Modal({
-  // network: fallbackNetworkId === '4' ? 'rinkeby' : null, // optional
+  network: fallbackNetworkId === '4' ? 'rinkeby' : null, // optional
   cacheProvider: true, // optional
   providerOptions // required
   // theme: 'dark'
