@@ -230,6 +230,7 @@ export default createStore({
         // const chainId = await web3.eth.chainId(); // not a function??
         commit('SIGN_IN', address)
         commit('SET_NETWORK', networkId)
+        commit('SET_CONTRACTS', { web3, networkId })
       } catch (e) {
         console.error('@connect', e)
         dispatch('disconnect')
