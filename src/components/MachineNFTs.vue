@@ -73,6 +73,6 @@ section#machines.machine-nfts.grooved-cell.lg_mx-28(v-intersect, @intersect="onV
           template(v-if="minted")
             li.w-1x2.sm_w-1x3.p-12.my-12(v-for="(hash, i) in minted")
               nft-machine(:no="i + 1", :registration="props.registrations.find(regis => regis.tokenId === (company.id * 100 + i + 1).toString())")
-                img.max-w-full(:src="ganImgURL(hash)")
+                img.absolute.overlay.object-cover.object-center(:src="ganImgURL(hash)")
 
 </template>
