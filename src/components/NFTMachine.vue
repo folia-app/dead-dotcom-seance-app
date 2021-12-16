@@ -30,7 +30,7 @@ nft.machine-nft(@owner="onOwnerFound")
       a.text-lightgray.font-sans.mb-2(:href="$store.getters.openSeaLink({ token: tokenId })", target="_blank", rel="noopener noreferrer") {{ '#' + tokenId }}#[span.text-darkgray.ml-px ↗]
 
     //- owner
-    a.block.mt-1(:href="$store.getters.openSeaLink({ account: owner })", target="_blank", rel="noopener noreferrer")
+    .mt-1
       span.font-sans.text-darkgray.mr-10.inline-block.lg_block.lg_mb-4 Owner
       //-
       addr.font-bold(v-if="owner", :address="owner", :youOn="true")
