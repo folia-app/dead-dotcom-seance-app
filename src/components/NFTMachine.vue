@@ -37,7 +37,7 @@ nft.machine-nft(@owner="onOwnerFound")
         template(v-else) {{ $store.getters.addrShort(owner) }}
 
     //- ens?
-    a.block.mt-4(:href="`https://app.ens.domains/name/${registration.subdomain}.${registration.domain}.eth`", target="_blank", rel="noopener noreferrer")(v-if="registration")
+    a.block.mt-4(v-if="registration", :href="`https://app.ens.domains/name/${registration.subdomain}.${registration.domain}.eth`", target="_blank", rel="noopener noreferrer")
       span.font-sans.text-darkgray.mr-10.inline-block ENS
       span.font-bold.text-yellow {{ registration.subdomain }}
     //- .{{ registration.domain }}.eth

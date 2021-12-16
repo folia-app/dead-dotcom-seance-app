@@ -11749,9 +11749,9 @@ stylehacks@^4.0.0:
     postcss "^7.0.0"
     postcss-selector-parser "^3.0.0"
 
-"subdomain-registrar@github:folia-app/subdomain-registrar#30e4494e2ed351188d7a14a2c4ee7be0cf50e04f":
+"subdomain-registrar@github:folia-app/subdomain-registrar#7ed133a0b93d5fa2b89af818c3b83f6c1e5b02a8":
   version "0.2.3"
-  resolved "https://codeload.github.com/folia-app/subdomain-registrar/tar.gz/30e4494e2ed351188d7a14a2c4ee7be0cf50e04f"
+  resolved "https://codeload.github.com/folia-app/subdomain-registrar/tar.gz/7ed133a0b93d5fa2b89af818c3b83f6c1e5b02a8"
   dependencies:
     "@ensdomains/ens" "^0.4.0"
     dotenv "^10.0.0"
