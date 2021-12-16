@@ -1,5 +1,5 @@
 <script setup>
-import { ref, inject, onMounted, watch } from 'vue'
+import { ref, inject, onMounted, watch, toRaw } from 'vue'
 import { useRoute } from 'vue-router'
 import Btn from '@/components/Btn'
 import store from '@/store'
@@ -52,6 +52,16 @@ const getRegistrations = async () => {
 
 const submit = async () => {
   try {
+    const name = toRaw(subdomain.value).trim()
+    const match = name.match(/^[a-zA-z0-9][^\W_]+/)
+
+    // invalid name
+    if (!match || match[0].length !== name.length) {
+      subdomain.value = ''
+      throw new Error('Invalid subdomain: Letters and numbers only.')
+    }
+
+    // check if connected...
     if (!store.state.address) await store.dispatch('connect')
 
     // check owner...
@@ -63,7 +73,7 @@ const submit = async () => {
     }
 
     // submit tx...
-    const tx = await store.dispatch('registerENSSubdomain', { name: subdomain.value, tokenId: tokenId.value })
+    const tx = await store.dispatch('registerENSSubdomain', { name, tokenId: tokenId.value })
 
     // after tx
     console.log(tx)

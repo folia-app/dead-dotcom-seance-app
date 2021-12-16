@@ -516,9 +516,21 @@ export default createStore({
       return request
     },
 
-    updateOpenSeaToken ({ state, getters }, tokenId) {
-      const prefix = state.networkId === 4 ? 'testnets-' : ''
-      return fetch(`https://${prefix}api.opensea.io/api/v1/asset/${getters.contractAddr}/${tokenId}/?force_update=true`)
+    async updateOpenSeaToken ({ state, getters, dispatch }, tokenId) {
+      try {
+        const prefix = state.networkId === 4 ? 'testnets-' : ''
+        const resp = await fetch(`https://${prefix}api.opensea.io/api/v1/asset/${getters.contractAddr}/${tokenId}/?force_update=true`)
+
+        // throttled ?
+        if (resp.status === 429) {
+          // wait and try again >:)
+          return new Promise((resolve, reject) => setTimeout(() => {
+            resolve(dispatch('updateOpenSeaToken', tokenId))
+          }, 1001))
+        }
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 })
