@@ -185,7 +185,7 @@ export default createStore({
           }
 
           // setup contracts
-          const networkId = state.networkId || await web3.eth.net.getId() || fallbackNetworkId // || networks.mainnet.id
+          const networkId = state.networkId || await web3.eth.net.getId() // || fallbackNetworkId // || networks.mainnet.id
           console.log('network:', networkId)
           commit('SET_NETWORK', networkId)
           commit('SET_CONTRACTS', { web3, networkId })
