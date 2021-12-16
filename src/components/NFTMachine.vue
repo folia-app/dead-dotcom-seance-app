@@ -27,7 +27,7 @@ nft.machine-nft(@owner="onOwnerFound")
   .mt-12.text-12.lg_text-14
     //- open sea link / ID
     div
-      a.text-lightgray.font-sans.mb-2(:href="$store.getters.openSeaLink({ token: tokenId })", target="_blank", rel="noopener noreferrer") {{ '#' + tokenId }}
+      a.text-lightgray.font-sans.mb-2(:href="$store.getters.openSeaLink({ token: tokenId })", target="_blank", rel="noopener noreferrer") {{ '#' + tokenId }}#[span.text-darkgray.ml-px ↗]
 
     //- owner
     a.block.mt-1(:href="$store.getters.openSeaLink({ account: owner })", target="_blank", rel="noopener noreferrer")
