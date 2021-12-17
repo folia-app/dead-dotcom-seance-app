@@ -2,6 +2,7 @@
 import list from '../../content/companies.js'
 import CompanyThumb from '@/components/CompanyThumb'
 import ArtistBios from '@/components/ArtistBios'
+import Btn from '@/components/Btn'
 import store from '@/store'
 
 const companies = list
@@ -35,6 +36,12 @@ article.home.flex.flex-wrap
         | Almost every dot-com idea from 1999 that failed will succeed
         br
         cite &ndash;Marc Andreessen&ndash;
+
+    .mt-80.flex.justify-center
+      a(:href="`https://etherscan.io/address/${store.getters.contractAddr}`", target="_blank", rel="noopener noreferrer")
+        btn.px-20 Contract ↗
+      a(href="http://opensea.io/collection/dotcom-seance", target="_blank", rel="noopener noreferrer")
+        btn.px-20 OpenSea ↗
 
     section.mt-112.sm_px-5.mb-5
       h2.mb-16.font-bold.text-32.animate-pulse The Summoned

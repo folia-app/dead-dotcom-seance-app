@@ -66,7 +66,7 @@ section#guile.grooved-cell.lg_mx-28
             | 1 ETH
 
         //- owner? (not folia deployer)
-        template(v-if="props.owner && (!isPetsDotCom || props.owner !== '0xaf2ce0962d1a4b1aab10f7faa62bbbca40a8ea53')")
+        template(v-if="props.owner && (!isPetsDotCom || props.owner !== '0x2F5866D7215416Fa60beDF532856736Cd9a76acf'.toLowerCase())")
           .font-sans.text-darkgray.text-13.mt-14 Owner/CEO
           addr.underline.font-bold(:address="props.owner", :youOn="true")
           //- a.font-bold.mt-2.underline(:href="$store.getters.openSeaLink({ account: props.owner })", target="_blank", rel="noopener noreferrer")

@@ -100,7 +100,7 @@ const mintMachine = () => {
     //- ceo
     .mt-20
       span CEO<br>
-      template(v-if="ceo && (!isPetsDotCom || ceo !== '0xaf2ce0962d1a4b1aab10f7faa62bbbca40a8ea53')")
+      template(v-if="ceo && (!isPetsDotCom || ceo !== '0x2F5866D7215416Fa60beDF532856736Cd9a76acf'.toLowerCase())")
         addr.underline(:address="ceo", :youOn="true")
         //- a.underline(:href="$store.getters.openSeaLink({ account: ceo })", target="_blank", rel="noopener noreferrer")
           | {{ $store.getters.addrShort(ceo) }}
