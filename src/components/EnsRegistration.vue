@@ -102,7 +102,7 @@ onMounted(() => getRegistrations())
 section
   h4.my-16.text-18.font-avara.font-bold.text-yellow ENS Registration
 
-  p Each logo owner can claim a subdomain on the company's <a class="font-bold text-yellow underline" :href="`https://app.ens.domains/name/${ensDomain}`" target="_blank" rel="noopener noreferrer">{{ ensDomain }}</a> ENS&nbsp;domain.
+  p Each logo owner can claim a subdomain on the company's <a class="font-bold text-yellow underline" :href="`https://app.ens.domains/name/${ensDomain}/subdomains`" target="_blank" rel="noopener noreferrer">{{ ensDomain }}</a> ENS&nbsp;domain.
 
   form.mt-24(@submit.prevent="submit", validate)
     //- name input
