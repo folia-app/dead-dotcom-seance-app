@@ -6,11 +6,11 @@ const tokenId = inject('tokenId')
 
 const emit = defineEmits(['owner'])
 
-let owner
+const owner = ref()
 const getOwner = async () => {
-  if (!owner) {
-    owner = await store.dispatch('getNFTOwner', tokenId)
-    emit('owner', owner)
+  if (!owner.value) {
+    owner.value = await store.dispatch('getNFTOwner', tokenId)
+    emit('owner', owner.value)
   }
 }
 
@@ -22,5 +22,7 @@ onMounted(() => {
 <template lang="pug">
 //- .nft(v-intersect, @intersect="getOwner")
 .nft
+  div {{ tokenId }}
+  div {{ $store.getters.addrShort(owner) }}
   slot
 </template>
