@@ -27,9 +27,9 @@ const formerRegis = ref([])
 
 const getRegistrations = async () => {
   try {
-    let events = (await store.dispatch('getSubdomainEvents')).reverse()
+    const allEvents = (await store.dispatch('getSubdomainEvents')).reverse()
     // filter by company...
-    events = events.filter(({ returnValues }) => {
+    const events = allEvents.filter(({ returnValues }) => {
       return returnValues.domain === company?.name.split('.')[0] || (isPetsDotCom && returnValues.domain === 'petsdotcom')
     })
 
@@ -45,6 +45,7 @@ const getRegistrations = async () => {
     currentRegis.value = current
     formerRegis.value = former
     emit('current', current)
+    return allEvents
   } catch (e) {
     console.error(e)
   }
@@ -59,6 +60,14 @@ const submit = async () => {
     if (!match || match[0].length !== name.length) {
       subdomain.value = ''
       throw new Error('Invalid subdomain: Letters and numbers only.')
+    }
+
+    // check if already registered
+    // TODO - check based on tokenId since can be any company id?
+    await getRegistrations()
+    const lastRegis = currentRegis.value.find(regis => regis.subdomain === name)
+    if (lastRegis) {
+      throw new Error(`"${name}" is already an active subdomain on "${lastRegis.domain}.eth"`)
     }
 
     // check if connected...
