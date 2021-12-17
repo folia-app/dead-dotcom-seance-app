@@ -67,8 +67,8 @@ article.company.flex.flex-wrap
             h5.font-bold.mb-12 {{ company.years.split('–')[0] }} Logo
             .px-6
               template(v-if="!originalLogoNotFound")
-                a(:href="`/art/${company.name}/_original.png`", target="_blank")
-                  img.block.mx-auto(style="height:200px", :src="`/art/${company.name}/_original.png`", @error="originalLogoNotFound = true")
+                a(:href="`/art/${company.name}/_original_tn.jpg`", target="_blank")
+                  img.block.mx-auto(style="height:200px", :src="`/art/${company.name}/_original_tn.jpg`", @error="originalLogoNotFound = true")
               template(v-else)
                 span.text-darkgray.text-14 Unknown
           //- (cosmic inspo)
