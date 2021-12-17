@@ -58,7 +58,10 @@ export default createStore({
     works: [],
     tokens: [],
     metadatas: [],
-    names: {}
+    names: {},
+
+    isListening: false,
+    lastMintEvent: null
   },
   getters: {
     weiToETH: () => (wei) => web3?.utils.fromWei(wei) ?? '-',
@@ -171,6 +174,12 @@ export default createStore({
       const names = { ...state.names }
       names[address] = name
       state.names = names
+    },
+    IS_LISTENING (state) {
+      state.isListening = true
+    },
+    SET_LAST_MINT_EVENT (state, event) {
+      state.lastMintEvent = event
     }
   },
   actions: {
@@ -548,6 +557,20 @@ export default createStore({
             resolve(dispatch('updateOpenSeaToken', tokenId))
           }, 1001))
         }
+      } catch (e) {
+        console.error(e)
+      }
+    },
+
+    async listenForMints ({ state, commit, dispatch }) {
+      try {
+        if (!state.controllerContract) await dispatch('init')
+        if (state.isListening) return
+        state.controllerContract.events.editionBought()
+          .on('data', event => commit('SET_LAST_MINT_EVENT', event))
+          .on('error', e => console.error('error listening to mints', e))
+        console.log('listening for mints...')
+        commit('IS_LISTENING')
       } catch (e) {
         console.error(e)
       }

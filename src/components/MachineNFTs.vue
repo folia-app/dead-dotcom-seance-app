@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, inject, onBeforeMount } from 'vue'
+import { ref, computed, inject, onBeforeMount, onMounted, watch } from 'vue'
 import store from '@/store'
 import Btn from '@/components/Btn'
 import NftMachine from '@/components/NFTMachine'
@@ -18,7 +18,6 @@ const getMinted = async () => {
   try {
     let resp = await fetch(`/.netlify/functions/machines/${company.id}?network=${store.state.networkId}`)
     resp = await resp.json()
-    console.log(resp)
     minted.value = resp.minted
     editionSize.value = Number(resp.editionSize)
   } catch (e) {
@@ -44,8 +43,29 @@ const mintMachine = async () => {
   }
 }
 
-const onVisible = () => !minted.value && getMinted()
+// listen for mints...
+const lastMintEvent = computed(() => store.state.lastMintEvent)
+watch(lastMintEvent, event => {
+  console.log('new machine mint', event)
+  // refresh list if same company
+  if (event.returnValues?.workId === company.id.toString()) {
+    getMinted()
+  }
+})
+
+const onVisible = () => {
+  if (minted.value) return
+  if (store.state.networkId) {
+    getMinted()
+  } else {
+    setTimeout(() => onVisible(), 1000)
+  }
+}
 const ganImgURL = hash => `https://ipfs.io/ipfs/${hash}`
+
+onMounted(() => {
+  store.dispatch('listenForMints')
+})
 </script>
 
 <template lang="pug">
