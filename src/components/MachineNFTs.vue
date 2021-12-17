@@ -16,7 +16,7 @@ const isSoldOut = computed(() => minted.value && minted.value.length >= editionS
 
 const getMinted = async () => {
   try {
-    let resp = await fetch(`/.netlify/functions/machines/${company.id}`)
+    let resp = await fetch(`/.netlify/functions/machines/${company.id}?network=${store.state.networkId}`)
     resp = await resp.json()
     console.log(resp)
     minted.value = resp.minted

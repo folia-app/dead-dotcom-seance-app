@@ -360,7 +360,7 @@ export default {
     ['iharvest_95.png', 'QmZXUUM9wVKPktMDwAbpXZzx2rs8BGeqxCAvnSRJjTq8t9'],
     ['iharvest_7.png', 'QmeUE8RhxEZ4aztDtjdnSBHgLK6NWLabDcTZD1g4vxwYsv']
   ],
-  'misterswap.com': [
+  'mrswap.com': [
     ['misterswap_1.png', 'QmQZWdnzR8sYTn2XrTQK7VfGp9tGDbTPPTjiDYcks9AuBp'],
     ['misterswap_10.png', 'QmZFkZyFHL1a91eeUR1SPx73m4FMWRSpNR1WzKRTi2S5za'],
     ['misterswap_11.png', 'QmeZxawhiDoWsRFDn1frDSaZwthSF2525djybRJioBw6SG'],

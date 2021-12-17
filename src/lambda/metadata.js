@@ -99,8 +99,10 @@ exports.handler = async function (event, context) {
       // Guile NFT...
 
       const hash = 'QmPKNVntZAwX1QUED7ArTvKDeRrJgREaj82GSAuhshG8LB'
-      const image = `https://ipfs.io/ipfs/${hash}/${company.name}/guile.jpg`
-      const inspoUrl = `https://ipfs.io/ipfs/${hash}/${company.name}/inspo.png`
+      // TODO - fix ipfs folder with mrswap rename
+      const name = company.name === 'mrswap.com' ? 'misterswap.com' : company.name
+      const image = `https://ipfs.io/ipfs/${hash}/${name}/guile.jpg`
+      const inspoUrl = `https://ipfs.io/ipfs/${hash}/${name}/inspo.png`
 
       // Guile meta...
       meta = {

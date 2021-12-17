@@ -93,7 +93,7 @@ export default [
   },
   {
     id: 16,
-    name: 'misterswap.com',
+    name: 'mrswap.com',
     years: '2000-2001',
     description: 'a platform where users could arrange mail swaps and bartering of CDs and DVDs of music, video games and videos'
   },
