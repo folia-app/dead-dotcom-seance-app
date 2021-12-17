@@ -84,25 +84,43 @@ export default createStore({
     meta: state => ({ title, descrip, img }) => {
       const meta = []
       // defaults
-      // TODO meta
       const siteTitle = '~ DOTCOM SÉANCE ~'
-      const siteDescrip = ''
-      const siteImg = process.env.VUE_APP_CANONICAL_DOMAIN + '/dotcom-seance-logo.jpg'
-      // custom
-      title = title ? `${title}` : siteTitle
-      descrip = descrip || 'Join Guile Twardowksi, Simon Denny, and Cosmographi for an on-chain spiritism session to revive ghosts burst in the dot-com bubble ~ presented by folia.app'
+      const siteDescrip = 'Join Guile Twardowksi, Simon Denny, and Cosmographia for an on-chain spiritism session to revive ghosts burst in the dot-com bubble ~ presented by folia.app'
+      const siteImg = '/dotcom-seance-logo.gif'
+      // set
+      title = title ? `${title} ${siteTitle}` : siteTitle
+      descrip = descrip || siteDescrip
       img = img || siteImg
+      img = process.env.VUE_APP_CANONICAL_DOMAIN + img
       // add
-      meta.push({ property: 'og:title', content: title })
-      meta.push({ property: 'og:site_name', content: siteTitle })
-      meta.push({ property: 'og:type', content: 'website' })
-      meta.push({ name: 'description', content: descrip })
-      meta.push({ property: 'og:description', content: descrip })
-      meta.push({ property: 'og:image', content: img })
+      meta.push({ type: 'property', name: 'og:title', content: title })
+      meta.push({ type: 'property', name: 'og:site_name', content: siteTitle })
+      meta.push({ type: 'property', name: 'og:type', content: 'website' })
+      meta.push({ type: 'name', name: 'description', content: descrip })
+      meta.push({ type: 'property', name: 'og:description', content: descrip })
+      meta.push({ type: 'property', name: 'og:image', content: img })
       // twitter?
-      meta.push({ name: 'twitter:card', content: 'summary_large_image' })
-      meta.push({ name: 'twitter:domain', content: 'folia.app' })
+      meta.push({ type: 'name', name: 'twitter:card', content: 'summary_large_image' })
+      meta.push({ type: 'name', name: 'twitter:domain', content: 'dotcomseance.com' })
       // meta.push({ property: 'og:url', content: ##ADDCANNONICAL## })
+
+      // render
+      document.title = title
+      meta.forEach((item) => {
+        let el = document.querySelector(`meta[name="${item.name}"]`) || document.querySelector(`meta[property="${item.name}"]`)
+        console.log('found', el)
+        let append = false
+        if (!el) {
+          append = true
+          el = document.createElement('meta')
+          el.setAttribute(item.type, item.name)
+        }
+        el.setAttribute('content', item.content)
+        if (append) {
+          document.querySelector('head').appendChild(el)
+        }
+      })
+      window.prerenderReady = true
       return { title, descrip, img, meta }
     }
   },

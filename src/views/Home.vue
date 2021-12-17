@@ -2,8 +2,11 @@
 import list from '../../content/companies.js'
 import CompanyThumb from '@/components/CompanyThumb'
 import ArtistBios from '@/components/ArtistBios'
+import store from '@/store'
 
 const companies = list
+
+store.getters.meta({})
 </script>
 
 <template lang="pug">

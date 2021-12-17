@@ -26,6 +26,12 @@ const getOwner = () => {
     // .catch(console.error)
 }
 
+store.getters.meta({
+  title: company.name,
+  descrip: `(${company.years}) ${company.description}`,
+  img: `/art/${company.name}/guile.jpg`
+})
+
 // const onENSList = ({ current }) => { staff.value = current }
 
 onBeforeMount(() => getOwner())
