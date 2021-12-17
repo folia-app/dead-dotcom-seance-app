@@ -16,6 +16,7 @@ const isSoldOut = computed(() => minted.value && minted.value.length >= editionS
 
 const getMinted = async () => {
   try {
+    if (!store.state.address) await store.dispatch('init')
     let resp = await fetch(`/.netlify/functions/machines/${company.id}?network=${store.state.networkId}`)
     resp = await resp.json()
     minted.value = resp.minted
@@ -53,14 +54,7 @@ watch(lastMintEvent, event => {
   }
 })
 
-const onVisible = () => {
-  if (minted.value) return
-  if (store.state.networkId) {
-    getMinted()
-  } else {
-    setTimeout(() => onVisible(), 1000)
-  }
-}
+const onVisible = () => !minted.value && getMinted()
 const ganImgURL = hash => `https://ipfs.io/ipfs/${hash}`
 
 onMounted(() => {
