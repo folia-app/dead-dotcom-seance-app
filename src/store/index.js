@@ -86,7 +86,7 @@ export default createStore({
       // defaults
       const siteTitle = '~ DOTCOM SÉANCE ~'
       const siteDescrip = 'Join Guile Twardowksi, Simon Denny, and Cosmographia for an on-chain spiritism session to revive ghosts burst in the dot-com bubble ~ presented by folia.app'
-      const siteImg = '/dotcom-seance-logo.gif'
+      const siteImg = '/dotcom-seance-logo.jpg'
       // set
       title = title ? `${title} ${siteTitle}` : siteTitle
       descrip = descrip || siteDescrip
