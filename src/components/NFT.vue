@@ -1,5 +1,5 @@
 <script setup>
-import { ref, inject } from 'vue'
+import { ref, inject, onMounted } from 'vue'
 import store from '@/store'
 
 const tokenId = inject('tokenId')
@@ -13,9 +13,14 @@ const getOwner = async () => {
     emit('owner', owner)
   }
 }
+
+onMounted(() => {
+  getOwner()
+})
 </script>
 
 <template lang="pug">
-.nft(v-intersect, @intersect="getOwner")
+//- .nft(v-intersect, @intersect="getOwner")
+.nft
   slot
 </template>
