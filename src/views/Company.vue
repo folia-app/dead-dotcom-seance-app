@@ -63,26 +63,29 @@ article.company.flex.flex-wrap
         //- logo progression
         .my-56.sm_flex.justify-center.w-full.text-15
           //- original
-          .w-full.sm_w-1x3.mb-20
+          .w-1x2.mx-auto.sm_mx-0.sm_w-1x3.mb-20
             h5.font-bold.mb-12 {{ company.years.split('–')[0] }} Logo
-            .px-6
+            .px-8
               template(v-if="!originalLogoNotFound")
-                a(:href="`/art/${company.name}/_original_tn.jpg`", target="_blank")
-                  img.block.mx-auto(style="height:200px", :src="`/art/${company.name}/_original_tn.jpg`", @error="originalLogoNotFound = true")
+                a.relative.block(:href="`/art/${company.name}/_original_tn.jpg`", target="_blank")
+                  .pb-full
+                    img.absolute.overlay.object-contain.object-center(:src="`/art/${company.name}/_original_tn.jpg`", @error="originalLogoNotFound = true")
               template(v-else)
                 span.text-darkgray.text-14 Unknown
           //- (cosmic inspo)
-          .w-full.sm_w-1x3.mb-20(v-if="!isPetsDotCom")
+          .w-1x2.mx-auto.sm_mx-0.sm_w-1x3.mb-20(v-if="!isPetsDotCom")
             h5.font-bold.mb-12 Cosmic Inspiration
-            .px-6
-              a(:href="`/art/${company.name}/inspo.png`", target="_blank")
-                img.block.mx-auto(style="height:200px", :src="`/art/${company.name}/inspo.png`")
+            .px-8
+              a.relative.block(:href="`/art/${company.name}/inspo.png`", target="_blank")
+                .pb-full
+                  img.absolute.overlay.object-contain.object-center(:src="`/art/${company.name}/inspo.png`")
           //- guile
-          .w-full.sm_w-1x3.mb-20
+          .w-1x2.mx-auto.sm_mx-0.sm_w-1x3.mb-20
             h5.font-bold.mb-12 Twardowski Revival
-            .px-6
-              a(:href="guileImgURL", target="_blank")
-                img.block.mx-auto(style="height:200px", :src="guileImgURL")
+            .px-8
+              a.relative.block(:href="guileImgURL", target="_blank")
+                .pb-full
+                  img.absolute.overlay.object-contain.object-center(:src="guileImgURL")
 
         nft-guile.mt-64(:company="company", :owner="guileOwner", @mint="getOwner", :regis="registrations.find(regis => regis.tokenId === company.id.toString())")
 
