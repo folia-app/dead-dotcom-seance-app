@@ -1,6 +1,6 @@
 <script setup>
 import '@/style/index.css'
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import Btn from '@/components/Btn'
 import list from '../content/companies.js'
@@ -24,6 +24,10 @@ window.addEventListener('resize', () => {
 watch(route, () => { mobileMenu.value = false })
 
 store.dispatch('init')
+// hide loading screen
+onMounted(() => {
+  document.getElementById('loading').remove()
+})
 </script>
 
 <template lang="pug">

@@ -108,7 +108,6 @@ export default createStore({
       document.title = title
       meta.forEach((item) => {
         let el = document.querySelector(`meta[name="${item.name}"]`) || document.querySelector(`meta[property="${item.name}"]`)
-        console.log('found', el)
         let append = false
         if (!el) {
           append = true
