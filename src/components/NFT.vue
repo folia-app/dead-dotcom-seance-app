@@ -14,14 +14,13 @@ const getOwner = async () => {
   }
 }
 
-onMounted(() => {
-  getOwner()
-})
+// onMounted(() => {
+//   getOwner()
+// })
 </script>
 
 <template lang="pug">
-//- .nft(v-intersect, @intersect="getOwner")
-.nft
+.nft(v-intersect, @intersect="getOwner")
   div {{ tokenId }}
   div {{ $store.getters.addrShort(owner) }}
   slot

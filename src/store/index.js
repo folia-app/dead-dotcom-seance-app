@@ -13,8 +13,8 @@ import WalletConnectProvider from '@walletconnect/web3-provider'
 // import auctions from './auctions'
 
 const networks = {
-  1: { name: 'mainnet', infura: 'wss://mainnet.infura.io/ws/v3/1363143c08464562ba87cc807ac77020' },
-  4: { name: 'rinkeby', infura: 'wss://rinkeby.infura.io/ws/v3/1363143c08464562ba87cc807ac77020' }
+  1: { name: 'mainnet', infura: { http: 'https://mainnet.infura.io/v3/1363143c08464562ba87cc807ac77020', ws: 'wss://mainnet.infura.io/ws/v3/1363143c08464562ba87cc807ac77020' } },
+  4: { name: 'rinkeby', infura: { http: 'https://rinkeby.infura.io/v3/1363143c08464562ba87cc807ac77020', ws: 'wss://rinkeby.infura.io/ws/v3/1363143c08464562ba87cc807ac77020' } }
 }
 
 const fallbackNetworkId = process.env.VUE_APP_NETWORK_FALLBACK_ID || 1
@@ -206,7 +206,8 @@ export default createStore({
             } else {
               // fallback to infura
               const network = networks[fallbackNetworkId]
-              web3 = new Web3(new Web3.providers.WebsocketProvider(network.infura))
+              // web3 = new Web3(new Web3.providers.WebsocketProvider(network.infura))
+              web3 = new Web3(new Web3.providers.HttpProvider(network.infura.http))
             }
           }
 
@@ -473,6 +474,7 @@ export default createStore({
         return owner
       } catch (e) {
         // seems to error if token doesn't exist...
+        alert(e)
         console.warn("get owner error / token doesn't exist?", tokenId, e)
         return null
       }
