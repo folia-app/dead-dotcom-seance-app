@@ -46,7 +46,7 @@ nft.machine-nft(@owner="onOwnerFound")
     //- .{{ registration.domain }}.eth
 
     //- regis btn
-    div(v-if="owner === $store.state.address")
+    div(v-if="owner && owner === $store.state.address")
       router-link.inline-block(:to="{ hash: '#ens-registration', query: {prefill: tokenId }}")
         btn.mt-8.px-20 {{ registration ? 'Change' : 'Register' }} ENS
 
