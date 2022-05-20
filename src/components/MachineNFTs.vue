@@ -54,7 +54,16 @@ watch(lastMintEvent, event => {
   }
 })
 
-const onVisible = () => !minted.value && getMinted()
+// lazy load minted
+let onVisibleTmout
+const onVisible = () => {
+  if (!minted.value) {
+    // wait to ensure user is not trying to scroll to ENS Registrations section on mobile...
+    onVisibleTmout = setTimeout(() => getMinted(), 200)
+  }
+}
+const onHidden = () => clearTimeout(onVisibleTmout)
+
 const ganImgURL = hash => `https://ipfs.io/ipfs/${hash}`
 
 onMounted(() => {
@@ -63,7 +72,7 @@ onMounted(() => {
 </script>
 
 <template lang="pug">
-section#machines.machine-nfts.grooved-cell.lg_mx-28(v-intersect, @intersect="onVisible")
+section#machines.machine-nfts.grooved-cell.lg_mx-28(v-intersect, @intersect="onVisible", @outersect="onHidden")
   .py-28.px-12
     h3.text-24.font-bold Cosmic Inspirations
 

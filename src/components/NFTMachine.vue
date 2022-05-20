@@ -33,8 +33,11 @@ nft.machine-nft(@owner="onOwnerFound")
     .mt-1
       span.font-sans.text-darkgray.mr-10.inline-block.lg_block.lg_mb-4 Owner
       //-
-      addr.font-bold(v-if="owner", :address="owner", :youOn="true")
-      span.font-bold(v-else) ...
+      template(v-if="owner")
+        addr.font-bold(:address="owner", :youOn="true")
+        span.text-darkgray.ml-px ↗
+      template(v-else)
+        span.font-bold ...
       //- span.font-bold
         template(v-if="owner === $store.state.address") You
         template(v-else) {{ $store.getters.addrShort(owner) }}
