@@ -36,7 +36,7 @@ const providerOptions = {
 
 // setup web3 modal
 const web3Modal = new Web3Modal({
-  network: fallbackNetworkId === '4' ? 'rinkeby' : null, // optional
+  // network: fallbackNetworkId === '4' ? 'rinkeby' : 'mainnet', // optional
   cacheProvider: true, // optional
   providerOptions // required
   // theme: 'dark'
@@ -487,8 +487,14 @@ export default createStore({
     },
 
     async getSubdomainEvents ({ state, dispatch }) {
-      if (!state.registrarContract) await dispatch('init')
-      return state.registrarContract.getPastEvents('NewSubdomain', { fromBlock: 0 }) //, { fromBlock: 0 })
+      try {
+        if (!state.registrarContract) await dispatch('init')
+        const events = await state.registrarContract.getPastEvents('NewSubdomain', { fromBlock: 0 }) //, { fromBlock: 0 })
+        return events
+      } catch (e) {
+        console.error(e)
+        throw e
+      }
     },
 
     getAddressName ({ state, commit, dispatch }, address) {
@@ -516,6 +522,7 @@ export default createStore({
           // throttled ?
           if (resp.status === 429) {
             // wait and try again >:)
+            console.log('OpenSea throttled. retrying in 1s...')
             return new Promise((resolve, reject) => setTimeout(() => {
               resolve(dispatch('getAddressName', address))
             }, 1001))
