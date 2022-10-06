@@ -64,7 +64,7 @@ const onVisible = () => {
 }
 const onHidden = () => clearTimeout(onVisibleTmout)
 
-const ganImgURL = hash => `https://ipfs.io/ipfs/${hash}`
+const ganImgURL = hash => `${process.env.VUE_APP_IPFS_ORIGIN}/ipfs/${hash}`
 
 onMounted(() => {
   store.dispatch('listenForMints')

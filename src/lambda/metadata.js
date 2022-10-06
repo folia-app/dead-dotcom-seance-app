@@ -11,7 +11,7 @@ require('dotenv').config()
 // TODO change to MAINNET @ launch
 const fallbackNetworkId = process.env.VUE_APP_NETWORK_FALLBACK_ID || 1
 
-const ipfsOrigin = process.env.IPFS_ORIGIN
+const ipfsOrigin = process.env.VUE_APP_IPFS_ORIGIN
 
 // infura endpoints
 const infura = {
