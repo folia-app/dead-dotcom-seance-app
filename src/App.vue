@@ -107,7 +107,7 @@ onMounted(() => {
     blockquote.font-hyper.type-blockquote
       | There are no bad ideas in tech, only bad timing
       br
-      cite &ndash;Marc Andreesen&ndash;
+      cite &ndash;Marc Andreessen&ndash;
 
 </template>
 
