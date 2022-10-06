@@ -11,6 +11,8 @@ require('dotenv').config()
 // TODO change to MAINNET @ launch
 const fallbackNetworkId = process.env.VUE_APP_NETWORK_FALLBACK_ID || 1
 
+const ipfsOrigin = process.env.IPFS_ORIGIN
+
 // infura endpoints
 const infura = {
   1: 'https://mainnet.infura.io/v3/1363143c08464562ba87cc807ac77020',
@@ -66,7 +68,7 @@ exports.handler = async function (event, context) {
           body: JSON.stringify({ message: "Doesn't exist" })
         }
       }
-      image = `https://ipfs.io/ipfs/${image[1]}`
+      image = `${ipfsOrigin}/ipfs/${image[1]}`
 
       // check if machine minted...
       const owner = await getNFTOwnerByTokenId(tokenId, networkId)
@@ -101,8 +103,8 @@ exports.handler = async function (event, context) {
       const hash = 'QmPKNVntZAwX1QUED7ArTvKDeRrJgREaj82GSAuhshG8LB'
       // TODO - fix ipfs folder with mrswap rename
       const name = company.name === 'mrswap.com' ? 'misterswap.com' : company.name
-      const image = `https://ipfs.io/ipfs/${hash}/${name}/guile.jpg`
-      const inspoUrl = `https://ipfs.io/ipfs/${hash}/${name}/inspo.png`
+      const image = `${ipfsOrigin}/ipfs/${hash}/${name}/guile.jpg`
+      const inspoUrl = `${ipfsOrigin}/ipfs/${hash}/${name}/inspo.png`
 
       // Guile meta...
       meta = {
