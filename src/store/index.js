@@ -46,6 +46,33 @@ let initializing = false
 let providerListenersBound = false
 const requests = {}
 
+// Send via the wallet provider directly so MetaMask handles gas estimation and
+// EIP-1559 fees itself — web3.js 1.x sets a legacy gasPrice and pads gas, which
+// trips MetaMask's "site estimate too high" warning. Returns the mined receipt.
+async function sendViaProvider (method, { from, value }) {
+  const params = {
+    from,
+    to: method._parent._address,
+    data: method.encodeABI()
+  }
+  if (value) params.value = web3.utils.toHex(value)
+
+  const txHash = await provider.request({
+    method: 'eth_sendTransaction',
+    params: [params]
+  })
+
+  // poll for the receipt
+  while (true) {
+    const receipt = await web3.eth.getTransactionReceipt(txHash)
+    if (receipt) {
+      if (!receipt.status) throw new Error('Transaction reverted')
+      return receipt
+    }
+    await new Promise((resolve) => setTimeout(resolve, 2000))
+  }
+}
+
 export default createStore({
   state: {
     address: null,
@@ -375,9 +402,10 @@ export default createStore({
         if (insufficientFunds) throw new Error(`!! Insufficient funds in your wallet\n${state.address}`)
 
         // buy
-        return state.controllerContract.methods
-          .buyByID(state.address, workId, printId)
-          .send({ from: state.address, value: work.price })
+        return sendViaProvider(
+          state.controllerContract.methods.buyByID(state.address, workId, printId),
+          { from: state.address, value: work.price }
+        )
         // refresh work data for app
         // dispatch('getWork', { id: workId, flush: true })
       } catch (e) {
@@ -409,9 +437,10 @@ export default createStore({
         if (!state.address) await dispatch('connect')
 
         // buy
-        return state.controllerContract.methods
-          .buy(state.address, companyId)
-          .send({ from: state.address, value: work.price })
+        return sendViaProvider(
+          state.controllerContract.methods.buy(state.address, companyId),
+          { from: state.address, value: work.price }
+        )
         // refresh work data for app
         // dispatch('getWork', { id: workId, flush: true })
       } catch (e) {
@@ -516,9 +545,10 @@ export default createStore({
       if (!state.registrarContract) {
         throw new Error('!! Please switch your wallet to Ethereum Mainnet')
       }
-      return state.registrarContract.methods
-        .registerSubdomain(name, tokenId)
-        .send({ from: state.address })
+      return sendViaProvider(
+        state.registrarContract.methods.registerSubdomain(name, tokenId),
+        { from: state.address }
+      )
     },
 
     async getSubdomainEvents ({ state, dispatch }) {
