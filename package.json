@@ -11,7 +11,6 @@
     "lambda:build": "netlify-lambda build src/lambda"
   },
   "dependencies": {
-    "@walletconnect/web3-provider": "^1.6.6",
     "core-js": "^3.6.5",
     "folia-contracts": "github:folia-app/folia-contracts#dc42f2eece2769ec62dca4094893b5b8bb1d815c",
     "subdomain-registrar": "github:folia-app/subdomain-registrar#0381206e032778604296ce8930684ac3a17de801",

@@ -1,6 +1,6 @@
 <script setup>
 import '@/style/index.css'
-import { ref, watch, onMounted, provide } from 'vue'
+import { ref, computed, watch, onMounted, provide } from 'vue'
 import { useRoute } from 'vue-router'
 import Btn from '@/components/Btn'
 import list from '../content/companies.js'
@@ -12,6 +12,23 @@ const companies = list
 const mobileMenu = ref(false)
 const fallbackNetwork = process.env.VUE_APP_NETWORK_FALLBACK_ID
 const networkBannerEnabled = !fallbackNetwork || fallbackNetwork === '1'
+
+// banner: missing wallet > wrong network > nothing.
+const banner = computed(() => {
+  if (!store.state.hasWallet) {
+    return {
+      text: 'No browser wallet detected — install MetaMask, Rabby, or Coinbase Wallet, or open this site in your wallet app on mobile.',
+      action: () => window.open('https://ethereum.org/en/wallets/find-wallet/', '_blank')
+    }
+  }
+  if (networkBannerEnabled && store.state.networkId && Number(store.state.networkId) !== 1) {
+    return {
+      text: 'Switch to Mainnet!',
+      action: () => store.dispatch('switchToMainnet')
+    }
+  }
+  return null
+})
 
 // logo toggle om mobile
 const winW = ref(window.innerWidth)
@@ -34,13 +51,12 @@ onMounted(() => {
 <template lang="pug">
 .text-15.font-avara.w-full.max-w-breakpoint-xlff.mx-auto.p-8.text-center.leading-normal
   header
-    //- network banner
-    button.grooved-cell.mb-3.flex.items-center.h-80.justify-center.text-14.text-black.bg-yellow.w-full.cursor-pointer(
-      v-if="networkBannerEnabled && (store.state.networkId && Number(store.state.networkId) !== 1)",
-      @click="store.dispatch('switchToMainnet')",
-      title="Click to switch your wallet to Ethereum Mainnet"
+    //- wallet / network banner
+    button.grooved-cell.mb-3.flex.items-center.min-h-80.justify-center.text-14.text-black.bg-yellow.w-full.cursor-pointer.px-12.py-6(
+      v-if="banner",
+      @click="banner.action"
     )
-      .pt-6.font-bold Switch to Mainnet!
+      .pt-6.font-bold {{ banner.text }}
 
     .grooved-cell.mb-3.relative.flex.flex-col-reverse
       //- presents...
@@ -72,8 +88,8 @@ onMounted(() => {
               .flex.items-center.pl-20.pr-14
                 | {{ store.getters.addrShort(store.state.address) }}
                 .ml-12(style="font-size:1.5em;line-height:.8; transform: translateY(-0.1em)") ×
-        //- (connect btn)
-        template(v-else)
+        //- (connect btn) — hidden when no injected wallet; banner explains why
+        template(v-else-if="store.state.hasWallet")
           button(@click="store.dispatch('connect')")
             btn.px-20 Connect
 

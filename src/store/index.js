@@ -6,7 +6,6 @@ import SubdomainRegistrar from 'subdomain-registrar/build/contracts/SubdomainReg
 // web3
 import Web3 from 'web3'
 import Web3Modal from 'web3modal'
-import WalletConnectProvider from '@walletconnect/web3-provider'
 // import { exception } from 'vue-gtag'
 // modules
 // import prismic from './prismic'
@@ -23,24 +22,14 @@ const fallbackNetworkId = process.env.VUE_APP_NETWORK_FALLBACK_ID || 1
 let web3
 let provider = window.ethereum || Web3.currentProvider || Web3.givenProvider
 
-// provider options
-const providerOptions = {
-  /* See Provider Options Section */
-  walletconnect: {
-    package: WalletConnectProvider, // required
-    options: {
-      infuraId: '1363143c08464562ba87cc807ac77020' // required
-    }
-  }
-}
-
-// setup web3 modal
+// WalletConnect v1 was sunset in June 2023; we only support injected
+// browser-extension wallets (MetaMask, Rabby, Coinbase, Brave, Frame, etc.).
 const web3Modal = new Web3Modal({
-  // network: fallbackNetworkId === '4' ? 'rinkeby' : 'mainnet', // optional
-  cacheProvider: true, // optional
-  providerOptions // required
-  // theme: 'dark'
+  cacheProvider: true,
+  providerOptions: {}
 })
+
+const hasInjectedWallet = () => typeof window !== 'undefined' && !!window.ethereum
 
 let initializing = false
 let providerListenersBound = false
@@ -77,6 +66,7 @@ export default createStore({
   state: {
     address: null,
     networkId: null,
+    hasWallet: hasInjectedWallet(),
 
     nftContract: null,
     controllerContract: null,
@@ -275,9 +265,14 @@ export default createStore({
 
     /* connect wallet */
     async connect ({ commit, dispatch }) {
+      if (!hasInjectedWallet()) {
+        // banner already surfaces this, but bail loudly for any caller that
+        // dispatches connect directly (mints, ENS register).
+        throw new Error('!! No browser wallet detected. Install MetaMask, Rabby, or Coinbase Wallet — or open this site in your wallet app on mobile.')
+      }
       try {
-        // connect and update provider, web3
-        provider = await web3Modal.connect()
+        // skip the modal — we only support injected wallets
+        provider = await web3Modal.connectTo('injected')
         // provider instance is replaced — re-bind listeners against the new one
         providerListenersBound = false
         web3 = new Web3(provider)
