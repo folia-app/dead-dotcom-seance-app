@@ -18,10 +18,15 @@ const banner = computed(() => {
   if (!store.state.hasWallet) {
     return {
       text: 'No browser wallet detected — install MetaMask, Rabby, or Coinbase Wallet, or open this site in your wallet app on mobile.',
-      action: () => window.open('https://ethereum.org/en/wallets/find-wallet/', '_blank')
+      action: () =>
+        window.open('https://ethereum.org/en/wallets/find-wallet/', '_blank')
     }
   }
-  if (networkBannerEnabled && store.state.networkId && Number(store.state.networkId) !== 1) {
+  if (
+    networkBannerEnabled &&
+    store.state.networkId &&
+    Number(store.state.networkId) !== 1
+  ) {
     return {
       text: 'Switch to Mainnet!',
       action: () => store.dispatch('switchToMainnet')
@@ -38,7 +43,9 @@ window.addEventListener('resize', () => {
   }
 })
 
-watch(route, () => { mobileMenu.value = false })
+watch(route, () => {
+  mobileMenu.value = false
+})
 
 store.dispatch('init')
 
@@ -49,7 +56,7 @@ onMounted(() => {
 </script>
 
 <template lang="pug">
-.text-15.font-avara.w-full.max-w-breakpoint-xlff.mx-auto.p-8.text-center.leading-normal
+.text-15.font-avara.w-full.max-w-breakpoint-lg.mx-auto.p-8.text-center.leading-normal(style="max-width: 1024px;")
   header
     //- wallet / network banner
     button.grooved-cell.mb-3.flex.items-center.min-h-80.justify-center.text-14.text-black.bg-yellow.w-full.cursor-pointer.px-12.py-6(
@@ -132,31 +139,26 @@ onMounted(() => {
 </template>
 
 <style lang="postcss">
-.font-avara{
+.font-avara {
   @apply tracking-wider;
 }
-.font-avara.italic, .font-avara i{
+.font-avara.italic,
+.font-avara i {
   @apply tracking-wider;
 }
-html{
-  font-size:  10.5px; /* rem */
+html {
+  font-size: 10px; /* rem */
   -webkit-font-smoothing: none;
   background: #010101;
-  color: rgb(250,250,250);
+  color: rgb(250, 250, 250);
 }
 /* scale font up */
-@media (min-width: 1280px) {
-  html {
-    /* not sure why 18 and not 10.5... */
-    font-size: calc(20/1280 * 100vh);
-  }
-}
 
-.type-blockquote{
+.type-blockquote {
   @apply text-24 text-center mx-auto leading-none;
   width: 85%;
 }
-cite{
+cite {
   font-size: 0.55em;
   font-style: normal;
   display: inline-block;
@@ -167,41 +169,49 @@ cite{
 }
 
 .table-border-groove > * > tr > *,
-.grooved-cell{
-  border:  5px #888 groove;
+.grooved-cell {
+  border: 5px #888 groove;
   border-radius: 10px;
   padding: 6px;
 }
 
 /* web3 modal styling */
-#WEB3_CONNECT_MODAL_ID .web3modal-modal-lightbox{
-  font-family: 'avara', serif;
+#WEB3_CONNECT_MODAL_ID .web3modal-modal-lightbox {
+  font-family: "avara", serif;
   z-index: 1000;
 }
 
 .logo-pulse {
-  animation:  logopulse 10s linear infinite;
+  animation: logopulse 10s linear infinite;
 }
 @keyframes logopulse {
   /* 0%{ opacity: 0; } */
-  80% { opacity:1 }
-  90% { opacity: 0 }
-  100% { opacity: 1; }
+  80% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 p + p {
-    margin-top:1.2em;
-  }
-
-button[disabled]{
-  @apply cursor-not-allowed opacity-40;
+  margin-top: 1.2em;
 }
 
+button[disabled] {
+  @apply cursor-not-allowed opacity-40;
+}
 </style>
 
 <style scoped>
-
-  /* .companies-menu a:hover{ color: red; } */
-  .companies-menu a:visited:not(:hover):not(.router-link-active){ color: purple; }
-  .companies-menu a.router-link-active{ color: red; }
+/* .companies-menu a:hover{ color: red; } */
+.companies-menu a:visited:not(:hover):not(.router-link-active) {
+  color: purple;
+}
+.companies-menu a.router-link-active {
+  color: red;
+}
 </style>
