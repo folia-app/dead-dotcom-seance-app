@@ -35,7 +35,11 @@ onMounted(() => {
 .text-15.font-avara.w-full.max-w-breakpoint-xlff.mx-auto.p-8.text-center.leading-normal
   header
     //- network banner
-    .grooved-cell.mb-3.flex.items-center.h-80.justify-center.text-14.text-black.bg-yellow(v-if="networkBannerEnabled && (store.state.networkId && store.state.networkId !== 1)")
+    button.grooved-cell.mb-3.flex.items-center.h-80.justify-center.text-14.text-black.bg-yellow.w-full.cursor-pointer(
+      v-if="networkBannerEnabled && (store.state.networkId && Number(store.state.networkId) !== 1)",
+      @click="store.dispatch('switchToMainnet')",
+      title="Click to switch your wallet to Ethereum Mainnet"
+    )
       .pt-6.font-bold Switch to Mainnet!
 
     .grooved-cell.mb-3.relative.flex.flex-col-reverse

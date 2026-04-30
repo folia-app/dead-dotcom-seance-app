@@ -43,6 +43,7 @@ const web3Modal = new Web3Modal({
 })
 
 let initializing = false
+let providerListenersBound = false
 const requests = {}
 
 export default createStore({
@@ -150,25 +151,26 @@ export default createStore({
       state.metadatas.push(metadata)
     },
     SET_CONTRACTS (state, { web3, networkId }) {
-      // if (!web3) return new Error('web3 not defined')
-      // nft
-      state.nftContract = new web3.eth.Contract(
-        DotComSeance.abi,
-        DotComSeance.networks[networkId].address
-      )
-      console.log('nft addr', DotComSeance.networks[networkId].address)
-      // controller
-      state.controllerContract = new web3.eth.Contract(
-        DotComSeanceController.abi,
-        DotComSeanceController.networks[networkId].address
-      )
-      console.log('controller addr', DotComSeanceController.networks[networkId].address)
-      // registrar
-      state.registrarContract = new web3.eth.Contract(
-        SubdomainRegistrar.abi,
-        SubdomainRegistrar.networks[networkId].address
-      )
-      console.log('registrar addr', SubdomainRegistrar.networks[networkId].address)
+      // contracts are only deployed on mainnet (1) and rinkeby (4) —
+      // modern wallets often default to other chains (Base, Polygon, Sepolia, etc).
+      // Bail gracefully so the user can still connect; the "Switch to Mainnet" banner
+      // and per-action guards handle the rest.
+      const dotcomNet = DotComSeance.networks[networkId]
+      const ctrlNet = DotComSeanceController.networks[networkId]
+      const regNet = SubdomainRegistrar.networks[networkId]
+      if (!dotcomNet || !ctrlNet || !regNet) {
+        console.warn(`Contracts not deployed on network ${networkId}; skipping contract setup.`)
+        state.nftContract = null
+        state.controllerContract = null
+        state.registrarContract = null
+        return
+      }
+      state.nftContract = new web3.eth.Contract(DotComSeance.abi, dotcomNet.address)
+      console.log('nft addr', dotcomNet.address)
+      state.controllerContract = new web3.eth.Contract(DotComSeanceController.abi, ctrlNet.address)
+      console.log('controller addr', ctrlNet.address)
+      state.registrarContract = new web3.eth.Contract(SubdomainRegistrar.abi, regNet.address)
+      console.log('registrar addr', regNet.address)
     },
     SAVE_NAME (state, { address, name }) {
       const names = { ...state.names }
@@ -249,6 +251,8 @@ export default createStore({
       try {
         // connect and update provider, web3
         provider = await web3Modal.connect()
+        // provider instance is replaced — re-bind listeners against the new one
+        providerListenersBound = false
         web3 = new Web3(provider)
         // save account
         const accounts = await web3.eth.getAccounts()
@@ -258,10 +262,32 @@ export default createStore({
         commit('SIGN_IN', address)
         commit('SET_NETWORK', networkId)
         commit('SET_CONTRACTS', { web3, networkId })
+        // (re)bind provider events — init may have bailed before listenToProvider
+        dispatch('listenToProvider')
+        // not on mainnet? prompt the wallet to switch. chainChanged will reload.
+        if (Number(networkId) !== 1) {
+          dispatch('switchToMainnet')
+        }
       } catch (e) {
         console.error('@connect', e)
         dispatch('disconnect')
         throw e
+      }
+    },
+
+    /* request the wallet switch to ethereum mainnet */
+    async switchToMainnet () {
+      try {
+        if (!provider?.request) return
+        await provider.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x1' }]
+        })
+        // chainChanged listener will reload the page on success
+      } catch (e) {
+        // 4001 = user rejected; 4902 = chain not added (mainnet should always exist).
+        // Either way we leave the user connected so the banner stays visible.
+        console.warn('switchToMainnet declined or failed', e)
       }
     },
 
@@ -279,6 +305,8 @@ export default createStore({
     /* wallet events */
     listenToProvider ({ commit, dispatch }) {
       if (!provider?.on) return
+      if (providerListenersBound) return
+      providerListenersBound = true
 
       // account changed (or disconnected)
       provider.on('accountsChanged', accounts => {
@@ -306,9 +334,13 @@ export default createStore({
     async getContractPaused ({ state, commit, dispatch }) {
       try {
         if (!state.controllerContract) await dispatch('init')
+        if (!state.controllerContract) {
+          throw new Error('!! Please switch your wallet to Ethereum Mainnet')
+        }
         return state.controllerContract.methods.paused().call()
       } catch (e) {
         console.error('getContractPaused', e)
+        throw e
       }
     },
 
@@ -481,6 +513,9 @@ export default createStore({
 
     // ENS registration
     async registerENSSubdomain ({ state, dispatch }, { name, tokenId }) {
+      if (!state.registrarContract) {
+        throw new Error('!! Please switch your wallet to Ethereum Mainnet')
+      }
       return state.registrarContract.methods
         .registerSubdomain(name, tokenId)
         .send({ from: state.address })
@@ -489,6 +524,7 @@ export default createStore({
     async getSubdomainEvents ({ state, dispatch }) {
       try {
         if (!state.registrarContract) await dispatch('init')
+        if (!state.registrarContract) return []
         const events = await state.registrarContract.getPastEvents('NewSubdomain', { fromBlock: 0 }) //, { fromBlock: 0 })
         return events
       } catch (e) {
@@ -573,6 +609,7 @@ export default createStore({
     async listenForMints ({ state, commit, dispatch }) {
       try {
         if (!state.controllerContract) await dispatch('init')
+        if (!state.controllerContract) return // wrong network
         if (state.isListening) return
         // TODO revise to infura ws since using http now?
         // or maybe only relevant for wallet connected users anyways...
