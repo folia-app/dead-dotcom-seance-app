@@ -19,6 +19,24 @@ const infura = {
   4: 'https://rinkeby.infura.io/v3/1363143c08464562ba87cc807ac77020'
 }
 
+/**
+ * A separate endpoint for reading historical logs.
+ *
+ * getENSSubdomain asks for every NewSubdomain event since block 0. Infura caps
+ * eth_getLogs at 10,000 blocks and rejects that outright, and because the call
+ * is wrapped in a try/catch returning '-', the failure never surfaced: it just
+ * published `"ENS": "-"` in every token's metadata instead of the real
+ * subdomain. Verified — the registrar has 115 NewSubdomain events, and the
+ * live metadata for token 1 reads '-'.
+ *
+ * The endpoint below answers the whole range in about a second. Infura stays
+ * for everything else here, since ordinary calls are unaffected.
+ */
+const logsRpc = {
+  1: process.env.VUE_APP_LOGS_RPC || 'https://mainnet.gateway.tenderly.co',
+  4: process.env.VUE_APP_LOGS_RPC || 'https://rinkeby.infura.io/v3/1363143c08464562ba87cc807ac77020'
+}
+
 // handler
 exports.handler = async function (event, context) {
   try {
@@ -200,7 +218,7 @@ async function getNFTOwnerByTokenId (tokenId, networkId) {
 
 async function getENSSubdomain (tokenId, networkId) {
   try {
-    const eth = new Eth(infura[networkId])
+    const eth = new Eth(logsRpc[networkId] || infura[networkId])
     const contract = new eth.Contract(
       SubdomainRegistrar.abi,
       SubdomainRegistrar.networks[networkId].address

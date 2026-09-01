@@ -550,7 +550,18 @@ export default createStore({
       try {
         if (!state.registrarContract) await dispatch('init')
         if (!state.registrarContract) return []
-        const events = await state.registrarContract.getPastEvents('NewSubdomain', { fromBlock: 0 }) //, { fromBlock: 0 })
+        // Read the history through an endpoint that allows the range. Infura
+        // and the wallet's provider both cap eth_getLogs at 10,000 blocks and
+        // reject a scan from block 0, which is why this list came back empty.
+        // registrarContract is left alone — it still sends transactions.
+        const logsWeb3 = new Web3(new Web3.providers.HttpProvider(
+          process.env.VUE_APP_LOGS_RPC || 'https://mainnet.gateway.tenderly.co'
+        ))
+        const readContract = new logsWeb3.eth.Contract(
+          state.registrarContract.options.jsonInterface,
+          state.registrarContract.options.address
+        )
+        const events = await readContract.getPastEvents('NewSubdomain', { fromBlock: 0 })
         return events
       } catch (e) {
         console.error(e)
