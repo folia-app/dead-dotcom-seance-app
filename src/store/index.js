@@ -11,9 +11,11 @@ import Web3Modal from 'web3modal'
 // import prismic from './prismic'
 // import auctions from './auctions'
 
+// No rpc urls here. Reads use the keyless pool; see VUE_APP_RPC_MAINNET below.
+// The Infura key that used to sit in these entries shipped in the client bundle.
 const networks = {
-  1: { name: 'mainnet', infura: { http: 'https://mainnet.infura.io/v3/1363143c08464562ba87cc807ac77020', ws: 'wss://mainnet.infura.io/ws/v3/1363143c08464562ba87cc807ac77020' } },
-  4: { name: 'rinkeby', infura: { http: 'https://rinkeby.infura.io/v3/1363143c08464562ba87cc807ac77020', ws: 'wss://rinkeby.infura.io/ws/v3/1363143c08464562ba87cc807ac77020' } }
+  1: { name: 'mainnet' },
+  4: { name: 'rinkeby' }
 }
 
 const fallbackNetworkId = process.env.VUE_APP_NETWORK_FALLBACK_ID || 1

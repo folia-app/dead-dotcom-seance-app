@@ -13,9 +13,12 @@ let ControllerContract
 const fallbackNetworkId = process.env.VUE_APP_NETWORK_FALLBACK_ID || 1
 
 // infura endpoints
+// Keyless. The Infura key that used to be here shipped in this public repo and
+// in the client bundle; rinkeby no longer exists, so mainnet is all that is left
+// to serve.
 const infura = {
-  1: 'https://mainnet.infura.io/v3/1363143c08464562ba87cc807ac77020',
-  4: 'https://rinkeby.infura.io/v3/1363143c08464562ba87cc807ac77020'
+  1: 'https://gateway.tenderly.co/public/mainnet',
+  4: 'https://gateway.tenderly.co/public/mainnet'
 }
 
 // Free, keyless endpoints that answer CORS preflights, benchmarked across

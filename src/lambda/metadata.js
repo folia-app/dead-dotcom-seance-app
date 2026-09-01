@@ -14,9 +14,12 @@ const fallbackNetworkId = process.env.VUE_APP_NETWORK_FALLBACK_ID || 1
 const ipfsOrigin = process.env.VUE_APP_IPFS_ORIGIN
 
 // infura endpoints
+// Keyless. The Infura key that used to be here shipped in this public repo and
+// in the client bundle; rinkeby no longer exists, so mainnet is all that is left
+// to serve.
 const infura = {
-  1: 'https://mainnet.infura.io/v3/1363143c08464562ba87cc807ac77020',
-  4: 'https://rinkeby.infura.io/v3/1363143c08464562ba87cc807ac77020'
+  1: 'https://gateway.tenderly.co/public/mainnet',
+  4: 'https://gateway.tenderly.co/public/mainnet'
 }
 
 // Free, keyless endpoints that answer CORS preflights, benchmarked across
@@ -47,7 +50,7 @@ const RPCS = (process.env.VUE_APP_RPCS || [
  */
 const logsRpc = {
   1: process.env.VUE_APP_LOGS_RPC || 'https://mainnet.gateway.tenderly.co',
-  4: process.env.VUE_APP_LOGS_RPC || 'https://rinkeby.infura.io/v3/1363143c08464562ba87cc807ac77020'
+  4: process.env.VUE_APP_LOGS_RPC || 'https://gateway.tenderly.co/public/mainnet'
 }
 
 // handler
