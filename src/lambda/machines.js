@@ -1,6 +1,6 @@
 import companies from '../../content/companies' // works.FLA1000000, ...
 import machines from '../../content/companies-machines'
-import Controller from 'folia-contracts/build/contracts/DotComSeanceController.json'
+import Controller from '../contracts/DotComSeanceController.json'
 // import Web3 from 'web3'
 import Eth from 'web3-eth'
 require('dotenv').config()

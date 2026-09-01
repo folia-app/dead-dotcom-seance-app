@@ -1,7 +1,7 @@
 import companies from '../../content/companies' // works.FLA1000000, ...
 import machines from '../../content/companies-machines'
 // import Contract from 'folia-contracts/build/contracts/DeadDotComSeance.json'
-import Contract from 'folia-contracts/build/contracts/DotComSeance.json'
+import Contract from '../contracts/DotComSeance.json'
 import SubdomainRegistrar from 'subdomain-registrar/build/contracts/SubdomainRegistrar.json'
 // import Web3 from 'web3'
 import Eth from 'web3-eth'

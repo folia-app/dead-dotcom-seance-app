@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 // contracts
-import DotComSeance from 'folia-contracts/build/contracts/DotComSeance.json'
-import DotComSeanceController from 'folia-contracts/build/contracts/DotComSeanceController.json'
+import DotComSeance from '../contracts/DotComSeance.json'
+import DotComSeanceController from '../contracts/DotComSeanceController.json'
 import SubdomainRegistrar from 'subdomain-registrar/build/contracts/SubdomainRegistrar.json'
 // web3
 import Web3 from 'web3'
