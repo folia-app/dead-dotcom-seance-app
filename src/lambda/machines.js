@@ -35,7 +35,10 @@ const RPCS = (process.env.VUE_APP_RPCS || [
 ].join(',')).split(',').map((s) => s.trim()).filter(Boolean)
 
 // handler
-exports.handler = async function (event, context) {
+// Named ESM export. This file already uses `import`, so it is an ES module;
+// `exports` only resolved because the old bundler tolerated the mix, and a
+// real ESM build assigns to an undefined binding instead.
+export const handler = async function (event, context) {
   try {
     // const networkId = event.queryStringParameters.network ?? '1' // ?network=4
     const networkId = event.queryStringParameters.network || fallbackNetworkId
