@@ -18,6 +18,19 @@ const infura = {
   4: 'https://rinkeby.infura.io/v3/1363143c08464562ba87cc807ac77020'
 }
 
+// Free, keyless endpoints that answer CORS preflights, benchmarked across
+// sixteen candidates. Order is preference; each is a fallback for the one
+// before it. A single keyed provider is what silently broke this project's
+// metadata — its eth_getLogs cap made every token publish "-" as its ENS name.
+const RPCS = (process.env.VUE_APP_RPCS || [
+  'https://gateway.tenderly.co/public/mainnet',
+  'https://mainnet.gateway.tenderly.co',
+  'https://eth.drpc.org',
+  'https://rpc.mevblocker.io',
+  'https://ethereum-rpc.publicnode.com',
+  'https://eth-mainnet.public.blastapi.io'
+].join(',')).split(',').map((s) => s.trim()).filter(Boolean)
+
 // handler
 exports.handler = async function (event, context) {
   try {
@@ -61,7 +74,7 @@ exports.handler = async function (event, context) {
 async function getWorkFromContract (workId, networkId) {
   let work
   try {
-    const eth = new Eth(infura[networkId])
+    const eth = new Eth(String(networkId) === '1' ? RPCS[0] : infura[networkId])
     ControllerContract = new eth.Contract(
       Controller.abi,
       Controller.networks[networkId].address

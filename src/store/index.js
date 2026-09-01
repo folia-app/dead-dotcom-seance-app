@@ -226,7 +226,10 @@ export default createStore({
               // fallback to infura
               const network = networks[fallbackNetworkId]
               // web3 = new Web3(new Web3.providers.WebsocketProvider(network.infura))
-              web3 = new Web3(new Web3.providers.HttpProvider(network.infura.http))
+              // Keyless pool rather than a single keyed provider.
+              web3 = new Web3(new Web3.providers.HttpProvider(
+                process.env.VUE_APP_RPC_MAINNET || 'https://gateway.tenderly.co/public/mainnet'
+              ))
             }
           }
 
