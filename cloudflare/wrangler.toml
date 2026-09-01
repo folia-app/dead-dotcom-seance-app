@@ -1,0 +1,20 @@
+name = "folia-cf-seance"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "../dist"
+binding = "ASSETS"
+html_handling = "none"
+not_found_handling = "none"
+
+[alias]
+dotenv = "./src/shims/dotenv.js"
+encoding = "./src/shims/encoding.js"
+
+[vars]
+# Copied from the Netlify site config; these are the base of every url the
+# metadata documents publish, so they have to match exactly.
+VUE_APP_CANONICAL_DOMAIN = "https://www.dotcomseance.com"
+VUE_APP_IPFS_ORIGIN = "https://following-quelea-awffk.lighthouseweb3.xyz"
