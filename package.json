@@ -51,5 +51,8 @@
       "vue-cli-service lint",
       "git add"
     ]
+  },
+  "resolutions": {
+    "elliptic": "6.6.1"
   }
 }
