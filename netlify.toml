@@ -1,3 +1,26 @@
+# The Netlify site is now a redirect, not a copy of the app.
+#
+# dotcom-seance.folia.app and dead-dotcom-seance.folia.app are served by the
+# folia-cf-seance Worker on Cloudflare. dotcomseance.com and www.dotcomseance.com
+# are still Netlify domains, because that zone is on GoDaddy nameservers rather
+# than Cloudflare, so they cannot be attached to the Worker.
+#
+# Rather than leave two builds of the same site diverging -- and every Dotcom
+# Seance token's external_url points at the dotcomseance.com pair, not at the
+# folia subdomain -- Netlify now serves nothing but a forced redirect to the
+# Cloudflare site, and automatic builds are turned off (stop_builds=true).
+#
+# The rule below is what is deployed. It is kept here so that turning builds
+# back on reproduces the redirect rather than resurrecting a second copy of the
+# app. If the intent ever changes, the app rules are preserved underneath.
+[[redirects]]
+  from = "/*"
+  to = "https://dotcom-seance.folia.app/:splat"
+  status = 301
+  force = true
+
+# --- previous configuration, inert while the redirect above is forced --------
+
 [build]
   functions = "functions"
 
