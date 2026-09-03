@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 // contracts
 import DotComSeance from '../contracts/DotComSeance.json'
 import DotComSeanceController from '../contracts/DotComSeanceController.json'
-import SubdomainRegistrar from 'subdomain-registrar/build/contracts/SubdomainRegistrar.json'
+import SubdomainRegistrar from '@/contracts/SubdomainRegistrar.json'
 // web3
 import Web3 from 'web3'
 import Web3Modal from 'web3modal'
